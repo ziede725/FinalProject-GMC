@@ -27,7 +27,7 @@ const theaterSchema = new mongoose.Schema({
   city: { type: String },
   zipcode: { type: Number },
   roomId: [{ type: Schema.Types.ObjectId, ref: "Room" }],
-  screeningId: { type: Schema.Types.ObjectId, ref: "Screening" },
+  screeningId: [{ type: Schema.Types.ObjectId, ref: "Screening" }],
 });
 
 module.exports = mongoose.model("Theater", theaterSchema);
