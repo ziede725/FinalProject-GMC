@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const theaterSchema = new mongoose.Schema({
-  name: {type : String , required : [true , "Please provide a name"]} , 
-  userName: {type: String , required : [true , "Please provide a user name"]} , 
+  name: { type: String, required: [true, "Please provide a name"] },
+  userName: { type: String, required: [true, "Please provide a user name"] },
   email: {
     type: String,
     required: [true, "Please provide an email"],
@@ -25,10 +25,9 @@ const theaterSchema = new mongoose.Schema({
   adress: { type: String },
   town: { type: String },
   city: { type: String },
-  zipcode :{ type : Number} , 
-  roomId : {type: Schema.Types.ObjectId, ref:'Room'},
-  screeningId: {type: Schema.Types.ObjectId, ref:'Screening'}
-
+  zipcode: { type: Number },
+  roomId: [{ type: Schema.Types.ObjectId, ref: "Room" }],
+  screeningId: { type: Schema.Types.ObjectId, ref: "Screening" },
 });
 
 module.exports = mongoose.model("Theater", theaterSchema);
