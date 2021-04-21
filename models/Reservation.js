@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const reservationSchema = new mongoose.Schema({
-  screeningId: { type: String, required: true },
-  seatIds: { type: String, required: true },
-  customerId: { type: String, required: true },
+  screeningId: {type: Schema.Types.ObjectId, ref:'Screening'},
+  seatIds: {type: Schema.Types.ObjectId, ref:'Seat'},
+  customerId: {type: Schema.Types.ObjectId, ref:'Customer'},
   reservationNumber: { type: String, required: true },
   creationDate: { type: Date },
 });
 
-module.exports = mongoose.model("Customer", customerSchema);
+module.exports = mongoose.model("Reservation", reservationSchema);
