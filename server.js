@@ -2,12 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 require("./config/db");
-require("./helpers/errorHandler.js");
-
-const port = process.env.PORT || 7200;
+const errorHandler = require("./middlewares/error");
+//Middlewares
+app.use(express.json());
+//Routes
+app.use("/admins", require("./routes/admin.route"));
 
 //Error Handler(Keep as Last Middleware)
-app.use((err, req, res, next) => {
-  handleError(err, res);
-});
+app.use(errorHandler);
+const port = process.env.PORT || 7200;
 app.listen(port, () => console.log(`Server is running on ${port}`));

@@ -26,16 +26,24 @@ const customerSchema = new mongoose.Schema({
     minLength: 6,
     select: false,
   },
+  resetPasswordToek: String,
+  resetPasswordExpire: Date,
   phoneNumber: {
     type: String,
     match: [
       /((\+|00)216)?([2579][0-9]{7}|(3[012]|4[01]|8[0128])[0-9]{6}|42[16][0-9]{5})/,
-      "Please provide a valide phone number",
+      "Please provide a valid phone number",
     ],
   },
   adress: { type: String },
   town: { type: String },
   city: { type: String },
+  reservations: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reservation" }],
+  preferences: {
+    location: { type: String, default: "Tunis", required: true },
+    genres: [{ type: mongoose.Schema.Types.ObjectId, ref: "Genre" }],
+  },
+  favourites: [{ type: mongoose.Schema.types.ObjectId, ref: "Movie" }],
 });
 
 module.exports = mongoose.model("Customer", customerSchema);

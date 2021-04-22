@@ -2,16 +2,27 @@ const mongoose = require("mongoose");
 
 const screeningSchema = new mongoose.Schema({
   //Capacity ??? ref ??
-  date: { type: Date },
-  startTime: {},
-  endTime: {},
-  published: { type: Boolean },
-  full: { type: Boolean },
-  price: { type: Number },
+  date: { type: Date, required: [true, "Screening must have a date"] },
+  startTime: {
+    type: Date,
+    required: [true, "Screening must have a start time"],
+  },
+  endTime: { type: Date, required: [true, "Screening must have an end time"] },
+  published: { type: Boolean, default: false, required: true },
+  full: { type: Boolean, default: false, required: true },
+  price: { type: Number, required: [true, "Screening must have a price"] },
 
-  movieId: { type: Schema.Types.ObjectId, ref: "Movie" },
-  roomId: { type: Schema.Types.ObjectId, ref: "Room" },
-  discountId: { type: Schema.Types.ObjectId, ref: "Discount" },
+  movieId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Movie",
+    required: true,
+  },
+  roomId: { type: mongoose.Schema.Types.ObjectId, ref: "Room", required: true },
+  discountId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Discount",
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Screening", screeningSchema);

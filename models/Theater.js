@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
 
 const theaterSchema = new mongoose.Schema({
-  name: { type: String, required: [true, "Please provide a name"] },
-  userName: { type: String, required: [true, "Please provide a user name"] },
+  name: { type: String, required: [true, "Please provide a Theater name"] },
+  userName: {
+    type: String,
+    unique: true,
+    required: [true, "Please provide a user name"],
+  },
   email: {
     type: String,
     required: [true, "Please provide an email"],
@@ -15,6 +19,8 @@ const theaterSchema = new mongoose.Schema({
     minLength: 6,
     select: false,
   },
+  resetPasswordToek: String,
+  resetPasswordExpire: Date,
   phoneNumber: {
     type: String,
     match: [
@@ -26,8 +32,8 @@ const theaterSchema = new mongoose.Schema({
   town: { type: String },
   city: { type: String },
   zipcode: { type: Number },
-  roomId: [{ type: Schema.Types.ObjectId, ref: "Room" }],
-  screeningId: [{ type: Schema.Types.ObjectId, ref: "Screening" }],
+  rooms: [{ type: Schema.Types.ObjectId, ref: "Room" }],
+  screenings: [{ type: Schema.Types.ObjectId, ref: "Screening" }],
 });
 
 module.exports = mongoose.model("Theater", theaterSchema);
