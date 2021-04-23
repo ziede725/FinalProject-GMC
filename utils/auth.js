@@ -1,4 +1,5 @@
 const Admin = require("../models/Admin");
+
 const ErrorHandler = require("../helpers/errorHandler");
 
 exports.registerAdmin = async (req, res, next) => {
@@ -13,6 +14,10 @@ exports.registerAdmin = async (req, res, next) => {
     next(error);
   }
 };
+
+//TODO
+exports.registerCustomer = async (req, res, next) => {};
+exports.registerTheater = async (req, res, next) => {};
 
 exports.loginAdmin = async (req, res, next) => {
   const { email, password } = req.body;
@@ -31,6 +36,9 @@ exports.loginAdmin = async (req, res, next) => {
     next(error);
   }
 };
+//TODO
+exports.loginCustomer = async (req, res, next) => {};
+exports.loginTheater = async (req, res, next) => {};
 
 exports.forgotPasswordAdmin = async (req, res, next) => {
   res.status(200).json({
@@ -38,6 +46,9 @@ exports.forgotPasswordAdmin = async (req, res, next) => {
     message: `You requested a reset password link, chek your email!`,
   });
 };
+//TODO
+exports.forgotPasswordCustomer = async (req, res, next) => {};
+exports.forgotPasswordTheater = async (req, res, next) => {};
 
 const sendToken = (user, statusCode, res) => {
   const token = user.getSignedToken();

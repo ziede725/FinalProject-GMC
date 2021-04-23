@@ -46,4 +46,6 @@ const customerSchema = new mongoose.Schema({
   favourites: [{ type: mongoose.Schema.types.ObjectId, ref: "Movie" }],
 });
 
+//Methods bcrypt hash password, compare password ..
+
 module.exports = mongoose.model("Customer", customerSchema);

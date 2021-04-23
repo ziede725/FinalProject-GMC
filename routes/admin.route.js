@@ -13,8 +13,8 @@ router.post("/login", loginAdmin);
 router.post("/forgot-password", forgotPasswordAdmin);
 
 //Admins Routes
-router.get("/", adminController.getAll);
-router.get("/:id", adminController.getAdminById);
+router.get("/", protectAdmin, adminController.getAll);
+router.get("/:id", protectAdmin, adminController.getAdminById);
 router.patch("/:id/edit", protectAdmin, adminController.editAdmin);
 router.patch(
   "/:id/reset-password",
