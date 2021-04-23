@@ -1,23 +1,12 @@
 const Admin = require("../models/Admin");
 const ErrorHandler = require("../helpers/errorHandler");
-exports.register = async (req, res, next) => {
-  const {
-    firstName,
-    lastName,
-    userName,
-    email,
-    password,
-    phoneNumber,
-  } = req.body;
+
+exports.registerAdmin = async (req, res, next) => {
+  const body = req.body;
 
   try {
     const admin = await Admin.create({
-      firstName,
-      lastName,
-      userName,
-      email,
-      password,
-      phoneNumber,
+      body,
     });
     sendToken(admin, 201, res);
   } catch (error) {
@@ -25,7 +14,7 @@ exports.register = async (req, res, next) => {
   }
 };
 
-exports.login = async (req, res, next) => {
+exports.loginAdmin = async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password)
@@ -43,15 +32,15 @@ exports.login = async (req, res, next) => {
   }
 };
 
-exports.forgotPassword = async (req, res, next) => {
+exports.forgotPasswordAdmin = async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: `You requested a reset password link, chek your email!`,
   });
 };
 
-const sendToken = (admin, statusCode, res) => {
-  const token = admin.getSignedToken();
+const sendToken = (user, statusCode, res) => {
+  const token = user.getSignedToken();
   res
     .status(statusCode)
     .json({ success: true, message: "logged in with success", token });

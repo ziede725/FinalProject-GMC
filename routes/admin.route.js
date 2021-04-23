@@ -1,12 +1,16 @@
 const router = require("express").Router();
-const { register, login, forgotPassword } = require("../controllers/authAdmin");
+const {
+  registerAdmin,
+  loginAdmin,
+  forgotPasswordAdmin,
+} = require("../utils/auth");
 const adminController = require("../controllers/adminController");
 const { protectAdmin } = require("../middlewares/checkAuth");
 
 //Authentication Routes
-router.post("/register", register);
-router.post("/login", login);
-router.post("/forgot-password", forgotPassword);
+router.post("/register", registerAdmin);
+router.post("/login", loginAdmin);
+router.post("/forgot-password", forgotPasswordAdmin);
 
 //Admins Routes
 router.get("/", adminController.getAll);
