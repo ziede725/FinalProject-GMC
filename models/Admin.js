@@ -1,5 +1,7 @@
+const crypto = require("crypto");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const adminSchema = new mongoose.Schema({
   firstName: {
@@ -27,7 +29,7 @@ const adminSchema = new mongoose.Schema({
     minLength: 6,
     select: false,
   },
-  resetPasswordToek: String,
+  resetPasswordToken: String,
   resetPasswordExpire: Date,
   phoneNumber: {
     type: String,
@@ -38,6 +40,7 @@ const adminSchema = new mongoose.Schema({
   },
 });
 
+//Hash Password on Register
 adminSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
@@ -47,4 +50,30 @@ adminSchema.pre("save", async function (next) {
   next();
 });
 
-module.exports = mongoose.model("Admin", adminSchema);
+//Match Passwords
+adminSchema.methods.matchPasswords = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
+//Get Signed Token
+adminSchema.methods.getSignedToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
+};
+
+//Generate
+
+adminSchema.methods.getResetPasswordToken = function () {
+  const resetToken = crypto.randomBytes(20).toString("hex");
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  this.resetPasswordExpire = Date.now() + 10 * (60 * 1000);
+  return resetToken;
+};
+
+const Admin = mongoose.model("Admin", adminSchema);
+module.exports = Admin;

@@ -6,7 +6,10 @@ const errorHandler = (err, req, res, next) => {
   error.message = err.message;
 
   if (err.code === 11000) {
-    const message = "Duplicate Field Value enter";
+    console.log(err);
+    const message = `Duplicate Field Value : ${Object.keys(
+      err.keyValue
+    )} already taken`;
     error = new ErrorHandler(400, message);
   }
   if (err.name === "ValidationError") {
