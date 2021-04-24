@@ -2,6 +2,7 @@ const ErrorHandler = require("../helpers/errorHandler");
 const Customer = require("../models/Customer");
 const bcrypt = require("bcrypt");
 
+
 const getAll = async (req, res, next) => {
   try {
     const data = await Customer.find({}).exec();
@@ -247,3 +248,4 @@ module.exports = {
   setPreferences,
   getPreferences,
 };
+
