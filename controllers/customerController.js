@@ -1,3 +1,4 @@
+
 const ErrorHandler = require("../helpers/errorHandler");
 const Customer = require("../models/Customer");
 const bcrypt = require("bcrypt");
@@ -247,3 +248,4 @@ module.exports = {
   setPreferences,
   getPreferences,
 };
+

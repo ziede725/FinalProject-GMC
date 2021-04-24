@@ -36,6 +36,8 @@ const theaterSchema = new mongoose.Schema({
   screenings: [{ type: Schema.Types.ObjectId, ref: "Screening" }],
 });
 
+
+
 //Methods bcrypt hash password, compare password ..
 theaterSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
@@ -71,5 +73,7 @@ theaterSchema.methods.getResetPasswordToken = function () {
   return resetToken;
 };
 
-const Theater = mongoose.model("Theater", theaterSchema);
-module.exports = Theater;
+
+const Theater = mongoose.model("Theater", theaterSchema) ;  
+module.exports= Theater; 
+
