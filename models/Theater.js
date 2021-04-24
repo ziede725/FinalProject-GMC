@@ -1,4 +1,7 @@
+const crypto = require("crypto");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const theaterSchema = new mongoose.Schema({
   name: { type: String, required: [true, "Please provide a Theater name"] },
@@ -32,11 +35,9 @@ const theaterSchema = new mongoose.Schema({
   town: { type: String },
   city: { type: String },
   zipcode: { type: Number },
-  rooms: [{ type: Schema.Types.ObjectId, ref: "Room" }],
-  screenings: [{ type: Schema.Types.ObjectId, ref: "Screening" }],
+  rooms: [{ type: mongoose.Schema.Types.ObjectId, ref: "Room" }],
+  screenings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Screening" }],
 });
-
-
 
 //Methods bcrypt hash password, compare password ..
 theaterSchema.pre("save", async function (next) {
@@ -73,9 +74,5 @@ theaterSchema.methods.getResetPasswordToken = function () {
   return resetToken;
 };
 
-
-
-const Theater = mongoose.model("Theater", theaterSchema) ;  
-module.exports= Theater; 
-
-
+const Theater = mongoose.model("Theater", theaterSchema);
+module.exports = Theater;

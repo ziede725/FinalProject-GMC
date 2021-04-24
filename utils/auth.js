@@ -5,17 +5,17 @@ const ErrorHandler = require("../helpers/errorHandler");
 
 //Admin Authentication
 exports.registerAdmin = async (req, res, next) => {
-  const body = req.body;
+  const { firstName, lastName, userName, email, password } = req.body;
 
   try {
-    const admin = await Admin.create(
-      {
-        body,
-      },
-      {
-        runValidators: true,
-      }
-    );
+    const admin = await Admin.create({
+      firstName,
+      lastName,
+      userName,
+      email,
+      password,
+    });
+
     sendToken(admin, 201, res);
   } catch (error) {
     next(error);
@@ -47,18 +47,25 @@ exports.forgotPasswordAdmin = async (req, res, next) => {
 
 //Customer authentication
 exports.registerCustomer = async (req, res, next) => {
-  const body = req.body;
+  const {
+    firstName,
+    lastName,
+    userName,
+    email,
+    password,
+    phoneNumber,
+  } = req.body;
 
   try {
-    const admin = await Customer.create(
-      {
-        body,
-      },
-      {
-        runValidators: true,
-      }
-    );
-    sendToken(admin, 201, res);
+    const customer = await Customer.create({
+      firstName,
+      lastName,
+      userName,
+      email,
+      password,
+      phoneNumber,
+    });
+    sendToken(customer, 201, res);
   } catch (error) {
     next(error);
   }
@@ -89,19 +96,17 @@ exports.forgotPasswordCustomer = async (req, res, next) => {
   });
 };
 
-//TODO Theater Authentication
 exports.registerTheater = async (req, res, next) => {
-  const body = req.body;
+  const { name, userName, email, password, phoneNumber } = req.body;
 
   try {
-    const theater = await Theater.create(
-      {
-        body,
-      },
-      {
-        runValidators: true,
-      }
-    );
+    const theater = await Theater.create({
+      name,
+      userName,
+      email,
+      password,
+      phoneNumber,
+    });
     sendToken(theater, 201, res);
   } catch (error) {
     next(error);
@@ -133,7 +138,10 @@ exports.forgotPasswordTheater = async (req, res, next) => {
 
 const sendToken = (user, statusCode, res) => {
   const token = user.getSignedToken();
-  res
-    .status(statusCode)
-    .json({ success: true, message: "logged in with success", token });
+  res.status(statusCode).json({
+    success: true,
+    message: "Signed in with success",
+    token: `Bearer ${token}`,
+    user,
+  });
 };
