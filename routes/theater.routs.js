@@ -18,8 +18,12 @@ router.post('/register' , registerTheater) ;
 router.post("/login", loginTheater) ; 
 router.post("/forgot-password", forgotPasswordTheater) ; 
 
-//Gets all Theaters 
+//Theater routes  
 router.get('/',theaterController.getAllTheaters) ; 
 router.get('/:id', theaterController.getTheaterById) ; 
-router.patch('/:id/edit',theaterController.editTheater) ; 
+router.patch('/:id/edit',theaterController.editTheater) ;
+router.patch('/:id/reset-password' , theaterController.resetPassword) ; 
+router.delete("/:id", theaterController.deleteTheater); 
+
+module.exports = router ; 
 
