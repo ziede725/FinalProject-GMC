@@ -74,6 +74,8 @@ theaterSchema.methods.getResetPasswordToken = function () {
 };
 
 
+
 const Theater = mongoose.model("Theater", theaterSchema) ;  
 module.exports= Theater; 
+
 
