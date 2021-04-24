@@ -1,6 +1,6 @@
 const ErrorHandler = require("../helpers/errorHandler");
 const Admin = require("../models/Admin");
-
+const bcrypt = require("bcrypt");
 const getAll = async (req, res, next) => {
   try {
     const data = await Admin.find({}).exec();
@@ -90,7 +90,7 @@ const resetPassword = async (req, res, next) => {
 const deleteAdmin = async (req, res, next) => {
   const id = req.params.id;
   try {
-    adminExist = await Admin.findOne({ _id: id }).exec();
+    const adminExist = await Admin.findOne({ _id: id }).exec();
     if (!adminExist)
       throw new ErrorHandler(
         404,
@@ -105,8 +105,6 @@ const deleteAdmin = async (req, res, next) => {
     next(error);
   }
 };
-
-//To do : add Create new Theater ability
 
 module.exports = {
   getAll,
