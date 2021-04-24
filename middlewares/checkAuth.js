@@ -21,7 +21,9 @@ exports.protectAdmin = async (req, res, next) => {
     const admin = await Admin.findOne({ _id: decoded.id }).exec();
 
     if (!admin)
-      return next(new ErrorHandler(404, "No Admin found with this id"));
+      return next(
+        new ErrorHandler(404, "Unauthorized | No Admin found with this id")
+      );
 
     req.admin = admin;
     next();

@@ -8,6 +8,7 @@ app.use(express.json());
 //Routes
 app.use("/admins", require("./routes/admin.route"));
 app.use("/customers", require("./routes/customer.route"));
+app.use("/theaters", require("./routes/theater.route"));
 
 //Error Handler(Keep as Last Middleware)
 app.use(errorHandler);

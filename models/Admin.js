@@ -1,9 +1,9 @@
 const crypto = require("crypto");
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const adminSchema = new mongoose.Schema(
+const adminSchema = new Schema(
   {
     firstName: {
       type: String,
@@ -81,5 +81,5 @@ adminSchema.methods.getResetPasswordToken = function () {
   return resetToken;
 };
 
-const Admin = mongoose.model("Admin", adminSchema);
+const Admin = model("Admin", adminSchema);
 module.exports = Admin;

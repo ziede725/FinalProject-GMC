@@ -1,9 +1,9 @@
 const crypto = require("crypto");
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const customerSchema = new mongoose.Schema(
+const customerSchema = new Schema(
   {
     firstName: {
       type: String,
@@ -45,14 +45,12 @@ const customerSchema = new mongoose.Schema(
     adress: { type: String },
     town: { type: String },
     city: { type: String },
-    reservations: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "Reservation" },
-    ],
+    reservations: [{ type: Schema.Types.ObjectId, ref: "Reservation" }],
     preferences: {
       location: { type: String, default: "Tunis", required: true },
-      genres: [{ type: mongoose.Schema.Types.ObjectId, ref: "Genre" }],
+      genres: [{ type: Schema.Types.ObjectId, ref: "Genre" }],
     },
-    favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
+    favourites: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
   },
   { timestamps: true }
 );
@@ -90,5 +88,5 @@ customerSchema.methods.getResetPasswordToken = function () {
   this.resetPasswordExpire = Date.now() + 10 * (60 * 1000);
   return resetToken;
 };
-const Customer = mongoose.model("Customer", customerSchema);
+const Customer = model("Customer", customerSchema);
 module.exports = Customer;
