@@ -6,10 +6,11 @@ const errorHandler = require("./middlewares/error");
 //Middlewares
 app.use(express.json());
 //Routes
+
 app.use("/admins", require("./routes/admin.route"));
 app.use("/customers", require("./routes/customer.route"));
 app.use("/theaters", require("./routes/theater.route"));
-
+app.use("/movie",require("./routes/movie.route"))
 //Error Handler(Keep as Last Middleware)
 app.use(errorHandler);
 const port = process.env.PORT || 7200;
