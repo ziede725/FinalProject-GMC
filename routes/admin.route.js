@@ -3,6 +3,7 @@ const {
   registerAdmin,
   loginAdmin,
   forgotPasswordAdmin,
+  logoutAdmin,
 } = require("../utils/auth");
 const adminController = require("../controllers/adminController");
 const { protectAdmin } = require("../middlewares/checkAuth");
@@ -11,6 +12,7 @@ const { protectAdmin } = require("../middlewares/checkAuth");
 router.post("/register", registerAdmin);
 router.post("/login", loginAdmin);
 router.post("/forgot-password", forgotPasswordAdmin);
+router.get("/logout", logoutAdmin);
 
 //Admins Routes
 router.get("/", protectAdmin, adminController.getAll);

@@ -45,6 +45,14 @@ exports.forgotPasswordAdmin = async (req, res, next) => {
   });
 };
 
+exports.logoutAdmin = (req, res, next) => {
+  try {
+    unSetToken(200, res);
+  } catch (error) {
+    next(error);
+  }
+};
+
 //Customer authentication
 exports.registerCustomer = async (req, res, next) => {
   const {
@@ -95,7 +103,15 @@ exports.forgotPasswordCustomer = async (req, res, next) => {
     message: `You requested a reset password link, chek your email!`,
   });
 };
+exports.logoutCustomer = (req, res, next) => {
+  try {
+    unSetToken(200, res);
+  } catch (error) {
+    next(error);
+  }
+};
 
+//Theater Authentication
 exports.registerTheater = async (req, res, next) => {
   const { name, userName, email, password, phoneNumber } = req.body;
 
@@ -136,12 +152,25 @@ exports.forgotPasswordTheater = async (req, res, next) => {
   });
 };
 
+exports.logoutTheater = (req, res, next) => {
+  try {
+    unSetToken(200, res);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const sendToken = (user, statusCode, res) => {
   const token = user.getSignedToken();
-  res.status(statusCode).json({
+  res.status(statusCode).cookie("token", token, { httpOnly: true }).json({
     success: true,
     message: "Signed in with success",
-    token: `Bearer ${token}`,
-    user,
+  });
+};
+
+const unSetToken = (statusCode, res) => {
+  res.status(statusCode).cookie("token", "", { httpOnly: true }).json({
+    success: true,
+    message: "logged out with success",
   });
 };
