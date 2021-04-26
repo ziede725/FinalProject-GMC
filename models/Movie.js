@@ -13,7 +13,6 @@ const movieSchema = new mongoose.Schema({
     adult: { type: Boolean, default: false, required: true },
     budget: {type :String },
     genres: [{ type: mongoose.Schema.Types.ObjectId, ref: "Genre" }],
-    // genres:[{type : String}],
     orginial_language: {type : String },
     original_title: {
       type: String,
