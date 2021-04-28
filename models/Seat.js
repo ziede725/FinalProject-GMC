@@ -17,5 +17,5 @@ const seatSchema = new mongoose.Schema({
     required: [true, "Seat must have a column property"],
   },
 });
-
-module.exports = mongoose.model("Seat", seatSchema);
+const Seat = mongoose.model("Seat", seatSchema);
+module.exports = Seat;
