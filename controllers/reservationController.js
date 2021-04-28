@@ -112,16 +112,16 @@ const getReservationById = async (req, res, next) => {
     next(error);
   }
 };
-//Get reservations by Customer Id
-const getReservationByCustomerId = async (req, res, next) => {
-  const customerId = req.params.customerId;
+//Get filtered reservations
+const getFilteredReservations = async (req, res, next) => {
+  const query = req.query;
 
   try {
-    const reservation = await Reservation.find({ customerId }).exec();
-    if (!reservation)
+    const reservation = await Reservation.find(query).exec();
+    if (reservation.length === 0)
       throw new ErrorHandler(
         404,
-        `No reservation with a customer id : ${customerId} is found in the database`
+        `No reservation with this query is found in the database`
       );
     res.status(200).json({
       success: true,
@@ -144,5 +144,5 @@ module.exports = {
   cancelReservation,
   getAllReservations,
   getReservationById,
-  getReservationByCustomerId,
+  getFilteredReservations,
 };

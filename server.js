@@ -14,6 +14,7 @@ app.use("/api/movies", require("./routes/movie.route"));
 app.use("/api/genres", require("./routes/genre.route"));
 app.use("/api/rooms", require("./routes/room.route"));
 app.use("/api/screenings", require("./routes/screening.route"));
+app.use("/api/reservations", require("./routes/reservation.route"));
 
 //Error Handler(Keep as Last Middleware)
 app.use(errorHandler);

@@ -7,9 +7,9 @@ router.post("/", reservationController.createReservation);
 router.delete("/:id", reservationController.cancelReservation);
 //Get all reservations
 router.get("/", reservationController.getAllReservations);
+//Get reservations by Customer Id
+router.get("/filter", reservationController.getFilteredReservations);
 //Get reservation by Id
 router.get("/:id", reservationController.getReservationById);
-//Get reservations by Customer Id
-router.get("/:customerId", reservationController.getReservationByCustomerId);
 
 module.exports = router;
