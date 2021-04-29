@@ -1,200 +1,117 @@
-const ErrorHandler = require("../helpers/errorHandler");
+const ErrorHandler = require('../helpers/errorHandler');
 
-const Genre = require("../models/Genre");
+const Genre = require('../models/Genre') ; 
+const Movie = require('../models/Movie');
 
-const createGenre = async (req, res, next) => {
-  const genre = req.body;
-  try {
-    //Check missing : if the user already exists => fail the operation
-    const newGenre = await Genre.create(genre);
+const getAllGenres = async (req,res,next)=>{
 
-    // No need for this check/throw error because mongoose will throw an error if creation fails
-    // and this error will be caught in the nex(error)
-    if (!newGenre) {
-      throw new ErrorHandler(500, "Genre creation failed !");
+
+    try {
+        const genres = await Genre.find({}) ; 
+        if (!genres)
+        {
+            throw new ErrorHandler(404,'No genres found in the database ') ; 
+
+        }
+        res.status(200).json({
+            success: true  ,
+            message :'Here is a list of genres found in database  ' , 
+            genres  
+        })
     }
-    res.status(200).json({
-      success: true,
-      message: "Genre creation was successfull ",
-      newGenre,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
-const editGenre = async (req, res, next) => {
-  const id = req.params.id;
-  const body = req.body;
-  try {
-    //same as create + missing runValidators:true
-    const editedGenre = await Genre.findByIdAndUpdate(
-      id,
-      { $set: body },
-      { new: true }
-    );
-    if (!editedGenre) {
-      throw new ErrorHandler(404, "There is no genre with this id");
+    catch(err)
+    {
+            next(err) ; 
     }
-    res.status(200).json({
-      succes: true,
-      message: "Genre edited with success",
-      editedGenre,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
 
-const deleteGenre = async (req, res, next) => {
-  const id = req.params.id;
-  try {
-    const deletedGenre = await Genre.findByIdAndDelete(id);
-    if (!deletedGenre) {
-      throw new ErrorHandler(404, "There is no such genre with id ");
+}
+
+const getGenre = async (req,res,next)=>{
+    const id= req.params.id ; 
+    try {
+        const genreFound = await Genre.findById(id) ; 
+        if (!genreFound)
+        {
+            throw new ErrorHandler(404,'There is no genre with this id ') ; 
+
+        }
+        res.status(200).json({
+            success: true  ,
+            genreFound
+        })
     }
-    res.status(200).json({
-      success: true,
-      message: "Genre deleted with success",
-      deletedGenre,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
-//To recheck
-const populateMovie = async (req, res, next) => {
-  const id = req.params.id;
-  try {
-    const GenreOfMovie = await Genre.findById(id).populate("Movie");
-    res.status(200).json({
-      success: true,
-      GenreOfMovie,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+    catch(err)
+    {
+            next(err) ; 
+    }
 
-//Added functions
-const getAllGenres = async (req, res, next) => {
-  try {
-    const data = await Genre.find({}).exec();
-    res.status(200).json({
-      success: true,
-      data,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+}
+const createGenre = async (req,res,next)=>{
+        const genre = req.body ; 
 
-const getGenreById = async (req, res, next) => {
-  const id = req.params.id;
-  try {
-    const genreExist = await Genre.findById(id);
-    if (!genreExist)
-      throw new ErrorHandler(
-        404,
-        `No genre with id : ${id} is found in the database`
-      );
+    try {
+        const newGenre = await Genre.create(genre) ; 
+        res.status(200).json({
+            success: true  ,
+            message :'Genre creation was successfull ' , 
+            newGenre 
+        })
+    }
+    catch(err)
+    {
+            next(err) ; 
+    }
+}
+const editGenre = async(req,res,next)=>{
+    const id = req.params.id ; 
+    const body = req.body
+    try {
+        const editedGenre = await Genre.findByIdAndUpdate(id,{$set:body},{new:true}) ;
+        if (!editedGenre)
+        {
+            throw new ErrorHandler(404,'There is no genre with this id') ; 
+        } 
+        res.status(200).json({
+            succes: true , 
+            message : 'Genre edited with success',
+            editedGenre ,
+        })
+    }
+    catch(err)
+    {
+            next(err) ; 
+    }
+}
 
-    const genre = await Genre.findOneAndUpdate(
-      { _id: id },
-      { $set: req.body },
-      { new: true, runValidators: true }
-    ).exec();
-    res.status(200).json({
-      success: true,
-      genre,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+const deleteGenre = async(req,res,next)=>{
 
-const pushMovieId = async (req, res, next) => {
-  const id = req.params.id;
-  const movieId = req.params.movieId;
+    const id = req.params.id 
+    try {
+        const deletedGenre = await Genre.findByIdAndDelete(id) ; 
+        if (!deletedGenre)
+        {
+            throw new ErrorHandler(404,'There is no such genre with id ') ;  
+        }
+        if (!deletedGenre)
+        {
+            throw new ErrorHandler(500, 'Problem updating Movies with deleted genre ')
+        } 
+        const movieUpdate = await Movie.findByIdAndUpdate(deletedGenre.movieId, {$pullAll:{movieInfos :{genre :id}}}) ; 
+        res.status(200).json({
+            success: true, 
+            message : 'Genre deleted with success',
+            deletedGenre , 
+        })
 
-  try {
-    //check if genre exist
-    const genreExist = await Genre.findById(id);
-    if (!genreExist)
-      throw new ErrorHandler(
-        404,
-        `No genre with id : ${id} is found in the database`
-      );
-    //check if movieId exists in genre
-    movieIdExist = genreExist.movieId.find((e) => e == movieId);
-    if (movieIdExist)
-      throw new ErrorHandler(
-        404,
-        `movie with : ${movieId} already exists in genre`
-      );
-    const newCount = updatedMovieCount(genreExist) + 1;
-    const genre = await Genre.findOneAndUpdate(
-      { _id: id },
-      { $push: { movieId: movieId }, $set: { count: newCount } },
-      { new: true, runValidators: true }
-    ).exec();
-    res.status(200).json({
-      success: true,
-      message: `${movieId} added successfully to ${genre.name}`,
-      genre,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+    }
+    catch(err)
+    {
+            next(err) ; 
+    }
+    
+}
 
-const pullMovieId = async (req, res, next) => {
-  const id = req.params.id;
-  const movieId = req.params.movieId;
-
-  try {
-    //check if genre exist
-    const genreExist = await Genre.findById(id);
-    if (!genreExist)
-      throw new ErrorHandler(
-        404,
-        `No genre with id : ${id} is found in the database`
-      );
-    //check if movieId exists in genre
-    movieIdExist = genreExist.movieId.find((e) => e == movieId);
-    if (!movieIdExist)
-      throw new ErrorHandler(
-        404,
-        `No movie with : ${movieId} is found in the genre ${genreExist.name}`
-      );
-    const newCount = updatedMovieCount(genreExist) - 1;
-    const genre = await Genre.findOneAndUpdate(
-      { _id: id },
-      { $set: { count: newCount }, $pull: { movieId: movieId } },
-      { new: true, runValidators: true }
-    ).exec();
-
-    res.status(200).json({
-      success: true,
-      message: `${movieId} retrieved successfully from ${genre.name}`,
-      genre,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-const updatedMovieCount = (genre) => {
-  const movieCount = genre.movieId.length;
-  return movieCount;
-};
 
 module.exports = {
-  deleteGenre,
-  editGenre,
-  createGenre,
-  populateMovie,
-  getAllGenres,
-  getGenreById,
-  pushMovieId,
-  pullMovieId,
-};
+    deleteGenre,editGenre,createGenre,getAllGenres,getGenre 
+}
