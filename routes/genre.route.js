@@ -1,15 +1,19 @@
-const router = require("express").Router();
-const genreController = require("../controllers/genreController");
-// Routes for Genre
-//
-//Should be public for Admin/MovieTheater ???
 
-router.post("/", genreController.createGenre);
-router.patch("/:id", genreController.editGenre);
-router.delete("/:id", genreController.deleteGenre);
+const router = require('express').Router() ; 
+const {getGenre,getAllGenres,editGenre,createGenre,deleteGenre} = require('../controllers/genreController') ; 
 
-router.get("/", genreController.getAllGenres);
-router.get("/:id", genreController.getGenreById);
+
+// Find all Genres 
+router.get('/',getAllGenres) ; 
+//CreateGenre 
+router.post('/',createGenre) ;
+//Find specific genre by id ; 
+router.get('/:id', getGenre) ; 
+// Delete particular genre ; 
+router.delete('/:id',deleteGenre) ; 
+//edit specific genre ; 
+router.patch('/:id' , editGenre)
+
 router.patch("/:id/add-movie/:movieId", genreController.pushMovieId);
 router.patch("/:id/remove-movie/:movieId", genreController.pullMovieId);
 
