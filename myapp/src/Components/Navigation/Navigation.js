@@ -334,6 +334,7 @@ const Navigation = ({ location, setLocation, isAuth }) => {
                           className={classes.small}
                         />
 
+
                         <IconButton
                           aria-label="account of current user"
                           aria-controls={accountMenuId}
@@ -355,6 +356,7 @@ const Navigation = ({ location, setLocation, isAuth }) => {
                     )}
                   </Box>
                 </Grid>
+
               </Grid>
             </Toolbar>
           </Container>
