@@ -93,6 +93,7 @@ export const defaultTheme = createMuiTheme({
     },
   },
 
+  
   mixins: {
     toolbar: {
       minHeight: 56,
@@ -100,3 +101,6 @@ export const defaultTheme = createMuiTheme({
     },
   },
 });
+
+
+
