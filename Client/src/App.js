@@ -11,6 +11,8 @@ import {PaperFormLogin,PaperFormRegister} from "./pages/Login/Paper"
 import { ThemeProvider } from "@material-ui/core";
 import { theme } from "./theme";
 import MoviePage from "./pages/DashboardTheater/AddMovie";
+import Dashboard from './pages/DashboardTheater/Dashboard'
+import SideMenu from "./Components/DashboardComps/SideMenu";
 
 function App() {
   //Use isAuth for the global authentication state (or Redux)
@@ -23,8 +25,8 @@ function App() {
 
   <ThemeProvider theme={theme}>
   <Navigation
-        auth={auth}
-        setAuth={setAuth}
+        auth={isAuth}
+        setAuth={setIsAuth}
         setLocation={setLocation}
         location={location}
       />
@@ -40,6 +42,9 @@ function App() {
         <Route path="/my-reservations" component={Reservations} />
         <Route path="/my-favorites" component={Favorites} />
         <Route path="/Theater/CreateMovie" component={MoviePage} />
+        {/* Path should be /theater/:id/dashboard in production  */}
+        <Route path='/Theater/Dashboard' component={Dashboard}/> 
+        <Route path='/test' component ={Dashboard}/>
       </Switch>
     </>
   );

@@ -6,6 +6,7 @@ import SimpleMenu from '../../Components/Menu'
 import { Formik, Field, Form } from "formik";
 import CheckboxesGroup from '../../Components/Form /Checkbox'
 import * as Yup from 'yup'
+import styled from 'styled-components'
 
 const inputSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
@@ -49,10 +50,11 @@ const useStyles= makeStyles((theme)=>(
         },
         boxContainers:{
            width:'100%',
+           height:'30%',
            margin: '0px',
         },
         boxFirstContainer:{
-            height:'40vh',
+            height:'20%',
             width: '100%',   
             backgroundImage: `url(${Image})`,
             backgroundPosition:"center",
@@ -112,7 +114,8 @@ const useStyles= makeStyles((theme)=>(
     
     
 ))
-
+const WrapperMoviePage=styled.div`
+height: 100%`
 const MoviePage=()=>{
    
 const classe=styles() ;
@@ -120,11 +123,12 @@ const classes =useStyles() ;
 
     return(
         <>
-        <div className={classes.boxFirstContainer}>
+        <WrapperMoviePage>
+        {/* <div className={classes.boxFirstContainer}>
         <Typography variant='h3' className={classes.typographyClass}>
              Add Movie Section 
         </Typography>
-        </div>
+        </div> */}
         <StyledPaper>
             <div className={classes.containerClass}>
             <Typography variant='h3' className={classes.typographyClass}>
@@ -166,6 +170,8 @@ const classes =useStyles() ;
          </div>
          </StyledPaper>
         
+        </WrapperMoviePage>
+       
 
         </>
     )
