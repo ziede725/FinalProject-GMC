@@ -6,12 +6,13 @@ import ScreeningTable from '../../Components/DashboardComps/Tables/ScreeningTabl
 
 
 const Wrapper=styled.div`
-display: flexbox ; 
+display: flex ; 
 justify-content: center ; 
-align-items : flex-end ; 
-flex-direction : row
-width:fit-content
-height: fit-content ; 
+align-items : center ; 
+flex-direction : column;
+width:fit-content; 
+height:fit-content; 
+
 ` ; 
 
 const ScreeningPage = ()=>{

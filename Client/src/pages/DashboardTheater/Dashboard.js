@@ -6,9 +6,10 @@ import {Route} from 'react-router-dom'
 import DataTable from '../../Components/DashboardComps/Tables/DataTable'
 import Rooms from './Rooms';
 import ScreeningPage from './Screening'
+import Settings from './Settings'
 
 const Content=styled.div`
-
+width: 100%; 
 `; 
 
 const DashWrapper=styled.div`
@@ -22,12 +23,13 @@ const Dashboard=({match})=>{
     return(
         <>
         <DashWrapper>
-        <SideMenu></SideMenu>
+        <SideMenu/>
         <Content>
         <Route path={`${match.path}/movie`} component={AddMovie}/>
         <Route path={`${match.path}/reservations`} component={DataTable}/>
         <Route path={`${match.path}/rooms`} component={Rooms}/>
         <Route path={`${match.path}/screenings`} component={ScreeningPage}/>
+        <Route path={`${match.path}/settings`} component={Settings}/>
             
         </Content>
         </DashWrapper>

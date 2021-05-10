@@ -5,10 +5,16 @@ import styled from 'styled-components';
 import RoomModal from '../../Components/DashboardComps/Modals/RoomModal'
 
 
-const WrapperFlex = styled.div`
+
+const Wrapper=styled.div`
 display: flex ; 
-flex-direction : column 
-justify-content: space-around`
+justify-content: center ; 
+align-items : center ; 
+flex-direction : column;
+width:fit-content; 
+height:fit-content; 
+
+` ; 
 const Rooms =()=>{
     const [open, setOpen] = React.useState(false);
     const handleClick=()=>{
@@ -19,12 +25,10 @@ const Rooms =()=>{
     return (
         <>
         <RoomModal open={open} setOpen={setOpen}/>
-       <WrapperFlex>
+       
        <AddButton onClick={handleClick} layout={true }>Add Room</AddButton>
-       </WrapperFlex>
-       <WrapperFlex>
-       <RoomsTable></RoomsTable>
-       </WrapperFlex>
+       <RoomsTable/>
+      
         
        
     

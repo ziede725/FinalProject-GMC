@@ -22,39 +22,32 @@ const useStyles = makeStyles({
       width:'100%',
     },
   });
-const createData=(customerId, ScreeningID, roomName, ReservationID )=> 
+const createData=(screeningId, movieName,date,startTime ,endTime,discount,visibility )=> 
 {
-    return {customerId, ScreeningID, roomName, ReservationID}
+    return {screeningId, movieName,date,startTime ,endTime,discount,visibility }
 }
  
 const TableWrapper=styled.div`
-position: absolute;
-width:50%;
-margin-left: 3%
-
-`
+display: flex ; 
+flex-direction: column`
 const StyledDivFlexRow= styled.div`
 display: flex ; 
 `
 const rows=[
-    createData(1,123,'amara','resID'),
-    createData(1,123,'hela','resID'),
-    createData(1,123,'salle2','resID'),
-    createData(1,123,'amara','resID'),
-    createData(1,123,'hela','resID'),
-    createData(1,123,'salle2','resID'),
-    createData(1,123,'amara','resID'),
-    createData(1,123,'hela','resID'),
-    createData(1,123,'salle2','resID'),
-    createData(1,123,'amara','resID'),
-    createData(1,123,'hela','resID'),
-    createData(1,123,'salle2','resID'),
-    createData(1,123,'amara','resID'),
-    createData(1,123,'hela','resID'),
-    createData(1,123,'salle2','resID'),
-    createData(1,123,'amara','resID'),
-    createData(1,123,'hela','resID'),
-    createData(1,123,'salle2','resID')
+    createData(1,123,'amara','resID','qqq','qqq','qqq'),
+   createData(1,123,'amara','resID','qqq','qqq','qqq'),
+   createData(1,123,'amara','resID','qqq','qqq','qqq'),
+   createData(1,123,'amara','resID','qqq','qqq','qqq'),
+   createData(1,123,'amara','resID','qqq','qqq','qqq'),
+   createData(1,123,'amara','resID','qqq','qqq','qqq'),
+   createData(1,123,'amara','resID','qqq','qqq','qqq'),
+   createData(1,123,'amara','resID','qqq','qqq','qqq'),
+   createData(1,123,'amara','resID','qqq','qqq','qqq'),
+   createData(1,123,'amara','resID','qqq','qqq','qqq'),
+   createData(1,123,'amara','resID','qqq','qqq','qqq'),
+   createData(1,123,'amara','resID','qqq','qqq','qqq'),
+   createData(1,123,'amara','resID','qqq','qqq','qqq'),
+   
     
 ] ; 
 
@@ -74,7 +67,7 @@ const ScreeningTable=()=>{
       };
 return (
     <>
-  <TableWrapper>
+
   <Table className={classes.table}>
             <TableHead title='Reservations'>
                 <TableRow>
@@ -92,13 +85,13 @@ return (
             <TableBody>
                 { rows.slice(page*rowsPerPage, page*rowsPerPage + rowsPerPage).map((row)=>(
                     <StyledTableRow key={row.name}>
-                    <TableCell align="left">{row.customerId}</TableCell>
-                    <TableCell align="left">{row.ScreeningID}</TableCell>
-                    <TableCell align="left">{row.roomName}</TableCell>
-                    <TableCell align="left">{row.ReservationID}</TableCell>
-                    <TableCell align="left">{row.ReservationID}</TableCell>
-                    <TableCell align="left">{row.ReservationID}</TableCell>
-                    <TableCell align="left">{row.ReservationID}</TableCell>
+                    <TableCell align="left">{row.screeningId}</TableCell>
+                    <TableCell align="left">{row.movieName}</TableCell>
+                    <TableCell align="left">{row.date}</TableCell>
+                    <TableCell align="left">{row.startTime}</TableCell>
+                    <TableCell align="left">{row.endTime}</TableCell>
+                    <TableCell align="left">{row.discount}</TableCell>
+                    <TableCell align="left">{row.visibility}</TableCell>
                     <StyledDivFlexRow> <DeleteButton onClick={()=>console.log('hello')}/>
                     <EditButton/></StyledDivFlexRow>
                    
@@ -119,8 +112,8 @@ return (
 
             </TableBody>
         </Table>
-  </TableWrapper>
-        
+
+       
   
     </>
 )

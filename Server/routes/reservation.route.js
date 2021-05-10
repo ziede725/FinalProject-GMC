@@ -9,6 +9,8 @@ router.delete("/:id", reservationController.cancelReservation);
 router.get("/", reservationController.getAllReservations);
 //Get reservations by Customer Id
 router.get("/filter", reservationController.getFilteredReservations);
+//Get reservations by Theater Id 
+router.get("/theater/:id/")
 //Get reservation by Id
 router.get("/:id", reservationController.getReservationById);
 

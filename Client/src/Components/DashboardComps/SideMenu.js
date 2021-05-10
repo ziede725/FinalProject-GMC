@@ -4,6 +4,8 @@ import MovieOutlinedIcon from '@material-ui/icons/MovieOutlined';
 import EventSeatOutlinedIcon from '@material-ui/icons/EventSeatOutlined';
 import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
 import MeetingRoomOutlinedIcon from '@material-ui/icons/MeetingRoomOutlined';
+import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import {useHistory} from 'react-router-dom'
 
 
@@ -59,6 +61,10 @@ const SideMenu =()=>{
         let path = `/test/${redirect}`;
         history.push(path);
       }
+      const routeHome=()=>{
+
+        history.push('/')
+      }
       
      
 return(
@@ -86,6 +92,16 @@ return(
             <DashButton onClick={()=>routeChange('movie')}>
             <span>Add Movie</span>
             <MovieOutlinedIcon/>
+            </DashButton>
+
+            <DashButton onClick={()=>routeChange('settings')}>
+            <span>Settings</span>
+            <SettingsOutlinedIcon/>
+            </DashButton>
+            
+            <DashButton onClick={()=>routeHome()}> 
+            <span>Log Out </span>
+            <ExitToAppOutlinedIcon/>
             </DashButton>
            
            
