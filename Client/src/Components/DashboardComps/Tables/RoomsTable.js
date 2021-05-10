@@ -74,7 +74,7 @@ return (
 
             <TableBody>
                 { rows.slice(page*rowsPerPage, page*rowsPerPage + rowsPerPage).map((row)=>(
-                    <StyledTableRow key={row.name}>
+                    <StyledTableRow key={row.roomName}>
                     <TableCell align="left">{row.roomName}</TableCell>
                     <TableCell align="left">{row.capacity}</TableCell>
                     <StyledDivFlexRow>

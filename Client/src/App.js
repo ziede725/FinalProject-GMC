@@ -12,7 +12,6 @@ import { ThemeProvider } from "@material-ui/core";
 import { theme } from "./theme";
 import MoviePage from "./pages/DashboardTheater/AddMovie";
 import Dashboard from './pages/DashboardTheater/Dashboard'
-import SideMenu from "./Components/DashboardComps/SideMenu";
 
 function App() {
   //Use isAuth for the global authentication state (or Redux)

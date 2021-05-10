@@ -10,7 +10,7 @@ export default function ScreeningModal({open,setOpen}) {
 
   useEffect(()=>{
     setOpen(open)
-  },[open])
+  },[open,setOpen])
 
   const handleClose = () => {
     setOpen(false);
@@ -36,7 +36,6 @@ export default function ScreeningModal({open,setOpen}) {
             autoFocus
             margin="dense"
             id="name"
-           
             type="date"
             fullWidth
           />
@@ -44,7 +43,6 @@ export default function ScreeningModal({open,setOpen}) {
             autoFocus
             margin="dense"
             id="name"
-            
             type="time"
             fullWidth
           />
@@ -52,7 +50,6 @@ export default function ScreeningModal({open,setOpen}) {
             autoFocus
             margin="dense"
             id="name"
-            
             type="time"
             fullWidth
           />

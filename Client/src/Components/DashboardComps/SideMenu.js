@@ -4,7 +4,6 @@ import MovieOutlinedIcon from '@material-ui/icons/MovieOutlined';
 import EventSeatOutlinedIcon from '@material-ui/icons/EventSeatOutlined';
 import VideocamOutlinedIcon from '@material-ui/icons/VideocamOutlined';
 import MeetingRoomOutlinedIcon from '@material-ui/icons/MeetingRoomOutlined';
-import { Redirect, Route } from 'react-router';
 import {useHistory} from 'react-router-dom'
 
 
@@ -19,12 +18,7 @@ justify-content: space-between ;
 
 
 `;
-const StyledSection = styled.div`
-width:80% ; 
-background-Color:white ; 
-margin-left : 2vw;  
-
-`; 
+ 
 export const Wrapper=styled.div`
 height:60%;
 display: flex ; 

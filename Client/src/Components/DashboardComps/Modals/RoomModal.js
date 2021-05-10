@@ -11,7 +11,7 @@ export default function RoomModal({open,setOpen}) {
   
   useEffect(()=>{
     setOpen(open)
-  },[open])
+  },[open,setOpen])
 
   const handleClose = () => {
     setOpen(false);

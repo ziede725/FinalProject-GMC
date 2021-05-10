@@ -1,9 +1,7 @@
-import React,{useState} from 'react' ; 
-import {Box, makeStyles,withStyles, Typography,Paper, Container, Menu,MenuItem,Input, Button, InputLabel} from '@material-ui/core'
+import React from 'react' ; 
+import { makeStyles,withStyles, Typography,Paper, Input } from '@material-ui/core'
 import Image from '../../assets/lloyd-dirks-4SLz_RCk6kQ-unsplash.jpg' 
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import SimpleMenu from '../../Components/Menu'
-import { Formik, Field, Form } from "formik";
+import { Formik, Form } from "formik";
 import CheckboxesGroup from '../../Components/Form /Checkbox'
 import * as Yup from 'yup'
 import styled from 'styled-components'
