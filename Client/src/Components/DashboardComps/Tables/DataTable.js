@@ -7,7 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import {makeStyles,withStyles} from '@material-ui/core'
 import styled from 'styled-components';
 import TablePagination from '@material-ui/core/TablePagination';
-import DeleteButton from './Buttons/DeleteButton'
+import DeleteButton from '../Buttons/DeleteButton'
 
 const StyledTableRow = withStyles((theme) => ({
     root: {
@@ -56,7 +56,7 @@ const rows=[
 
 
 const DataTable=()=>{
-    const [page, setPage] = React.useState(2);
+    const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const classes = useStyles() ; 
 

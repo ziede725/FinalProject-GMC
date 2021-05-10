@@ -7,9 +7,6 @@ import { GoogleLogin } from "react-google-login";
 import {Container} from '@material-ui/core'
 import {Link} from '@material-ui/core'
 import {Redirect} from 'react-router-dom' ; 
-
-
-
 require("dotenv").config();
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -49,6 +46,7 @@ const useStyles= makeStyles((theme)=>({
 const LogInForm = () => {
   const [loggedIn , setLoggedIn] = useState(false) ; 
   const classes=useStyles() ; 
+  console.log(process.env.REACT_APP_CLIENT_ID)
   
 
   const handleLogin = async (googleData) => {
