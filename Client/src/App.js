@@ -6,12 +6,13 @@ import Navigation from "./Components/Navigation/Navigation";
 import Account from "./pages/Account/Account";
 import Reservations from "./pages/Reservations/Reservations";
 import Favorites from "./pages/Favorites/Favorites";
-
 import {PaperFormLogin,PaperFormRegister} from "./pages/Login/Paper"
 import { ThemeProvider } from "@material-ui/core";
 import { theme } from "./theme";
 import MoviePage from "./pages/DashboardTheater/AddMovie";
 import Dashboard from './pages/DashboardTheater/Dashboard'
+import PrivateRoute from './pages/Routes/PrivateRoute' ; 
+
 
 function App() {
   //Use isAuth for the global authentication state (or Redux)
@@ -42,8 +43,8 @@ function App() {
         <Route path="/my-favorites" component={Favorites} />
         <Route path="/Theater/CreateMovie" component={MoviePage} />
         {/* Path should be /theater/:id/dashboard in production  */}
-        <Route path='/Theater/Dashboard' component={Dashboard}/> 
-        <Route path='/test' component ={Dashboard}/>
+        <PrivateRoute authed={isAuth} path='/Theater/Dashboard' component={Dashboard}/> 
+        
       </Switch>
     </>
   );
