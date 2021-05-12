@@ -5,10 +5,11 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import addRoom from '../../../Redux/Actions/theater.actions'
+import {useDispatch} from 'react-redux'
 
 export default function RoomModal({open,setOpen}) {
- 
-  
+   const dispatch= useDispatch() ; 
   useEffect(()=>{
     setOpen(open)
   },[open,setOpen])
@@ -46,7 +47,12 @@ export default function RoomModal({open,setOpen}) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={
+            
+            dispatch(addRoom())
+            
+          }
+             color="primary">
             Save
           </Button>
         </DialogActions>

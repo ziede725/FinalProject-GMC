@@ -7,8 +7,8 @@ export const loginUser = (user,history)=>async (dispatch) => {
     try {
         let result = await axios.post("http://localhost:7200/api/login",user) ;
         console.log(result.data) 
-        dispatch({type: LOGIN_USER , payload: result.data})
-        history.push('/') ; 
+        dispatch({type: LOGIN_USER , payload: {...result.data,history}})
+         
     }
     catch(error)
     {

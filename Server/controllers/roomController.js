@@ -1,14 +1,18 @@
 const { create, findOneAndUpdate } = require("../models/Room");
 const Room = require("../models/Room");
+const Theater = require('../models/Theater')
 const ErrorHandler = require("../helpers/errorHandler");
+require('dotenv').config() ; 
 
 //create room
 const createRoom = async (req, res, next) => {
-  const { roomName, roomCapacity, TheaterId } = req.body;
+  const { roomName, roomCapacity, token } = req.body;
 
   try {
     //check if room already exist
-    const roomExist = await Room.findOne({ roomName }).exec();
+    const decodedTheaterId = jwt.verify(token,process.env.JWT_SECRET)
+    
+    const roomExist = await Room.findOne({$and:[{roomName},{TheaterId:decodedTheaterId}]}).exec();
     if (roomExist)
       throw new ErrorHandler(
         404,
@@ -17,7 +21,7 @@ const createRoom = async (req, res, next) => {
     const room = await Room.create({
       roomName,
       roomCapacity,
-      TheaterId,
+      TheaterId:decodedTheaterId,
     });
     res.status(201).json({
       success: true,

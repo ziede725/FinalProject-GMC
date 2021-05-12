@@ -18,16 +18,13 @@ import { useSelector } from "react-redux";
 function App() {
   //Use isAuth for the global authentication state (or Redux)
   const isAuth = useSelector( state=> state.isAuth)
-  const user = useSelector(state=>state.user)
+  const userMail = useSelector(state=>state.user.email)
   
   //******************************************************** */
   const history= useHistory()
   const [location, setLocation] = React.useState("Tunis");
+  console.log(userMail)
   
-  if(isAuth && user.role==="theater" )
-  {
-    history.push('/Theater/dashboard')
-  }
   
   return (
     <>
@@ -49,9 +46,8 @@ function App() {
         <Route path="/my-account" component={Account} />
         <Route path="/my-reservations" component={Reservations} />
         <Route path="/my-favorites" component={Favorites} />
-        <Route path="/Theater/CreateMovie" component={MoviePage} />
         {/* Path should be /theater/:id/dashboard in production  */}
-        <PrivateRoute authed={isAuth} path='/Theater/Dashboard' component={Dashboard}/> 
+        <PrivateRoute authed={isAuth} path={`/theater/${userMail}/dashboard`} component={Dashboard}/> 
         
       </Switch>
     </>

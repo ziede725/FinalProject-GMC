@@ -4,8 +4,6 @@ import AddButton from '../../Components/DashboardComps/Buttons/AddButton'
 import styled from 'styled-components';
 import RoomModal from '../../Components/DashboardComps/Modals/RoomModal'
 
-
-
 const Wrapper=styled.div`
 display: flex ; 
 justify-content: center ; 
@@ -16,25 +14,19 @@ height:fit-content;
 
 ` ; 
 const Rooms =()=>{
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false); 
     const handleClick=()=>{
         setOpen(!open)
-     
+        console.log('handleclick')
     }
 
     return (
         <>
         <RoomModal open={open} setOpen={setOpen}/>
        
-       <AddButton onClick={handleClick} layout={true }>Add Room</AddButton>
+       <AddButton onClick={handleClick} layout={true }></AddButton>
        <RoomsTable/>
-      
-        
-       
-    
-
-      
-        
+  
         </>
     )
 

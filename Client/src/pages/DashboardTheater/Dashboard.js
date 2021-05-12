@@ -7,6 +7,7 @@ import DataTable from '../../Components/DashboardComps/Tables/DataTable'
 import Rooms from './Rooms';
 import ScreeningPage from './Screening'
 import Settings from './Settings'
+import Dash from './welcomePage'
 
 const Content=styled.div`
 width: 100%; 
@@ -26,7 +27,8 @@ const Dashboard=({match})=>{
         <DashWrapper>
         <SideMenu/>
         <Content>
-        <Route path={`/Theater/Dashboard/movie`} component={AddMovie}/>
+        <Route exact path={`${match.path}/`} component={Dash}/>
+        <Route path={`${match.path}/movie`} component={AddMovie}/>
         <Route path={`${match.path}/reservations`} component={DataTable}/>
         <Route path={`${match.path}/rooms`} component={Rooms}/>
         <Route path={`${match.path}/screenings`} component={ScreeningPage}/>

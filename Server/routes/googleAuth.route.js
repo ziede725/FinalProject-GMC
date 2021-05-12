@@ -10,7 +10,7 @@ const sendToken = (user, statusCode, res) => {
       message: "Signed in with success",
       token , 
       user ,
-    })
+    })  
     
   };
 router.post("/", async (req, res) => {

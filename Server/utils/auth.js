@@ -120,16 +120,22 @@ exports.loginUser = async(req,res,next)=>{
     {
       throw new ErrorHandler(404,"Invalid credentials ! Verify your email ")
     }
-    if(customer)
-    {
+   
+    if(Boolean(customer))
+    {console.log("customer")
       isMatchCustomer = await customer.matchPasswords(password) ;
+      console.log(isMatchCustomer)
     }
-    else if (admin)
-    {
-      isMatchAdmin = await admin.matchPasswords(password) ;
+    else if (Boolean(theater))
+    {console.log("theater")
+      isMatchTheater = await theater.matchPasswords(password) ;
+      console.log(isMatchTheater)
+     
     }
     else {
-      isMatchTheater = await admin.matchPasswords(password) ;
+      console.log("admin")
+      isMatchAdmin = await admin.matchPasswords(password) ;
+      console.log(isMatchAdmin)
       
     }
     

@@ -9,16 +9,10 @@ justify-content : space-around ;
 align-items: center `
 const AddButton=({onClick ,layout})=>{
 
-  const handleClick = ()=>{
-      onClick() ;
-
-  }
-
-
     return(
          // Conditional rendering depending on props layout true or false 
          // True means Add Room : false => add a screening 
-            <IconButton onClick={handleClick} >
+            <IconButton onClick={onClick} >
                 {layout?
                 <WrapperFlex>
                      <AddCircleOutlineOutlinedIcon/>

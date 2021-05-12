@@ -8,7 +8,7 @@ import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import {useHistory} from 'react-router-dom'
 import {logOut} from '../../Redux/Actions/actions'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 
 
 const LeftSection = styled.div`
@@ -58,10 +58,11 @@ span {
 `;
 
 const SideMenu =()=>{
+    const userMail = useSelector(state=>state.user.email)
     const  history = useHistory();
     const dispatch = useDispatch() ; 
     const routeChange=(redirect)=> {
-        let path = `/theater/dashboard/${redirect}`;
+        let path = `/theater/${userMail}/dashboard/${redirect}`;
         history.push(path);
       }
      

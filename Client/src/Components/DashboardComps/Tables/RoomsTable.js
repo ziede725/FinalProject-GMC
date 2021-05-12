@@ -26,10 +26,10 @@ const useStyles = makeStyles({
       width:'100%',
     },
   });
-const createData=(roomName, capacity )=> 
-{
-    return {roomName, capacity}
-}
+// const createData=(roomName, capacity )=> 
+// {
+//     return {roomName, capacity}
+// }
  
 const TableWrapper=styled.div`
 position: absolute;
@@ -37,19 +37,21 @@ width:60%;
 margin-left: 3%
 
 `
-const rows=[
-   createData('salle 1', 40),
-   createData('salle 2', 32),
-   createData('salle 3', 24),
-   createData('salle 4', 30),
+// const rows=[
+//    createData('salle 1', 40),
+//    createData('salle 2', 32),
+//    createData('salle 3', 24),
+//    createData('salle 4', 30),
 
     
-] ; 
+// ] ; 
+
 
 
 const RoomsTable=()=>{
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const rows = useSelector(state=>state.theaterReducer.rooms)
     const classes = useStyles() ; 
 
     const handleChangePage = (event, newPage) => {
