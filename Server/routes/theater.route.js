@@ -12,7 +12,7 @@ const { protectAdmin } = require("../middlewares/checkAuth");
 
 //Authentication Routes
 router.post("/register", registerTheater);
-router.post("/login", loginTheater);
+// router.post("/login", loginTheater);
 router.post("/forgot-password", forgotPasswordTheater);
 router.get("/logout", logoutTheater);
 

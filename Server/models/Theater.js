@@ -31,6 +31,7 @@ const theaterSchema = new mongoose.Schema({
       "Please provide a valide phone number",
     ],
   },
+  role:{type: String ,default:'theater'},
   adress: { type: String },
   town: { type: String },
   city: { type: String },

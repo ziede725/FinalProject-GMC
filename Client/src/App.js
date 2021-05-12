@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import homePage from "./pages/Home/Home";
@@ -12,13 +12,16 @@ import { theme } from "./theme";
 import MoviePage from "./pages/DashboardTheater/AddMovie";
 import Dashboard from './pages/DashboardTheater/Dashboard'
 import PrivateRoute from './pages/Routes/PrivateRoute' ; 
-
+import { useSelector } from "react-redux";
+import {useHistory} from 'react-router-dom'
 
 function App() {
   //Use isAuth for the global authentication state (or Redux)
-  const [isAuth, setIsAuth] = React.useState(false);
+  const isAuth = useSelector( state=> state)
+  console.log(isAuth)
   //******************************************************** */
-
+  const history = useHistory()
+  console.log(history)
   const [location, setLocation] = React.useState("Tunis");
   return (
     <>
@@ -26,7 +29,6 @@ function App() {
   <ThemeProvider theme={theme}>
   <Navigation
         auth={isAuth}
-        setAuth={setIsAuth}
         setLocation={setLocation}
         location={location}
       />

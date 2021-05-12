@@ -1,0 +1,4 @@
+export const REGISTER_CUSTOMER="REGISTER_USER" ; 
+export const REGISTER_THEATER ="REGISTER_THEATER"
+export const LOGIN_USER="LOGIN_USER" ; 
+export const LOGOUT ="LOGOUT" ; 

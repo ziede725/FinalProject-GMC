@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const adminSchema = new Schema(
   {
+    
     firstName: {
       type: String,
       required: [true, "Please provide a first name"],
@@ -42,6 +43,8 @@ const adminSchema = new Schema(
         "Please provide a valide phone number",
       ],
     },
+    role:{type: String ,default:'admin'},
+    
   },
   { timestamps: true }
 );

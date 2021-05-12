@@ -9,7 +9,7 @@ const customerController = require("../controllers/customerController");
 
 //Authentication Routes
 router.post("/register", registerCustomer);
-router.post("/login", loginCustomer);
+// router.post("/login", loginCustomer);
 router.post("/forgot-password", forgotPasswordCustomer);
 router.get("/logout", logoutCustomer);
 

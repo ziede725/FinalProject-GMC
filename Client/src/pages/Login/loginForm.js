@@ -7,6 +7,9 @@ import { GoogleLogin } from "react-google-login";
 import {Container} from '@material-ui/core'
 import {Link} from '@material-ui/core'
 import {Redirect} from 'react-router-dom' ; 
+import {useDispatch} from 'react-redux' ; 
+import  loginUser  from "../../Redux/Actions/actions";
+import {useHistory} from 'react-router-dom'
 require("dotenv").config();
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -43,12 +46,12 @@ const useStyles= makeStyles((theme)=>({
 })
 )
 
-const LogInForm = () => {
-  const [loggedIn , setLoggedIn] = useState(false) ; 
+const LogInForm = (props) => {
+  // const [loggedIn , setLoggedIn] = useState(false) ; 
+  let history  =useHistory() ; 
+  const dispatch = useDispatch() ; 
   const classes=useStyles() ; 
-  console.log(process.env.REACT_APP_CLIENT_ID)
-  
-
+  console.log(history)
   const handleLogin = async (googleData) => {
     const res = await fetch("http://localhost:7200/api/auth", {
       method: "POST",
@@ -61,14 +64,15 @@ const LogInForm = () => {
     });
     const data = await res.json();
     // store returned user somehow
-    setLoggedIn(data.success)
+    // setLoggedIn(data.success)
+    
   };
   const responseGoogle = (res) => {
     console.log(res);
   };
   return (
     <div className={classes.containerClass}>
-      {loggedIn&& <Redirect to = '/' />}
+      {/* {loggedIn&& <Redirect to = '/' />} */}
 
      
       <Typography className={classes.typographyStyle} variant='h4'>Sign In </Typography>
@@ -77,17 +81,12 @@ const LogInForm = () => {
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={SignupSchema}
-        onSubmit={async ({ email, password }) => {
-          axios
-            .post("http://localhost:7200/api/customers/login", {
-              email,
-              password,
-            })
-            .then((res) => {
-              setLoggedIn(res.data.success)
-            })
-            .catch((err) => console.log(err));
-        }}
+        onSubmit={({ email, password }) => {
+          
+          dispatch(loginUser({email,password},history))
+        }
+
+        }
       >
         {({ values, errors, isSubmitting }) => (
           <Container>

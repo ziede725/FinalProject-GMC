@@ -42,6 +42,7 @@ const customerSchema = new Schema(
         "Please provide a valid phone number",
       ],
     },
+    role:{type: String ,default:'customer'},
     adress: { type: String },
     town: { type: String },
     city: { type: String },
@@ -72,7 +73,7 @@ customerSchema.methods.matchPasswords = async function (password) {
 //Get Signed Token
 customerSchema.methods.getSignedToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE,
+    expiresIn: `${process.env.JWT_EXPIRE}`,
   });
 };
 

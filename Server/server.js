@@ -9,6 +9,7 @@ var corsOptions = {
   origin: "http://localhost:3000",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
+
 app.use(cors());
 app.use(express.json());
 //Routes
@@ -25,6 +26,8 @@ app.use("/api/seats", require("./routes/seat.route"));
 app.use("/api/reviews", require("./routes/review.route"));
 app.use("/api/discounts", require("./routes/discount.route"));
 app.use("/api/auth", require("./routes/googleAuth.route"));
+// Route login for all users wih different roles 
+app.use('/api/login', require("./routes/login.route"))
 app.use("/test", require("./routes/test.route"));
 // we need to implement the reset password in this route
 app.post("/passwordReset");
