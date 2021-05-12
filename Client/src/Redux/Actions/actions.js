@@ -1,8 +1,8 @@
 import axios from 'axios';
-import {LOGIN_USER} from './actionTypes' ; 
+import {LOGIN_USER,LOGOUT, REGISTER_THEATER,LOAD_USER} from './actionTypes' ; 
 
 
-const loginUser = (user,history)=>async (dispatch) => {
+export const loginUser = (user,history)=>async (dispatch) => {
 
     try {
         let result = await axios.post("http://localhost:7200/api/login",user) ;
@@ -15,8 +15,29 @@ const loginUser = (user,history)=>async (dispatch) => {
         // dispatch({type : FAIL_USER , payload: error.response.data.errors})
         console.log(error) ; 
     }
+} 
+export const logOut = (history)=> async (dispatch)=>{
+
+    
+    try {
+        dispatch({type: LOGOUT,payload:history}) ; 
+       
+    } catch (error) {
+        console.log(error) ; 
+    }
 }
-export default loginUser
+
+export const registerTheater=(user,history) => async (dispatch)=>{
+
+    try {
+       
+        let response = await axios.post("http://localhost:7200/api/theaters/register",user)
+       
+        dispatch({type:REGISTER_THEATER,payload:{...response.data,history}})
+    } catch (error) {
+        
+    }
+}
 
 
 

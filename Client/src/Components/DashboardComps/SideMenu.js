@@ -7,6 +7,8 @@ import MeetingRoomOutlinedIcon from '@material-ui/icons/MeetingRoomOutlined';
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import {useHistory} from 'react-router-dom'
+import {logOut} from '../../Redux/Actions/actions'
+import {useDispatch} from 'react-redux'
 
 
 const LeftSection = styled.div`
@@ -57,15 +59,12 @@ span {
 
 const SideMenu =()=>{
     const  history = useHistory();
+    const dispatch = useDispatch() ; 
     const routeChange=(redirect)=> {
-        let path = `/test/${redirect}`;
+        let path = `/theater/dashboard/${redirect}`;
         history.push(path);
       }
-      const routeHome=()=>{
-
-        history.push('/')
-      }
-      
+     
      
 return(
     <>
@@ -99,7 +98,8 @@ return(
             <SettingsOutlinedIcon/>
             </DashButton>
             
-            <DashButton onClick={()=>routeHome()}> 
+            <DashButton onClick={()=>
+            dispatch(logOut())}> 
             <span>Log Out </span>
             <ExitToAppOutlinedIcon/>
             </DashButton>

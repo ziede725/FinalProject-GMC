@@ -8,7 +8,7 @@ import {Container} from '@material-ui/core'
 import {Link} from '@material-ui/core'
 import {Redirect} from 'react-router-dom' ; 
 import {useDispatch} from 'react-redux' ; 
-import  loginUser  from "../../Redux/Actions/actions";
+import  {loginUser}  from "../../Redux/Actions/actions";
 import {useHistory} from 'react-router-dom'
 require("dotenv").config();
 const SignupSchema = Yup.object().shape({
@@ -82,7 +82,7 @@ const LogInForm = (props) => {
         initialValues={{ email: "", password: "" }}
         validationSchema={SignupSchema}
         onSubmit={({ email, password }) => {
-          
+          console.log({email,password})
           dispatch(loginUser({email,password},history))
         }
 

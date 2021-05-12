@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const theaterSchema = new mongoose.Schema({
-  name: { type: String, required: [true, "Please provide a Theater name"] },
+  theaterName: { type: String, required: [true, "Please provide a Theater name"] },
   userName: {
     type: String,
     unique: true,

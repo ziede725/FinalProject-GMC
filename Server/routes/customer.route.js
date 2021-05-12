@@ -11,7 +11,7 @@ const customerController = require("../controllers/customerController");
 router.post("/register", registerCustomer);
 // router.post("/login", loginCustomer);
 router.post("/forgot-password", forgotPasswordCustomer);
-router.get("/logout", logoutCustomer);
+// router.get("/logout", logoutCustomer);
 
 //Customer Routes
 router.get("/", customerController.getAll);

@@ -19,10 +19,12 @@ import {
   Link,
   Container,
 } from "@material-ui/core";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import SearchIcon from "@material-ui/icons/Search";
 import MenuIcon from "@material-ui/icons/Menu";
+import { logOut } from "../../Redux/Actions/actions";
+import { useDispatch } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   small: {
     width: theme.spacing(4),
@@ -100,6 +102,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Navigation = ({ location, setLocation, isAuth }) => {
   const classes = useStyles();
+  const dispatch = useDispatch() ;
+  let history = useHistory() ;  
 
   const [desktopAccountAnchorEl, setDesktopAccountAnchorEl] = React.useState(
     null
@@ -351,6 +355,9 @@ const Navigation = ({ location, setLocation, isAuth }) => {
                         </Button>
                         <Button component={RouterLink} to="/register">
                           Sign Up
+                        </Button>
+                        <Button onClick={()=>dispatch(logOut(history))}>
+                          LOGOUT
                         </Button>
                       </>
                     )}

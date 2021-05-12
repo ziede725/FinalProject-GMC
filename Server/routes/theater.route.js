@@ -14,7 +14,7 @@ const { protectAdmin } = require("../middlewares/checkAuth");
 router.post("/register", registerTheater);
 // router.post("/login", loginTheater);
 router.post("/forgot-password", forgotPasswordTheater);
-router.get("/logout", logoutTheater);
+// router.get("/logout", logoutTheater);
 
 //Theater routes
 router.get("/", theaterController.getAllTheaters);

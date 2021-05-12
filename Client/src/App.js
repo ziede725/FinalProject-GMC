@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import homePage from "./pages/Home/Home";
 import Navigation from "./Components/Navigation/Navigation";
 import Account from "./pages/Account/Account";
@@ -13,16 +13,22 @@ import MoviePage from "./pages/DashboardTheater/AddMovie";
 import Dashboard from './pages/DashboardTheater/Dashboard'
 import PrivateRoute from './pages/Routes/PrivateRoute' ; 
 import { useSelector } from "react-redux";
-import {useHistory} from 'react-router-dom'
+
 
 function App() {
   //Use isAuth for the global authentication state (or Redux)
-  const isAuth = useSelector( state=> state)
-  console.log(isAuth)
+  const isAuth = useSelector( state=> state.isAuth)
+  const user = useSelector(state=>state.user)
+  
   //******************************************************** */
-  const history = useHistory()
-  console.log(history)
+  const history= useHistory()
   const [location, setLocation] = React.useState("Tunis");
+  
+  if(isAuth && user.role==="theater" )
+  {
+    history.push('/Theater/dashboard')
+  }
+  
   return (
     <>
 

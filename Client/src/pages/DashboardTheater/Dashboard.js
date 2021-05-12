@@ -19,13 +19,14 @@ const Dashboard=({match})=>{
     
     useEffect(()=>{
         console.log('hello')
+        console.log(`${match.path}`)
     },[])
     return(
         <>
         <DashWrapper>
         <SideMenu/>
         <Content>
-        <Route path={`${match.path}/movie`} component={AddMovie}/>
+        <Route path={`/Theater/Dashboard/movie`} component={AddMovie}/>
         <Route path={`${match.path}/reservations`} component={DataTable}/>
         <Route path={`${match.path}/rooms`} component={Rooms}/>
         <Route path={`${match.path}/screenings`} component={ScreeningPage}/>

@@ -146,25 +146,6 @@ exports.loginUser = async(req,res,next)=>{
   }
 
 }
-// exports.loginCustomer = async (req, res, next) => {
-//   const { email, password } = req.body;
-
-//   if (!email || !password)
-//     throw new ErrorHandler(400, " Please provide email and password");
-
-//   try {
-//     const customer = await Customer.findOne({ email })
-//       .select("+password")
-//       .exec();
-//     if (!customer) throw new ErrorHandler(404, "Invalid credentials email");
-
-//     const isMatch = await customer.matchPasswords(password);
-//     if (!isMatch) throw new ErrorHandler(404, "Invalid Credentials pwd");
-//     sendToken(customer, 200, res);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
 exports.forgotPasswordCustomer = async (req, res, next) => {
   res.status(200).json({
     success: true,
@@ -181,11 +162,11 @@ exports.logoutCustomer = (req, res, next) => {
 
 //Theater Authentication
 exports.registerTheater = async (req, res, next) => {
-  const { name, userName, email, password, phoneNumber } = req.body;
-
+  const { theaterName, userName, email, password, phoneNumber } = req.body;
+  
   try {
     const theater = await Theater.create({
-      name,
+      theaterName,
       userName,
       email,
       password,
@@ -196,23 +177,6 @@ exports.registerTheater = async (req, res, next) => {
     next(error);
   }
 };
-// exports.loginTheater = async (req, res, next) => {
-//   const { email, password } = req.body;
-
-//   if (!email || !password)
-//     throw new ErrorHandler(400, " Please provide email and password");
-
-//   try {
-//     const theater = await Theater.findOne({ email }).select("+password").exec();
-//     if (!theater) throw new ErrorHandler(404, "Invalid credentials email");
-
-//     const isMatch = await theater.matchPasswords(password);
-//     if (!isMatch) throw new ErrorHandler(404, "Invalid Credentials pwd");
-//     sendToken(theater, 200, res);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
 exports.forgotPasswordTheater = async (req, res, next) => {
   res.status(200).json({
     success: true,
@@ -220,17 +184,77 @@ exports.forgotPasswordTheater = async (req, res, next) => {
   });
 };
 
-exports.logoutTheater = (req, res, next) => {
-  try {
-    unSetToken(200, res);
-  } catch (error) {
-    next(error);
-  }
-};
 
-const unSetToken = (statusCode, res) => {
-  res.status(statusCode).cookie("token", "", { httpOnly: true }).json({
-    success: true,
-    message: "logged out with success",
-  });
-};
+// const unSetToken = (statusCode, res) => {
+//   const token = ""
+//   res.status(statusCode).json({
+//     success: true,
+//     message: "logged out with success",
+//     token,
+//   });
+// };
+
+
+// exports.logoutTheater = (req, res, next) => {
+  //   try {
+    //     unSetToken(200, res);
+    //   } catch (error) {
+      //     next(error);
+      //   }
+      // };  
+      
+   // exports.loginTheater = async (req, res, next) => {
+        //   const { email, password } = req.body;
+        
+        //   if (!email || !password)
+        //     throw new ErrorHandler(400, " Please provide email and password");
+        
+        //   try {
+          //     const theater = await Theater.findOne({ email }).select("+password").exec();
+          //     if (!theater) throw new ErrorHandler(404, "Invalid credentials email");
+          
+          //     const isMatch = await theater.matchPasswords(password);
+          //     if (!isMatch) throw new ErrorHandler(404, "Invalid Credentials pwd");
+          //     sendToken(theater, 200, res);
+          //   } catch (error) {
+            //     next(error);
+            //   }
+            // };
+
+            // exports.loginCustomer = async (req, res, next) => {
+            //   const { email, password } = req.body;
+            
+            //   if (!email || !password)
+            //     throw new ErrorHandler(400, " Please provide email and password");
+            
+            //   try {
+            //     const customer = await Customer.findOne({ email })
+            //       .select("+password")
+            //       .exec();
+            //     if (!customer) throw new ErrorHandler(404, "Invalid credentials email");
+            
+            //     const isMatch = await customer.matchPasswords(password);
+            //     if (!isMatch) throw new ErrorHandler(404, "Invalid Credentials pwd");
+            //     sendToken(customer, 200, res);
+            //   } catch (error) {
+            //     next(error);
+            //   }
+            // };
+
+// exports.loginAdmin = async (req, res, next) => {
+//   const { email, password } = req.body;
+
+//   if (!email || !password)
+//     throw new ErrorHandler(400, " Please provide email and password");
+
+//   try {
+//     const admin = await Admin.findOne({ email }).select("+password").exec();
+//     if (!admin) throw new ErrorHandler(404, "Invalid credentials email");
+
+//     const isMatch = await admin.matchPasswords(password);
+//     if (!isMatch) throw new ErrorHandler(404, "Invalid Credentials pwd");
+//     sendToken(admin, 200, res);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
