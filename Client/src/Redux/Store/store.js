@@ -2,8 +2,7 @@ import { applyMiddleware, compose, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-
-import rootReducer from '../Reducers/rootReducer'
+import allReducers from '../Reducers/index'
 
 export default function configureStore() {
   const middlewares = [thunkMiddleware]
@@ -12,7 +11,7 @@ export default function configureStore() {
    const enhancers = [middlewareEnhancer]
    const composedEnhancers = composeWithDevTools(...enhancers)
 
-  const store = createStore(rootReducer,theaterReducer, composedEnhancers)
+  const store = createStore(allReducers, composedEnhancers)
 
   return store
 }

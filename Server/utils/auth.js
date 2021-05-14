@@ -74,7 +74,7 @@ exports.registerCustomer = async (req, res, next) => {
     password,
     phoneNumber,
   } = req.body;
-  console.log(req.body)
+
   const userExist = await Customer.findOne({email}) ; 
   if (userExist)
   {
@@ -97,7 +97,7 @@ exports.registerCustomer = async (req, res, next) => {
 };
 exports.loginUser = async(req,res,next)=>{
   const {email,password} = req.body ; 
-  console.log(req.body)
+  
   let isMatchCustomer= false ; 
   let isMatchTheater= false ; 
   let isMatchAdmin= false ; 
@@ -109,13 +109,13 @@ exports.loginUser = async(req,res,next)=>{
   try {
     const customer = await Customer.findOne({email}).select("+password")
     .exec() ; 
-    console.log(customer) ; 
+   
     const admin = await Admin.findOne({email}).select("+password")
     .exec(); ; 
-    console.log(admin)
+   
     const theater =await Theater.findOne({email}).select("+password")
     .exec(); ; 
-    console.log(theater)
+   
     if(!customer && !admin && !theater)
     {
       throw new ErrorHandler(404,"Invalid credentials ! Verify your email ")
@@ -135,7 +135,7 @@ exports.loginUser = async(req,res,next)=>{
     else {
       console.log("admin")
       isMatchAdmin = await admin.matchPasswords(password) ;
-      console.log(isMatchAdmin)
+     
       
     }
     

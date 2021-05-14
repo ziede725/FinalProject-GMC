@@ -84,12 +84,12 @@ return (
 
             <TableBody>
                 { rows.slice(page*rowsPerPage, page*rowsPerPage + rowsPerPage).map((row)=>(
-                    <StyledTableRow key={row.name}>
+                    <StyledTableRow key={row.ReservationID}>
                     <TableCell align="left">{row.customerId}</TableCell>
                     <TableCell align="left">{row.ScreeningID}</TableCell>
                     <TableCell align="left">{row.roomName}</TableCell>
                     <TableCell align="left">{row.ReservationID}</TableCell>
-                    <DeleteButton onClick={()=>console.log('hello')}/>
+                    <DeleteButton onClick={()=>console.log()}/>
                      </StyledTableRow>
                     
                 ))

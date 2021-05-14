@@ -17,8 +17,9 @@ import { useSelector } from "react-redux";
 
 function App() {
   //Use isAuth for the global authentication state (or Redux)
-  const isAuth = useSelector( state=> state.isAuth)
-  const userMail = useSelector(state=>state.user.email)
+  const isAuth = useSelector( state=> state.root.isAuth)
+  const userMail = useSelector(state=>state.root.user.email)
+  const role = useSelector(state=> state.root.user.role)
   
   //******************************************************** */
   const history= useHistory()
@@ -47,7 +48,7 @@ function App() {
         <Route path="/my-reservations" component={Reservations} />
         <Route path="/my-favorites" component={Favorites} />
         {/* Path should be /theater/:id/dashboard in production  */}
-        <PrivateRoute authed={isAuth} path={`/theater/${userMail}/dashboard`} component={Dashboard}/> 
+        <PrivateRoute authed={isAuth}  path={`/theater/${userMail}/dashboard`} component={Dashboard}/> 
         
       </Switch>
     </>

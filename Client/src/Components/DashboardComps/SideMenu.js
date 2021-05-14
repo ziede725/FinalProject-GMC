@@ -58,7 +58,7 @@ span {
 `;
 
 const SideMenu =()=>{
-    const userMail = useSelector(state=>state.user.email)
+    const userMail = useSelector(state=>state.root.user.email)
     const  history = useHistory();
     const dispatch = useDispatch() ; 
     const routeChange=(redirect)=> {

@@ -1,5 +1,5 @@
 import { IconButton } from '@material-ui/core';
-import React from 'react' ; 
+import React, { useEffect } from 'react' ; 
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import styled from 'styled-components';
 
@@ -8,6 +8,7 @@ display: flex ;
 justify-content : space-around ; 
 align-items: center `
 const AddButton=({onClick ,layout})=>{
+   
 
     return(
          // Conditional rendering depending on props layout true or false 

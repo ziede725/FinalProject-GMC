@@ -1,11 +1,11 @@
  
-import {ADD_ROOM,EDIT_ROOM,DELETE_ROOM,GET_ROOMS} from '../Actions/actionTypes'
-
+import {GET_ROOMS ,GET_SCREENINGS,GET_RESERVATIONS,GET_SETTINGS} from '../Actions/actionTypes'
+// {roomName:"salle1",roomCapacity: 30}
 const initialState = {
-    rooms = [],
-    screenings=[],
-    reservations=[],
-    settings={},
+    room:[],
+    screenings:[],
+    reservations:[],
+    settings:{},
 
 }
 
@@ -13,13 +13,16 @@ const theaterReducer =(state=initialState,{type,payload})=>{
 
     switch(type)
     {
-        case ADD_ROOM:
-            return {...state, rooms:[...rooms,{roomName:payload.roomName,roomCapacity:payload.roomCapacity}]}
-        case DELETE_ROOM:
-
-        case EDIT_ROOM: 
 
         case GET_ROOMS:
+            return {...state, room: [...payload]}
+
+        case GET_SCREENINGS: 
+            return {...state , screenings: [...payload]}
+
+        case GET_RESERVATIONS: 
+
+        case GET_SETTINGS: 
 
         default : 
         return state ; 

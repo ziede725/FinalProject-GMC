@@ -2,7 +2,8 @@ const { create, findOneAndUpdate } = require("../models/Room");
 const Room = require("../models/Room");
 const Theater = require('../models/Theater')
 const ErrorHandler = require("../helpers/errorHandler");
-require('dotenv').config() ; 
+const mongoose= require('mongoose') ;
+const jwt = require('jsonwebtoken')
 
 //create room
 const createRoom = async (req, res, next) => {
@@ -11,17 +12,18 @@ const createRoom = async (req, res, next) => {
   try {
     //check if room already exist
     const decodedTheaterId = jwt.verify(token,process.env.JWT_SECRET)
+    let  objectId = mongoose.Types.ObjectId(decodedTheaterId.id);
     
-    const roomExist = await Room.findOne({$and:[{roomName},{TheaterId:decodedTheaterId}]}).exec();
+    const roomExist = await Room.findOne({$and:[{roomName},{Theater_id:objectId}]});
     if (roomExist)
       throw new ErrorHandler(
         404,
-        `Room ${roomName} already exist in Theater: ${roomExist.TheaterId}`
+        `Room ${roomName} already exist in Theater: ${roomExist.Theater_id}`
       );
     const room = await Room.create({
       roomName,
       roomCapacity,
-      TheaterId:decodedTheaterId,
+      Theater_id:objectId,
     });
     res.status(201).json({
       success: true,
@@ -35,8 +37,10 @@ const createRoom = async (req, res, next) => {
 //edit room
 const editRoom = async (req, res, next) => {
   const id = req.params.id;
+  
   try {
     //check if room already exist
+    
     const roomExist = await Room.findById(id);
     if (!roomExist)
       throw new ErrorHandler(
@@ -81,8 +85,13 @@ const removeRoom = async (req, res, next) => {
 //Get All Rooms
 
 const getAllRooms = async (req, res, next) => {
+ const {token} = req.query;
   try {
-    const data = await Room.find({});
+    console.log(token)
+    const decodedTheaterId = jwt.verify(token,process.env.JWT_SECRET)
+    let  objectId = mongoose.Types.ObjectId(decodedTheaterId.id);
+    
+    const data = await Room.find({Theater_id: objectId});
     res.status(200).json({
       success: true,
       data,

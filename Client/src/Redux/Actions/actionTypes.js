@@ -3,8 +3,11 @@ export const REGISTER_THEATER ="REGISTER_THEATER"
 export const REGISTER_ADMIN= "REGISTER_ADMIN"
 export const LOGIN_USER="LOGIN_USER" ; 
 export const LOGOUT ="LOGOUT" ; 
-export const LOAD_USER="LOAD_USER"
-export const ADD_ROOM="ADD_ROOM" ; 
+export const LOAD_USER="LOAD_USER"; 
 export const GET_ROOMS="GET_ROOMS" ; 
-export const DELETE_ROOM= "DELETE_ROOM" ; 
-export const EDIT_ROOM="EDIT_ROOM" ; 
+export const TOGGLE_MODAL_ROOM="TOGGLE_MODAL_ROOM" ; 
+export const TOGGLE_MODAL_SCREENING="TOGGLE_MODAL_ROOM" ;
+export const GET_SCREENINGS='GET_SCREENINGS'; 
+export const GET_SETTINGS='GET_SETTINGS' ; 
+export const GET_RESERVATIONS= 'GET_RESERVATIONS' ; 
+ 

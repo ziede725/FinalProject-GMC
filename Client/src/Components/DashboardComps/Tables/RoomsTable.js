@@ -1,4 +1,4 @@
-import React from 'react' ; 
+import React, { useEffect ,useState} from 'react' ; 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -9,6 +9,9 @@ import styled from 'styled-components';
 import TablePagination from '@material-ui/core/TablePagination';
 import DeleteButton from '../Buttons/DeleteButton'
 import EditButton from '../Buttons/EditButton'
+import {useDispatch, useSelector} from 'react-redux'
+import { deleteRoom, editRoom, getRooms } from '../../../Redux/Actions/theater.actions';
+import EditModal from '../Modals/editModal';
 
 const StyledDivFlexRow= styled.div`
 display: flex ; 
@@ -48,12 +51,19 @@ margin-left: 3%
 
 
 
-const RoomsTable=()=>{
+const RoomsTable=({rows})=>{
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-    const rows = useSelector(state=>state.theaterReducer.rooms)
+    // const [openEdit,setOpenEdit]= useState(false) ; 
+   
     const classes = useStyles() ; 
-
+    const dispatch = useDispatch() ; 
+    const handleClick=(id)=>{
+      dispatch(deleteRoom(id))
+      
+      
+    }
+  
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
       };
@@ -78,10 +88,15 @@ return (
                 { rows.slice(page*rowsPerPage, page*rowsPerPage + rowsPerPage).map((row)=>(
                     <StyledTableRow key={row.roomName}>
                     <TableCell align="left">{row.roomName}</TableCell>
-                    <TableCell align="left">{row.capacity}</TableCell>
+                    <TableCell align="left">{row.roomCapacity}</TableCell>
                     <StyledDivFlexRow>
-                    <DeleteButton onClick={()=>console.log('hello')}/>
-                    <EditButton/>
+                    <DeleteButton handleClick={()=> handleClick(row._id)}/>
+                    <EditButton 
+                    roomNamee={row.roomName}
+                    id={row._id}
+                    roomCapacityy={row.roomCapacity}
+                    />
+          
 
                     </StyledDivFlexRow>
                     

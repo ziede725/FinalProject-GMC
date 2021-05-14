@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 
 const Dash = ()=>{
-    const user = useSelector(state=> state.user)
+    const user = useSelector(state=> state.root.user)
     
     return (
         <>
