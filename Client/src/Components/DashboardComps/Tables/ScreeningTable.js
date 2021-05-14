@@ -42,13 +42,10 @@ const ScreeningTable=({rows,open,setOpen})=>{
     const classes = useStyles() ; 
    rows.map(row=> console.log(row.published))
 
-
-    const handleClick=(id)=>{
-      dispatch(deleteScreening(id))
-    }
-
-
-
+   const handleClick=(id)=>{
+    dispatch(deleteScreening(id))
+    
+  }
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
       };
@@ -84,7 +81,8 @@ return (
                     <TableCell padding='default' align="center" children={row.endTime}/>
                     <TableCell padding='default' align="center" children={row.discount}/>
                     <TableCell padding='default' align="center" children={row.published}/>
-                    <StyledDivFlexRow> <DeleteButton onClick={()=>handleClick(row._id)}/>
+                    <StyledDivFlexRow> 
+                    <DeleteButton handleClick={()=>handleClick(row._id)}/>
                     <EditButton id={rows._id}/>
                      
                     </StyledDivFlexRow>

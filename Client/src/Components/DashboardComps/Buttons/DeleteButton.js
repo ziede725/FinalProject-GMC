@@ -9,7 +9,7 @@ const DeleteButton=({handleClick})=>{
 
     return(
         <Wrapper>
-            <IconButton onClick={()=>handleClick()}>
+            <IconButton onClick={handleClick}>
                 <DeleteOutlineOutlinedIcon/>
             </IconButton>
         </Wrapper>

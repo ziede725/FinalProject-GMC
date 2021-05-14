@@ -91,6 +91,7 @@ const deleteScreening = async (req, res, next) => {
         400,
         `No screening with id : ${id} is found in the database`
       );
+      objectId= mongoose.Types.ObjectId(id)
 
     await Screening.findOneAndDelete({ _id: id }).exec();
     res.status(200).json({
