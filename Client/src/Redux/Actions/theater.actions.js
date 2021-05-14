@@ -56,7 +56,39 @@ export const getRooms = ()=> async(dispatch)=>{
 export const getScreenings= ()=> async(dispatch)=>{
     let token = localStorage.getItem("token") ; 
     try {
-        const payload = await axios.get("http://localhost:7200/api/screenings",{params:{token}})
+        const payload = await axios.get(`http://localhost:7200/api/screenings/theater/`,{params:{token}})
+        console.log(payload.data.screenings)
+        dispatch({type:GET_SCREENINGS , payload: payload.data.screenings})
+    } catch (error) {
+        console.log(error)
+        
+    }
+}
+
+export const deleteScreening= (id)=> async(dispatch)=>{
+    let token = localStorage.getItem("token") ; 
+    try {
+        const payload = await axios.delete(`http://localhost:7200/api/screenings/theater/${id}`,{params:{token}})
+        dispatch({type:GET_SCREENINGS , payload: payload.data.data})
+    } catch (error) {
+        console.log(error)
+        
+    }
+}
+export const addScreening= (movieName, date,startTime,endTime, discount,visibility,roomName,price)=> async(dispatch)=>{
+    let token = localStorage.getItem("token") ; 
+    try {
+        const payload = await axios.post(`http://localhost:7200/api/screenings/add/`,{token,movieName,date,startTime,endTime,discount,visibility,roomName,price})
+        dispatch({type:GET_SCREENINGS , payload: payload.data.data})
+    } catch (error) {
+        console.log(error)
+        
+    }
+}
+export const editScreening= (id)=> async(dispatch)=>{
+    let token = localStorage.getItem("token") ; 
+    try {
+        const payload = await axios.delete(`http://localhost:7200/api/screenings/theater/${id}`,{params:{token}})
         dispatch({type:GET_SCREENINGS , payload: payload.data.data})
     } catch (error) {
         console.log(error)

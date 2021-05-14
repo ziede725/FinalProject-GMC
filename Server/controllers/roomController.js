@@ -87,7 +87,7 @@ const removeRoom = async (req, res, next) => {
 const getAllRooms = async (req, res, next) => {
  const {token} = req.query;
   try {
-    console.log(token)
+   
     const decodedTheaterId = jwt.verify(token,process.env.JWT_SECRET)
     let  objectId = mongoose.Types.ObjectId(decodedTheaterId.id);
     

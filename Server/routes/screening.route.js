@@ -11,7 +11,10 @@ router.delete("/:id", screeningController.deleteScreening);
 
 //Get All Screenings
 router.get("/all", screeningController.getAllScreenings);
-//Get Screening by id
+
+//get Screening by Theater ID
+router.get("/theater/", screeningController.getScreenings);
+//Get Screening by theater ID 
 router.get("/:id", screeningController.getScreeningById);
 //Get screenings by movie
 router.get("/movie/:movieId", screeningController.getScreeningsByMovie);

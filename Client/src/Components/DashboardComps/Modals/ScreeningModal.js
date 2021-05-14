@@ -6,9 +6,21 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {RadioGroup,Radio,FormControlLabel,FormLabel} from '@material-ui/core'
+import {addScreening} from '../../../Redux/Actions/theater.actions'
+import { useDispatch } from 'react-redux';
 
 export default function ScreeningModal({open,setOpen}) {
-    const [value,setValue]= React.useState('Private'); 
+    const [visibility,setVisibility]= React.useState('Private'); 
+    const [movieName,setMovieName]= React.useState('') ; 
+    const [date,setDate]= React.useState('') ; 
+    const [startTime,setStartTime]= React.useState('') ; 
+    const [endTime,setEndTime]= React.useState('') ; 
+    const [discount,setDiscount]= React.useState('') ; 
+    const [roomName,setRoomName] = React.useState('') ; 
+    const [price,setPrice]= React.useState(''); 
+    const dispatch = useDispatch() ; 
+   
+    
   useEffect(()=>{
     setOpen(open)
   },[open,setOpen])
@@ -17,10 +29,7 @@ export default function ScreeningModal({open,setOpen}) {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleChange=(event)=>{
-    setValue(event.target.value);
-
-  }
+  
 
   return (
     <div>
@@ -32,8 +41,9 @@ export default function ScreeningModal({open,setOpen}) {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="movieName"
             label="Movie Name"
+            onChange={(e)=>setMovieName(e.target.value)}
             type="search"
             fullWidth
           />
@@ -41,27 +51,56 @@ export default function ScreeningModal({open,setOpen}) {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="date"
             type="date"
+            onChange={(e)=>setDate(e.target.value)}
             fullWidth
           />
             <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="startTime"
             type="time"
+            onChange={(e)=>setStartTime(e.target.value)}
             fullWidth
           />
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="endTime"
+            onChange={(e)=>setEndTime(e.target.value)}
             type="time"
+            fullWidth
+          />
+            <TextField
+            autoFocus
+            margin="dense"
+            id="roomName"
+            onChange={(e)=>setRoomName(e.target.value)}
+            type="text"
+            fullWidth
+          />
+             <TextField
+            autoFocus
+            margin="dense"
+            id="price"
+            placeholder="set price"
+            onChange={(e)=>setPrice(e.target.value)}
+            type="text"
+            fullWidth
+          />
+           <TextField
+            autoFocus
+            margin="dense"
+            placeholder='set Discount'
+            id="discount"
+            onChange={(e)=>setDiscount(e.target.value)}
+            type="number"
             fullWidth
           />
         
     <FormLabel component="legend">Visibility</FormLabel>
-    <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+    <RadioGroup aria-label="gender" name="gender1" value={visibility} onChange={(e)=>setVisibility(e.target.value)}>
         <FormControlLabel value="Private" control={<Radio />} label="Private" />
         <FormControlLabel value="Public" control={<Radio />} label="Public" />
     </RadioGroup>
@@ -71,7 +110,10 @@ export default function ScreeningModal({open,setOpen}) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={()=> {
+            dispatch(addScreening(movieName, date,startTime,endTime, discount,visibility,roomName,price))
+            handleClose()
+          }} color="primary">
             Save
           </Button>
         </DialogActions>

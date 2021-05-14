@@ -1,29 +1,45 @@
 const Screening = require("../models/Screening");
 const ErrorHandler = require("../helpers/errorHandler");
-const { findById, find } = require("../models/Screening");
+const mongoose = require('mongoose')
+const jwt=require('jsonwebtoken') ; 
+const Room = require("../models/Room");
+require('dotenv').config() ; 
 //Create Screening
 const createScreening = async (req, res, next) => {
-  const { date, startTime, endTime, price, movieId, roomId } = req.body;
-
+  const { token ,movieName,date, startTime, endTime, discount,visibility,roomName,price} = req.body;
+  // Movie ID and room ID should be added later ; 
+console.log(req.body)
   try {
     //check if screening already exists in the same room same date same time
-    const screeningExsit = await Screening.findOne({
-      date,
-      startTime,
-      roomId,
-    }).exec();
-    if (screeningExsit)
-      throw new ErrorHandler(
-        400,
-        `A screening already exists in room ${roomId}, on ${date}, at ${startTime}`
-      );
+    // const screeningExsit = await Screening.findOne({
+    //   date,
+    //   startTime,
+    //   roomId,
+    // }).exec();
+    // if (screeningExsit)
+    //   throw new ErrorHandler(
+    //     400,
+    //     `A screening already exists in room ${roomId}, on ${date}, at ${startTime}`
+    //   );
+  
+    const decodedTheaterId = jwt.verify(token,process.env.JWT_SECRET)
+   
+    
+    let  objectId = mongoose.Types.ObjectId(decodedTheaterId.id);
+   
+    const room = await Room.findOne({$and:[{roomName},{Theater_id:objectId}]}); 
+     
     const screening = await Screening.create({
+      movieName,
       date,
       startTime,
       endTime,
+      discount,
+      published:visibility,
+      roomId:room._id,
       price,
-      movieId,
-      roomId,
+      theaterId:objectId
+
     });
     res.status(201).json({
       success: true,
@@ -114,8 +130,11 @@ const publishScreening = async (req, res, next) => {
 
 //Get All Screenings
 const getAllScreenings = async (req, res, next) => {
+
   try {
-    const screenings = await Screening.find({}).exec();
+    const decodedTheaterId = jwt.verify(token,process.env.JWT_SECRET)
+    let  objectId = Mongoose.Types.ObjectId(decodedTheaterId.id);
+    const screenings = await Screening.find({theaterId:objectId}).exec();
     res.status(200).json({
       success: true,
       screenings,
@@ -124,12 +143,36 @@ const getAllScreenings = async (req, res, next) => {
     next(error);
   }
 };
+
+
+//GET SCREENING BY THEATER ID ; 
+
+const getScreenings=async(req,res,next)=>{
+  const {token} = req.query;
+  try {
+    const decodedTheaterId = jwt.verify(token,process.env.JWT_SECRET)
+   
+    let objectId= mongoose.Types.ObjectId(decodedTheaterId.id)
+    console.log(objectId)
+   
+    const screenings = await Screening.find({theaterId:objectId}).exec();
+    console.log(screenings)
+    res.status(200).json({
+      success: true , 
+      screenings
+    })
+    
+  } catch (error) {
+    next(error)
+  }
+}
 //Get Screening by id
 const getScreeningById = async (req, res, next) => {
   const id = req.params.id;
 
   try {
     //check if screening exist
+   
     const screeningExist = await Screening.findById(id);
     if (!screeningExist)
       throw new ErrorHandler(
@@ -172,4 +215,5 @@ module.exports = {
   getAllScreenings,
   getScreeningById,
   getScreeningsByMovie,
+  getScreenings
 };

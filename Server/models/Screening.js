@@ -5,29 +5,34 @@ const screeningSchema = new mongoose.Schema(
     //Capacity ??? ref ??
     date: { type: Date, required: [true, "Screening must have a date"] },
     startTime: {
-      type: Date,
+      type: String,
       required: [true, "Screening must have a start time"],
     },
     endTime: {
-      type: Date,
+      type: String,
       required: [true, "Screening must have an end time"],
     },
-    published: { type: Boolean, default: false, required: true },
+    published: { type: String, required: true },
     full: { type: Boolean, default: false, required: true },
     price: {
-      type: Number,
+      type: String,
       required: [true, "Screening must have a price"],
     },
 
     movieId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Movie",
-      required: true,
+      // required: true,
     },
     roomId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Room",
-      required: true,
+      // required: true,
+    },
+    theaterId:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Theater",
+     
     },
     discountId: {
       type: mongoose.Schema.Types.ObjectId,

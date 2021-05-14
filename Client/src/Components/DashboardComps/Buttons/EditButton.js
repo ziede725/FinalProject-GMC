@@ -10,9 +10,7 @@ const [open,setOpen]= useState(false)
 
 const handleModal=()=>{
     setOpen(!open)
-}
-
-   
+} 
     return(
         <Wrapper>
               <EditModal roomNamee={roomNamee} roomCapacityy={roomCapacityy} open={open} handleModal={handleModal} id={id}  />
