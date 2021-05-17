@@ -10,11 +10,16 @@ import {useHistory} from 'react-router-dom'
 import {logOut} from '../../Redux/Actions/actions'
 import {useDispatch, useSelector} from 'react-redux'
 
-
+const Span = styled.span`
+width:80% ; 
+padding: 0 ; 
+margin: 0;
+`;
 const LeftSection = styled.div`
 height:100vh ; 
 background-color: #010916 ; 
-width: 20% ; 
+width: 20%; 
+min-width: 230px ; 
 display: flex ; 
 flex-direction: column ; 
 opacity: 0.95;
@@ -25,6 +30,7 @@ justify-content: space-between ;
  
 export const Wrapper=styled.div`
 height:60%;
+min-width:210px ;  
 display: flex ; 
 flex-direction: column ;
 justify-content: space-between `
@@ -75,22 +81,23 @@ return(
             // we may Call axios here to get Data :) 
             // should be with redux to pass data of reservations to table ?
             }}>
-            <span>Reservations</span>
+            <Span>Reservations</Span>
             <EventSeatOutlinedIcon/>
             </DashButton>
 
             <DashButton onClick={()=>{routeChange('rooms')}}>
-            <span>Rooms</span>
-            <MeetingRoomOutlinedIcon/>
+            <Span>Rooms</Span>
+            <Span><MeetingRoomOutlinedIcon/></Span>
+            
             </DashButton>
 
             <DashButton onClick={()=>routeChange('screenings')}>
-            <span>Screenings</span>
+            <Span>Screenings</Span>
             <VideocamOutlinedIcon/>
             </DashButton>
 
             <DashButton onClick={()=>routeChange('movie')}>
-            <span>Add Movie</span>
+            <Span>Add Movie</Span>
             <MovieOutlinedIcon/>
             </DashButton>
 

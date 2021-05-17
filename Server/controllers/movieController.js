@@ -1,6 +1,7 @@
 const ErrorHandler= require('../helpers/errorHandler') ; 
 const Movie = require('../models/Movie') ; 
 const Genre = require('../models/Genre') ; 
+const mongoose = require("mongoose")
 const { response } = require('express');
 var _ = require('lodash');
 
@@ -50,16 +51,31 @@ const getMovieByName =async (req,res,next)=>{
     }
 }
 const createMovie = async(req,res,next)=>{
-    const body =req.body
+    const {title,runTime,Language,Overview,date,distributor,genres,trailerUrl,img} =req.body
+   
     try{
-        const newMovie = await Movie.create(body) ;
-        const movieGenres = newMovie.movieInfos.genres ; 
+        
+        const filterGenres = Object.entries(genres).filter(el=> el[1] === true ) ; 
+        
+        // const doc = await Genre.findOne({name:"Documentary"}) ; 
+        // console.log(doc)
+        const genresID= await Promise.all(filterGenres.map( async el => await Genre.findOne({name:el[0]}).then(res=>res)))
+       
+        const id=genresID.map(el=>el._id)
+
+        // genresID.map(el=> {mongoose.Types.ObjectId(el)
+        // console.log(mongoose.Types.ObjectId(el))})
+
+        const body = {title,runTime,Language,Overview,date,genres:id,distributor,trailerUrl,img}
+        const newMovie =  await Movie.create(body) ;
+       
         if (!newMovie){
             throw new ErrorHandler(500 , 'Movie has not been created ')
         } 
-        movieGenres.map(async genre=>{
+        
+        id.map( async el=>{
            try{
-            const sweet = await Genre.findByIdAndUpdate(genre,{$addToSet : {movieId:newMovie._id}})
+                 await Genre.findByIdAndUpdate(el,{$addToSet : {movieId:newMovie._id}})
            }
            
             catch(err){
@@ -92,7 +108,7 @@ const editMovie = async(req,res,next)=>{
         if (!editedMovie){
             throw new ErrorHandler(404,'There is no such movie in the database ')
         }
-        console.log(movie.movieInfos.genres) ; 
+       
 
        const ancientGenres = movie.movieInfos.genres ; 
        const newGenres = editedMovie.movieInfos.genres ; 

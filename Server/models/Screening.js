@@ -10,9 +10,9 @@ const screeningSchema = new mongoose.Schema(
     },
     endTime: {
       type: String,
-      required: [true, "Screening must have an end time"],
+      required: [true, "Screening must have an end time"],  
     },
-    published: { type: String, required: true },
+    visibility: { type: String, required: true,default: "Private" },
     full: { type: Boolean, default: false, required: true },
     price: {
       type: String,

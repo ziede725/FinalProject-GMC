@@ -3,17 +3,19 @@ import React, { useState } from 'react' ;
 import {Wrapper} from '../SideMenu'
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import EditModal from '../Modals/editModal'
-
+import ScreeningModal from '../Modals/ScreeningModal'
 
 const EditButton=({ roomNamee,id,roomCapacityy})=>{
-const [open,setOpen]= useState(false)
+const [open,setOpen]= useState(false) ; 
 
 const handleModal=()=>{
     setOpen(!open)
 } 
+   
     return(
         <Wrapper>
               <EditModal roomNamee={roomNamee} roomCapacityy={roomCapacityy} open={open} handleModal={handleModal} id={id}  />
+              
             <IconButton onClick={()=>handleModal()}>
                 <EditOutlinedIcon/>
             </IconButton>

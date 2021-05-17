@@ -10,4 +10,6 @@ export const TOGGLE_MODAL_SCREENING="TOGGLE_MODAL_ROOM" ;
 export const GET_SCREENINGS='GET_SCREENINGS'; 
 export const GET_SETTINGS='GET_SETTINGS' ; 
 export const GET_RESERVATIONS= 'GET_RESERVATIONS' ; 
+export const ADD_MOVIE = "ADD_MOVIE" ; 
+export const GET_MOVIES = "GET_MOVIES"
  

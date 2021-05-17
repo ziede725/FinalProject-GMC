@@ -7,7 +7,7 @@ router.patch("/:id/edit", screeningController.editScreening);
 //Publish Screening
 router.patch("/:id/publish", screeningController.publishScreening);
 //Remove Screening
-router.delete("/:id", screeningController.deleteScreening);
+router.delete("/:id", screeningController.deleteScreening); 
 
 //Get All Screenings
 router.get("/all", screeningController.getAllScreenings);

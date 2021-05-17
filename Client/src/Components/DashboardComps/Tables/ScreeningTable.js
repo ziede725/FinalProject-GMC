@@ -11,6 +11,7 @@ import DeleteButton from '../Buttons/DeleteButton'
 import EditButton from '../Buttons/EditButton'
 import {useDispatch, useSelector} from 'react-redux'
 import {deleteScreening} from '../../../Redux/Actions/theater.actions'
+import EditScreeningButton from '../Buttons/editScreeningButton';
 
 const StyledTableRow = withStyles((theme) => ({
     root: {
@@ -80,10 +81,11 @@ return (
                     <TableCell padding='default' align="center" children={row.startTime}/>
                     <TableCell padding='default' align="center" children={row.endTime}/>
                     <TableCell padding='default' align="center" children={row.discount}/>
-                    <TableCell padding='default' align="center" children={row.published}/>
+                    <TableCell padding='default' align="center" children={row.visibility}/>
                     <StyledDivFlexRow> 
                     <DeleteButton handleClick={()=>handleClick(row._id)}/>
-                    <EditButton id={rows._id}/>
+                    <EditScreeningButton id={row._id} 
+                    published={row.visibility}/>
                      
                     </StyledDivFlexRow>
                    

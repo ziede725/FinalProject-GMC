@@ -21,8 +21,10 @@ const theaterReducer =(state=initialState,{type,payload})=>{
             return {...state , screenings: [...payload]}
 
         case GET_RESERVATIONS: 
+        return {...state , reservations:[...payload]}
 
         case GET_SETTINGS: 
+        return {...state, settings:[...payload]}
 
         default : 
         return state ; 

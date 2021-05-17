@@ -12,7 +12,9 @@ router.get('/:id',getMoviesbyId);
 router.get('/',getMovieByName); 
 // /movie/genre
 router.get('/whatever/genre',getMoviesByGenre)
-router.post('/createMovie',createMovie); 
+
+
+router.post("/create",createMovie)
 router.patch('/:id',editMovie) ; 
 router.delete('/:id',deleteMovie) ; 
 

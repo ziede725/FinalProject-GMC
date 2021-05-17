@@ -6,10 +6,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {RadioGroup,Radio,FormControlLabel,FormLabel} from '@material-ui/core'
-import {addScreening} from '../../../Redux/Actions/theater.actions'
+import { editScreening} from '../../../Redux/Actions/theater.actions'
 import { useDispatch } from 'react-redux';
 
-export default function ScreeningModal({open,setOpen}) {
+export default function EditScreeningModal({id,open,setOpen}) {
     const [visibility,setVisibility]= React.useState('Private'); 
     const [movieName,setMovieName]= React.useState('') ; 
     const [date,setDate]= React.useState('') ; 
@@ -19,7 +19,8 @@ export default function ScreeningModal({open,setOpen}) {
     const [roomName,setRoomName] = React.useState('') ; 
     const [price,setPrice]= React.useState(''); 
     const dispatch = useDispatch() ; 
-   
+    
+    console.log(visibility)
     
   useEffect(()=>{
     setOpen(open)
@@ -35,7 +36,7 @@ export default function ScreeningModal({open,setOpen}) {
     <div>
       
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Add new screening</DialogTitle>
+        <DialogTitle id="form-dialog-title">Edit Screening</DialogTitle>
         <DialogContent>
           
           <TextField
@@ -111,10 +112,11 @@ export default function ScreeningModal({open,setOpen}) {
             Cancel
           </Button>
           <Button onClick={()=> {
-            dispatch(addScreening(movieName, date,startTime,endTime, discount,visibility,roomName,price))
+            dispatch(editScreening(id,movieName, date,startTime,endTime, discount,visibility,roomName,price))
+            console.log(visibility)
             handleClose()
           }} color="primary">
-            Save
+            Save changes
           </Button>
         </DialogActions>
       </Dialog>

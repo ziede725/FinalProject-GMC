@@ -54,10 +54,13 @@ console.log(req.body)
 //Edit Screening
 const editScreening = async (req, res, next) => {
   const id = req.params.id;
+  console.log(req.body)
 
   try {
     //check if screening exist
+    console.log(id)
     const screeningExist = await Screening.findById(id);
+    console.log(id)
     if (!screeningExist)
       throw new ErrorHandler(
         404,

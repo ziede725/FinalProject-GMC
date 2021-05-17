@@ -5,6 +5,9 @@ import { Formik, Form } from "formik";
 import CheckboxesGroup from '../../Components/Form /Checkbox'
 import * as Yup from 'yup'
 import styled from 'styled-components'
+import {useState} from 'react'
+import { addMovie } from '../../Redux/Actions/movie.actions';
+import { useDispatch } from 'react-redux';
 
 const inputSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
@@ -30,7 +33,7 @@ const styles =makeStyles({
         color: '#a7aab0', 
         width: '25%'  ,
         paddingLeft: '4px',
-        margin: '10px'
+        margin: '10px', 
     },
     label:{
         textTransform: 'capitalize'
@@ -114,7 +117,52 @@ const useStyles= makeStyles((theme)=>(
 ))
 const WrapperMoviePage=styled.div`
 height: 100%`
+const Span = styled.span`
+display: flex , 
+justify-content: center `
+const StyledButton = styled.button`
+position : relative ;
+width:20% ; 
+margin-left: 35% ;  
+border: 0px;
+border-radius: 4px ; 
+padding: 8px ; 
+display: flex ; 
+justify-content: center ; 
+
+&: hover{
+    background-color: #FBC740
+
+    ; 
+    cursor: pointer ; 
+}
+
+
+`
 const MoviePage=()=>{
+    const dispatch = useDispatch() ; 
+    const [title,setTitle ] = useState('') ; 
+    const [runTime,setRunTime ] = useState('') ; 
+    const [Language,setLanguage ] = useState('') ; 
+    const [Overview,setOverview ] = useState('') ; 
+    const [date,setDate ] = useState('') ; 
+    const [distributor,setDistributor ] = useState('') ; 
+    // const [genres,setGenres ] = useState('') ; 
+    const [trailerUrl,setTrailerUrl ] = useState('') ; 
+    const [img,setImg ] = useState('') ; 
+    const [state, setState] = React.useState({Thriller:false, Action:false, Drama:false,Historical:false,Comedy:false,Fantasy:false,
+    Romance:false,Documentary:false, ScienceFiction:false , Adventure:false , CrimeAndMystery:false , ScienceFiction:false , Western:false,Horror:false,
+    MusicalFilm:false,animation:false
+    
+    });
+    const handleChange = (event) => {
+        setState({ ...state, [event.target.name]: event.target.checked });
+        
+      };
+      const { Thriller, Action, Drama , Historical,Comedy,Fantasy,
+        Adventure,CrimeAndMystery,MusicalFilm,animation,Romance,Horror,Documentary,ScienceFiction,Western } = state;
+    
+
    
 const classe=styles() ;
 const classes =useStyles() ; 
@@ -138,14 +186,14 @@ const classes =useStyles() ;
             
             <Form>
                 <div className={classes.flexRow}>    
-        <Input placeholder='Original title' className={classe.root}></Input>
-        <Input placeholder='Run time ' className={classe.root}></Input>
-        <Input placeholder='Language' className={classe.root}></Input>
-        <Input placeholder='Movie Overview'className={classe.root}></Input>
-        <Input placeholder='Release Date' className={classe.root} type='date' />
-        <Input placeholder='Distributor' className={classe.root}/>
+        <Input placeholder='Original title' className={classe.root} onChange={(e)=>setTitle(e.target.value)}></Input>
+        <Input placeholder='Run time ' className={classe.root} onChange={(e)=>setRunTime(e.target.value)}></Input>
+        <Input placeholder='Language' className={classe.root} onChange={(e)=>setLanguage(e.target.value)}></Input>
+        <Input placeholder='Movie Overview'className={classe.root} onChange={(e)=>setOverview(e.target.value)}></Input>
+        <Input placeholder='Release Date' className={classe.root}  onChange={(e)=>setDate(e.target.value)} type='date' />
+        <Input placeholder='Distributor' className={classe.root}  onChange={(e)=>setDistributor(e.target.value)}/>
         <div>
-        <CheckboxesGroup className={classes.check}/>
+        <CheckboxesGroup className={classes.check} state={state}  handleChange={handleChange} />
         </div>
         </div>
             </Form>  
@@ -165,9 +213,11 @@ const classes =useStyles() ;
              <Input type='text' placeholder='Trailer URL' className={classes.inputClass} ></Input>
              </div>
          </div>
+ 
          </div>
+         <StyledButton onClick={()=>dispatch(addMovie(title,runTime,Language, Overview ,date, distributor ,state ,trailerUrl, img))}>ADD MOVIE</StyledButton>
          </StyledPaper>
-        
+         
         </WrapperMoviePage>
        
 
