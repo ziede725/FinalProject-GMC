@@ -7,6 +7,8 @@ import { Redirect } from "react-router-dom";
 import {makeStyles} from "@material-ui/core"
 import { GoogleLogin } from "react-google-login";
 import {Typography} from '@material-ui/core'
+import { SubmitButton } from "../../Components/DashboardComps/Buttons/submitButton";
+import styled from "styled-components";
 
 const SignupSchema = Yup.object().shape({
   userName: Yup.string().min(4, "tooShort").max(50).required("Required"),
@@ -31,7 +33,10 @@ const useStyles= makeStyles((theme)=>({
 }
 })
 )
-
+const Wrapper= styled.div`
+display: flex ; 
+flex-direction: column ; 
+align-items: center;`
 
 const RegistrationForm = () => {
   const [loggedIn , setLoggedIn] = useState(false) ; 
@@ -76,9 +81,8 @@ const RegistrationForm = () => {
       >
         {({ values, errors, isSubmitting }) => (
           <Form>
-            <Container>
-            <Container>
-            <Typography variant='h4'>Sign in</Typography>
+           <Wrapper>
+            <Typography variant='h4'>Register</Typography>
               <Field className={classes.fieldClass}
                 helperText={errors.email}
                 error={errors.email}
@@ -124,13 +128,12 @@ const RegistrationForm = () => {
                 as={TextField}
               />
              </div>
-             </Container>
-        <Container>
-        <Button className={classes.fieldClass} type="submit" disabled={isSubmitting}>
+             
+       
+        <SubmitButton type="submit" disabled={isSubmitting}>
               Create Account
-            </Button>
-        </Container>
-           <Container>
+            </SubmitButton>
+        
            <GoogleLogin
               theme='dark'
               clientId={process.env.REACT_APP_CLIENT_ID}
@@ -140,9 +143,9 @@ const RegistrationForm = () => {
               cookiePolicy={"single_host_origin"}
               disabled={false}
             />
-           </Container>
-          
-            </Container>
+         
+          </Wrapper>
+           
          
           </Form>
         )}

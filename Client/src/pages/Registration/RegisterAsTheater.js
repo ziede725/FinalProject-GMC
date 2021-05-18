@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Formik, Field, Form } from "formik";
-import { Button, TextField } from "@material-ui/core";
+import { Button, Select, TextField ,MenuItem} from "@material-ui/core";
 import * as Yup from "yup";
 import { Redirect,useHistory } from "react-router-dom";
 import {makeStyles} from "@material-ui/core"
@@ -8,6 +8,9 @@ import { GoogleLogin } from "react-google-login";
 import {Typography,Container} from '@material-ui/core'
 import { registerTheater } from "../../Redux/Actions/actions";
 import { useDispatch } from "react-redux";
+import { SubmitButton } from "../../Components/DashboardComps/Buttons/submitButton";
+import styled from "styled-components";
+
 
 const SignupSchema = Yup.object().shape({
   userName: Yup.string().min(4, "tooShort").max(50).required("Required"),
@@ -17,6 +20,7 @@ const SignupSchema = Yup.object().shape({
     .min(6, "Password must contain more than 6 caracters !")
     .max(15)
     .required("Required"),
+  location:Yup.string().required("enter valid location")
 });
 const useStyles= makeStyles((theme)=>({
   fieldClass:{
@@ -25,7 +29,10 @@ const useStyles= makeStyles((theme)=>({
 }
 })
 )
-
+const Wrapper= styled.div`
+display: flex ; 
+flex-direction: column ; 
+align-items: center;`
 
 const RegistrationFormTheater = () => {
   const classes = useStyles() ; 
@@ -44,20 +51,22 @@ const RegistrationFormTheater = () => {
           userName: "",
           email: "",
           password: "",
+         location:""
         }}
         validationSchema={SignupSchema}
         onSubmit={(user)=>{
         
-         
+         console.log(user)
           dispatch(registerTheater(user,history))
         }
         }
       >
+       
         {({ values, errors, isSubmitting,handleChange }) => (
+          
           <Form>
-            <Container>
-            <Container>
-            <Typography variant='h4'>MovieTheater Sign in</Typography>
+            <Wrapper>
+            <h2> Register as Theater</h2>
             <Field className={classes.fieldClass}
                 helperText={errors.theaterName}
                 error={errors.theaterName}
@@ -95,19 +104,26 @@ const RegistrationFormTheater = () => {
                 placeholder="userName"
                 type="input"
                 name="userName"
-                
-                
                 as={TextField}
               />
+              <Select 
+          select
+          labelId="Location"
+          name="location"
+          value={values.location}
+          onChange={handleChange}
+         >
+          <MenuItem value="sfax">Sfax</MenuItem>
+          <MenuItem value="tunis">Tunis</MenuItem>
+          <MenuItem value="sousse">Sousse</MenuItem>
+        </Select>
         
             
-             </Container>
-        <Container>
-        <Button className={classes.fieldClass} type="submit" >
+          
+        <SubmitButton type="submit" >
               Create Account
-            </Button>
-        </Container>
-           <Container>
+            </SubmitButton>
+       
            <GoogleLogin
               theme='dark'
               clientId={process.env.REACT_APP_CLIENT_ID}
@@ -117,9 +133,9 @@ const RegistrationFormTheater = () => {
               cookiePolicy={"single_host_origin"}
               disabled={false}
             />
-           </Container>
+       
           
-            </Container>
+       </Wrapper>
          
           </Form>
         )}

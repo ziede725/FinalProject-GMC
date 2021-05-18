@@ -1,19 +1,20 @@
 import axios from 'axios';
-import {LOGIN_USER,LOGOUT, REGISTER_THEATER,LOAD_USER} from './actionTypes' ; 
+import {LOGIN_USER,LOGOUT, REGISTER_THEATER,LOAD_USER, GET_ERROR} from './actionTypes' ; 
 
 
 export const loginUser = (user,history)=>async (dispatch) => {
 
     try {
         let result = await axios.post("http://localhost:7200/api/login",user) ;
-        console.log(result.data) 
+       
         dispatch({type: LOGIN_USER , payload: {...result.data,history}})
          
     }
     catch(error)
     {
         // dispatch({type : FAIL_USER , payload: error.response.data.errors})
-        console.log(error) ; 
+       
+      dispatch({type:GET_ERROR, payload: error.response.data.error})
     }
 } 
 export const logOut = (history)=> async (dispatch)=>{
@@ -29,6 +30,7 @@ export const logOut = (history)=> async (dispatch)=>{
 
 export const registerTheater=(user,history) => async (dispatch)=>{
 
+    
     try {
        
         let response = await axios.post("http://localhost:7200/api/theaters/register",user)

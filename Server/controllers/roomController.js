@@ -12,18 +12,26 @@ const createRoom = async (req, res, next) => {
   try {
     //check if room already exist
     const decodedTheaterId = jwt.verify(token,process.env.JWT_SECRET)
+   
+    
     let  objectId = mongoose.Types.ObjectId(decodedTheaterId.id);
     
-    const roomExist = await Room.findOne({$and:[{roomName},{Theater_id:objectId}]});
+    const theater = await Theater.findById(objectId)
+   
+    
+    const roomExist = await Room.findOne({$and:[{roomName:roomName},{Theater_id:theater._id}]});
+    console.log(roomExist) ; 
     if (roomExist)
       throw new ErrorHandler(
         404,
-        `Room ${roomName} already exist in Theater: ${roomExist.Theater_id}`
+        `Room ${roomName} already exist in Theater `
       );
+      
     const room = await Room.create({
       roomName,
       roomCapacity,
       Theater_id:objectId,
+      location : theater.city
     });
     res.status(201).json({
       success: true,

@@ -7,9 +7,10 @@ import { GoogleLogin } from "react-google-login";
 import {Container} from '@material-ui/core'
 import {Link} from '@material-ui/core'
 import {Redirect} from 'react-router-dom' ; 
-import {useDispatch} from 'react-redux' ; 
+import {useDispatch, useSelector} from 'react-redux' ; 
 import  {loginUser}  from "../../Redux/Actions/actions";
 import {useHistory} from 'react-router-dom'
+import  styled from 'styled-components'
 require("dotenv").config();
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -45,9 +46,37 @@ const useStyles= makeStyles((theme)=>({
  
 })
 )
+export const SubmitButton = styled.button`
+cursor: pointer ; 
+margin: 10px ;
+margin-bottom: 20px ;  
+color : white ; 
+padding: 5px ; 
+width : 60% ; 
+background-color: #037bfc; 
+border-radius: 20px ;  
+opacity: 0.9 ; 
+transition: 0.3s ; 
+text-align: center; 
+font-size: 16px ; 
+color: black ; 
+font-family:system-ui ; 
+color: white ; 
+border:0px; 
+
+
+&: hover{
+  background-color: #0373fc ; 
+  opacity: 1; 
+  color: white ; 
+}
+`
+export const Error = styled.h6`
+color: red ; `
 
 const LogInForm = (props) => {
   // const [loggedIn , setLoggedIn] = useState(false) ; 
+  const err= useSelector(state=>state.root.error)
   let history  =useHistory() ; 
   const dispatch = useDispatch() ; 
   const classes=useStyles() ; 
@@ -76,6 +105,8 @@ const LogInForm = (props) => {
 
      
       <Typography className={classes.typographyStyle} variant='h4'>Sign In </Typography>
+      {err && <Error>{err}</Error>}
+
 
       <Container>
       <Formik
@@ -115,9 +146,9 @@ const LogInForm = (props) => {
             </div>
             <Link className={classes.linkStyle} href='#' onClick={()=>console.log('m clicked')}>Forgot Password ?</Link>
             
-            <Button type="submit" disabled={isSubmitting}>
+            <SubmitButton type="submit" >
               Submit
-            </Button>
+            </SubmitButton>
             <GoogleLogin
               theme='dark'
               // render={renderProps => (

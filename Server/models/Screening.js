@@ -38,6 +38,7 @@ const screeningSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Discount",
     },
+    location: {type: String , required: true }
   },
   { timestamps: true }
 );

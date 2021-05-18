@@ -4,7 +4,7 @@ const {
   registerTheater,
   loginTheater,
   forgotPasswordTheater,
-  logoutTheater,
+  // getTheaterByLocation
 } = require("../utils/auth");
 
 const theaterController = require("../controllers/theaterController");
@@ -18,6 +18,8 @@ router.post("/forgot-password", forgotPasswordTheater);
 
 //Theater routes
 router.get("/", theaterController.getAllTheaters);
+//GET THEATER BY LOCATION 
+// router.get("/location",theaterController.getTheaterByLocation)
 router.get("/:id", theaterController.getTheaterById);
 router.patch("/:id/edit", theaterController.editTheater);
 router.patch("/:id/reset-password", theaterController.resetPassword);

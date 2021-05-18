@@ -2,6 +2,7 @@ const Screening = require("../models/Screening");
 const ErrorHandler = require("../helpers/errorHandler");
 const mongoose = require('mongoose')
 const jwt=require('jsonwebtoken') ; 
+const Theater= require("../models/Theater")
 const Room = require("../models/Room");
 require('dotenv').config() ; 
 //Create Screening
@@ -27,6 +28,7 @@ console.log(req.body)
     
     let  objectId = mongoose.Types.ObjectId(decodedTheaterId.id);
    
+   
     const room = await Room.findOne({$and:[{roomName},{Theater_id:objectId}]}); 
      
     const screening = await Screening.create({
@@ -38,7 +40,8 @@ console.log(req.body)
       published:visibility,
       roomId:room._id,
       price,
-      theaterId:objectId
+      theaterId:objectId,
+      location: room.location 
 
     });
     res.status(201).json({

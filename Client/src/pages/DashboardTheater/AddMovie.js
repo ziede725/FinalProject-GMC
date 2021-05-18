@@ -204,13 +204,13 @@ const classes =useStyles() ;
          <div className={classes.flexRow2}>
          <div className={classes.flexColumn}>
         <Typography variant='h6' className={classes.typographyClass}>
-            Upload Movie Image Here 
+            Enter poster URL  
         </Typography>
-         <Input placeholder='Choose Movie' className={classes.inputClass} type='file'></Input>
+         <Input placeholder='Choose Movie poster' className={classes.inputClass} type='text'onChange={(e)=>setImg(e.target.value)}></Input>
          </div>
              <div className={classes.flexColumn}>
              <Typography variant='h6' className={classes.typographyClass}>Enter Trailer URL</Typography>
-             <Input type='text' placeholder='Trailer URL' className={classes.inputClass} ></Input>
+             <Input type='text' placeholder='Trailer URL' className={classes.inputClass} onChange={e=>setTrailerUrl(e.target.value)} ></Input>
              </div>
          </div>
  

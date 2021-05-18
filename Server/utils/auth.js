@@ -168,7 +168,7 @@ exports.logoutCustomer = (req, res, next) => {
 
 //Theater Authentication
 exports.registerTheater = async (req, res, next) => {
-  const { theaterName, userName, email, password, phoneNumber } = req.body;
+  const { theaterName, userName, email, password, location } = req.body;
   
   try {
     const theater = await Theater.create({
@@ -176,7 +176,7 @@ exports.registerTheater = async (req, res, next) => {
       userName,
       email,
       password,
-      phoneNumber,
+      city:location,
     });
     sendToken(theater, 201, res);
   } catch (error) {

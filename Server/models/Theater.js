@@ -34,7 +34,7 @@ const theaterSchema = new mongoose.Schema({
   role:{type: String ,default:'theater'},
   adress: { type: String },
   town: { type: String },
-  city: { type: String },
+  city: { type: String , required: true },
   zipcode: { type: Number },
   rooms: [{ type: mongoose.Schema.Types.ObjectId, ref: "Room" }],
   screenings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Screening" }],

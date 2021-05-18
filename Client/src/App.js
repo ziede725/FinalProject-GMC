@@ -9,10 +9,10 @@ import Favorites from "./pages/Favorites/Favorites";
 import {PaperFormLogin,PaperFormRegister} from "./pages/Login/Paper"
 import { ThemeProvider } from "@material-ui/core";
 import { theme } from "./theme";
-import MoviePage from "./pages/DashboardTheater/AddMovie";
 import Dashboard from './pages/DashboardTheater/Dashboard'
 import PrivateRoute from './pages/Routes/PrivateRoute' ; 
 import { useSelector } from "react-redux";
+import MoviePage from './pages/MoviePage/MoviePage'
 
 
 function App() {
@@ -47,6 +47,7 @@ function App() {
         <Route path="/my-account" component={Account} />
         <Route path="/my-reservations" component={Reservations} />
         <Route path="/my-favorites" component={Favorites} />
+        <Route path="/Movie" component={MoviePage}/>
         {/* Path should be /theater/:id/dashboard in production  */}
         <PrivateRoute authed={isAuth}  path={`/theater/${userMail}/dashboard`} component={Dashboard}/> 
         

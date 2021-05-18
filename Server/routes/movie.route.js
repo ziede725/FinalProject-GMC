@@ -12,6 +12,7 @@ router.get('/:id',getMoviesbyId);
 router.get('/',getMovieByName); 
 // /movie/genre
 router.get('/whatever/genre',getMoviesByGenre)
+//GET MOVIES BY LOCATION ; 
 
 
 router.post("/create",createMovie)
