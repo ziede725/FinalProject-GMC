@@ -41,6 +41,7 @@ background-color: inherit ;
 position : relative ; 
 left:30% ;  
 width: 70% ;  
+color: white ; 
 `
 const Reviews = styled.div`
 background-color: inherit ; 
@@ -73,8 +74,8 @@ return(
     </UpperSection>
     <LowerSection>
         {content?
-           <Overview>OVERVIEW</Overview> :<Reviews>reviews</Reviews>}
-            <Rating></Rating>        
+           <Overview>{movie.Overview}</Overview> :<Reviews>reviews</Reviews>}
+            <Rating movie={movie} ></Rating>        
         
 
     <MovCard imgURL={movie.img} />

@@ -26,14 +26,14 @@ export const getMovies=()=> async(dispatch)=>
     }
 }
 
-// export const rateMovie=(movieId,reviews,customerId)=> async(dispatch)=>{
-// const rating= reviews
-//     try {
-//         const review= await axios.post(`http://localhost:7200/reviews/`,{rating,customerId,movieId}) 
-//         const movie =await axios.patch(`http://localhost:7200/api/movies/:${movieId}`,reviews) ; 
+export const rateMovie=(movieId,reviews,customerId)=> async(dispatch)=>{
+const rating= reviews
+    try {
+        const review= await axios.post(`http://localhost:7200/api/reviews`,{rating,customerId,movieId}) 
+        const movie =await axios.patch(`http://localhost:7200/api/movies/${movieId}`,rating) ; 
        
-//         dispatch({type:GET_MOVIES,payload:movie.payload.data})
-//     } catch (error) {
-//         alert(error.response.data.error);
-//     }
-// }
+        dispatch({type:GET_MOVIES,payload:movie.payload.data})
+    } catch (error) {
+        alert(error.response.data.error);
+    }
+}

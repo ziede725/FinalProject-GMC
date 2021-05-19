@@ -103,13 +103,18 @@ const editMovie = async(req,res,next)=>{
     const id = req.params.id ; 
     const body = req.body
     const {reviews} = req.body
+    let editedMovie={}
     try{
-        const movie = await Movie.findById(id) ; 
+        console.log(id)
+        const movieID= mongoose.Types.ObjectId(id);
+        console.log(movieID)
+        const movie = await Movie.findById(movieID) ; 
+        console.log("hello")
         if (reviews)
         {
-            const editedMovie= await Movie.findByIdAndUpdate(id,{$push:reviews}) ; 
+             editedMovie= await Movie.findByIdAndUpdate(movieID,{$push:reviews}) ; 
         }else {
-            const editedMovie = await Movie.findByIdAndUpdate(id ,{$set:body},{new:true}) ; 
+             editedMovie = await Movie.findByIdAndUpdate(movieID ,{$set:body},{new:true}) ; 
         }
       
        
