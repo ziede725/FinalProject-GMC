@@ -8,10 +8,10 @@ const reviewSchema = new mongoose.Schema({
   },
   movieId: { type: mongoose.Schema.Types.ObjectId, ref: "Movie" },
   theaterId: { type: mongoose.Schema.Types.ObjectId, ref: "Theater" },
-  comment: {
-    type: String,
-    required: [true, "A review must have a feedback comment"],
-  },
+  // comment: {
+  //   type: String,
+  //   required: [true, "A review must have a feedback comment"],
+  // },
   rating: {
     type: Number,
     min: 0,

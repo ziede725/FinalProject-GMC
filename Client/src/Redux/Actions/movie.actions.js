@@ -10,7 +10,7 @@ export const addMovie=(title,runTime,Language, Overview ,date, distributor ,genr
         
         dispatch(getMovies())
     } catch (error) {
-        console.log(error) ; 
+        alert(error.response.data.error); 
     }
 }
 
@@ -21,6 +21,17 @@ export const getMovies=()=> async(dispatch)=>
         console.log(response)
         dispatch({type:GET_MOVIES, payload:response.data.data})
     } catch (error) {
-        console.log(error)
+        alert(error.response.data.error)
+    }
+}
+
+export const rateMovie=(id,reviews)=> async(dispatch)=>{
+
+    try {
+        
+        const movie =await axios.patch(`http://localhost:7200/api/movies/:${id}`,reviews) ; 
+        const review= await axios.post(`http://localhost:7200/reviews/`,reviews)
+    } catch (error) {
+        alert(error.response.data.error);
     }
 }

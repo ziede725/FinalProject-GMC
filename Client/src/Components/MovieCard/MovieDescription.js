@@ -6,11 +6,11 @@ const Container = styled.div`
 position: absolute ;
 display: flex ; 
 flex-direction : column ; 
-justify-content: space-between;
+justify-content: space-around;
 align-items: center; 
 width: 20% ; 
 height: 300px ;
-top: 15% ;
+top: -15% ;
 left: 10% ;  
 border:4px ; 
 border-radius: 16px ; 
@@ -20,10 +20,13 @@ background-color: #00132e ;
 `
 const Background= styled.div`  
 width: 100% ; 
+position: absolute ; 
+top: 0 ; 
+height: 70% ;  
 img {
     width: 100% ; 
-    height: 140% ; 
-    margint-top: 0 ; 
+    height: 100% !important ; 
+    margint-top: 0 !important ; 
     margin-left:0 !important; 
     border-radius: 16px;
    object-fit: cover ; 
@@ -37,11 +40,12 @@ margin-right: 3% !important;
 width: 40% ; 
 padding:5px ; 
 font-size: 16px ; 
-font-weight: bold ; 
+font-weight: normal ; 
 border-radius: 14px ; 
 transition: 0.3s; 
 height: 40%;
 color:#ffffff; 
+cursor: pointer; 
 background-color:#00132e;
 border:0 ; 
 &: hover{
@@ -58,11 +62,12 @@ margin-left: 3% !important;
 width: 40%;
 padding: 5px ; 
 font-size: 16px ; 
-font-weight: bold ; 
+font-weight: normal ; 
 border:0 ; 
 border-radius: 14px ; 
 transition: 0.3s ; 
 height: 40%;
+cursor: pointer; 
  
 
 &: hover{
