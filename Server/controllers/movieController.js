@@ -52,6 +52,7 @@ const getMovieByName =async (req,res,next)=>{
 }
 const createMovie = async(req,res,next)=>{
     const {title,runTime,Language,Overview,date,distributor,genres,trailerUrl,img} =req.body
+    console.log(req.body)
    
     try{
         
@@ -101,17 +102,24 @@ const createMovie = async(req,res,next)=>{
 const editMovie = async(req,res,next)=>{
     const id = req.params.id ; 
     const body = req.body
+    const {reviews} = req.body
     try{
         const movie = await Movie.findById(id) ; 
-        const editedMovie = await Movie.findByIdAndUpdate(id ,{$set:body},{new:true}) ; 
+        if (reviews)
+        {
+            const editedMovie= await Movie.findByIdAndUpdate(id,{$push:reviews}) ; 
+        }else {
+            const editedMovie = await Movie.findByIdAndUpdate(id ,{$set:body},{new:true}) ; 
+        }
+      
        
         if (!editedMovie){
             throw new ErrorHandler(404,'There is no such movie in the database ')
         }
        
 
-       const ancientGenres = movie.movieInfos.genres ; 
-       const newGenres = editedMovie.movieInfos.genres ; 
+       const ancientGenres = movie.genres ; 
+       const newGenres = editedMovie.genres ; 
        
        
         ancientGenres.map(async element => {

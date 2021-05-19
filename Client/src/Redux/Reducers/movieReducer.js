@@ -10,8 +10,7 @@ const movieReducer =(state=initialState,{type,payload})=>{
     switch(type){
 
         case GET_MOVIES: 
-
-        return {...state, movies:[...payload]}
+         return {...state, movies:[...payload]}
     
         default: 
         return state ; 

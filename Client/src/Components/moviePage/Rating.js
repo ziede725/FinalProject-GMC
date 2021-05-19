@@ -14,7 +14,7 @@ const dispatch= useDispatch() ;
         <Wrapper>
             <h5>Rate this movie ! </h5>
             <ReactStars
-            onChange={}
+            value={5}
 
             
             />
@@ -24,3 +24,4 @@ const dispatch= useDispatch() ;
         </>
     )
 }
+export default Rating; 

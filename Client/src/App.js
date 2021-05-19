@@ -1,7 +1,7 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import "./App.css";
 import { Switch, Route, useHistory } from "react-router-dom";
-import homePage from "./pages/Home/Home";
+import HomePage from "./pages/Home/Home";
 import Navigation from "./Components/Navigation/Navigation";
 import Account from "./pages/Account/Account";
 import Reservations from "./pages/Reservations/Reservations";
@@ -13,6 +13,8 @@ import Dashboard from './pages/DashboardTheater/Dashboard'
 import PrivateRoute from './pages/Routes/PrivateRoute' ; 
 import { useSelector } from "react-redux";
 import MoviePage from './pages/MoviePage/MoviePage'
+import {getMovies} from './Redux/Actions/movie.actions'
+import {useDispatch} from 'react-redux'
 
 
 function App() {
@@ -20,11 +22,16 @@ function App() {
   const isAuth = useSelector( state=> state.root.isAuth)
   const userMail = useSelector(state=>state.root.user.email)
   const role = useSelector(state=> state.root.user.role)
+ 
+  
+ 
   
   //******************************************************** */
   const history= useHistory()
   const [location, setLocation] = React.useState("Tunis");
-  console.log(userMail)
+ 
+ 
+
   
   
   return (
@@ -41,13 +48,13 @@ function App() {
 
 
       <Switch>
-        <Route exact path="/" component={homePage} />
+        <Route exact path="/" component={HomePage} />
         <Route path="/register" component={PaperFormRegister} />
         <Route path="/login" component={PaperFormLogin} />
         <Route path="/my-account" component={Account} />
         <Route path="/my-reservations" component={Reservations} />
         <Route path="/my-favorites" component={Favorites} />
-        <Route path="/Movie" component={MoviePage}/>
+        <Route path={`/Movie/:id`} component={MoviePage}/>
         {/* Path should be /theater/:id/dashboard in production  */}
         <PrivateRoute authed={isAuth}  path={`/theater/${userMail}/dashboard`} component={Dashboard}/> 
         

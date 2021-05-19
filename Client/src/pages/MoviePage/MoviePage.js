@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import MovCard from '../../Components/MovieCard/MovieDescription'
 import Tab from '../../Components/moviePage/Tab'
 import Image from '../../assets/krists-luhaers-AtPWnYNDJnM-unsplash.jpg'
+import Rating from '../../Components/moviePage/Rating'
+import { useParams } from 'react-router';
+import { useSelector } from 'react-redux';
 const Container = styled.div`
 
 
@@ -48,6 +51,10 @@ width: 70% ;
 
 const MoviePage =()=>{
     const [content,setContent]=useState(false) ; 
+    const {id} = useParams() ; 
+    const movies = useSelector(state=>state.movie.movies)
+    const movie = movies.find(el=>el._id===id)
+    console.log(movie)
 
 return(
     <>
@@ -62,15 +69,15 @@ return(
             
         </Background>
 
-
+        
     </UpperSection>
     <LowerSection>
         {content?
            <Overview>OVERVIEW</Overview> :<Reviews>reviews</Reviews>}
-        
+            <Rating></Rating>        
         
 
-    <MovCard/>
+    <MovCard imgURL={movie.img} />
     </LowerSection>
 
     </>

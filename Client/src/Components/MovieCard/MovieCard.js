@@ -9,7 +9,7 @@ const Card = styled.div`
   height: 320px;
   border-radius: 0.5rem;
   overflow: hidden;
-  background-image: url("https://images.unsplash.com/photo-1569389397653-c04fe624e663?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80");
+  background: ${props => `url(${props.background}) no-repeat top center`};
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -35,10 +35,10 @@ const Content = styled.div`
   }
 `;
 
-const MovieCard = () => {
+const MovieCard = ({movieUrl,rating,id}) => {
   return (
-    <Card>
-      <RouterLink to="/register">
+    <Card background={movieUrl}>
+      <RouterLink to={`/movie/${id}`}>
         <Content>
           <div style={{ margin: "1rem" }}>
             <Typography
@@ -58,7 +58,6 @@ const MovieCard = () => {
               style={{ width: "100%" }}
               variant="h5"
             >
-              From 15 $
             </Typography>
           </div>
         </Content>

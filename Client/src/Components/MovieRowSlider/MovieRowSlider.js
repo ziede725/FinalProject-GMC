@@ -16,8 +16,13 @@ import styled from "styled-components";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import SwiperCore, { Navigation } from "swiper/core";
+import {useSelector} from 'react-redux'
 SwiperCore.use([Navigation]);
 
+
+const Wrapper= styled.div`
+display:flex ;
+justify-content: space-around ;  `
 const Top = styled.div`
   display: flex;
   justify-content: space-between;
@@ -38,6 +43,7 @@ const CustomNavigation = styled.div`
 `;
 
 const MovieRowSlider = ({ title, movieArray }) => {
+  const movies = useSelector(state=>state.movie.movies)
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
   return (
@@ -83,40 +89,23 @@ const MovieRowSlider = ({ title, movieArray }) => {
             swiper.params.navigation.prevEl = navigationPrevRef.current;
             swiper.params.navigation.nextEl = navigationNextRef.current;
           }}
-          loop={true}
+          loop={false}
           spaceBetween={30}
           style={{ marginTop: "2rem" }}
         >
-          <SwiperSlide>
-            <MovieCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MovieCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MovieCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MovieCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MovieCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MovieCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MovieCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MovieCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MovieCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MovieCard />
-          </SwiperSlide>
+          
+         
+         <Wrapper>
+         {movies.map(el=>
+             <MovieCard movieUrl={el.img} id={el._id} key={el._id}/>
+            )} 
+         </Wrapper>
+         <Wrapper>
+
+         </Wrapper>
+            
+         
+         
         </Swiper>
       </Container>
     </ThemeProvider>

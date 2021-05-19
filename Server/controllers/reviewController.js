@@ -1,19 +1,17 @@
 const Review = require("../models/Review");
 const ErrorHandler = require("../helpers/errorHandler");
 const createReview = async (req, res, next) => {
-  const { customerId, movieId, theaterId, comment, rating } = req.body;
+  const { customerId, movieId, comment, rating } = req.body;
 
   try {
     const reviewExist = await Review.findOne({
       customerId,
-      theaterId,
       movieId,
     });
     if (reviewExist) throw new ErrorHandler(404, `can't review twice`);
     const review = await Review.create({
       customerId,
       movieId,
-      theaterId,
       comment,
       rating,
     });

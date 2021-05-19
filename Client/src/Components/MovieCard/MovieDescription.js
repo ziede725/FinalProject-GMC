@@ -97,7 +97,7 @@ const MovCard =({imgURL })=>{
         <>
         <Container>
             <Background>
-            <img src="https://cdn.radiofrance.fr/s3/cruiser-production/2019/12/c3c28d4a-f776-4924-99cb-b53a4023e247/801x410_avatar.jpg"></img>
+            <img src={imgURL}></img>
             {/* <p>HELLO WORLD</p> */}
             </Background>
             <ButtonWrapper>

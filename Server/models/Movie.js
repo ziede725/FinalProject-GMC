@@ -2,19 +2,19 @@ const mongoose = require("mongoose");
 
 const movieSchema = new mongoose.Schema({
   
-    poster_path: {
+    img: {
       type: String,
       // required: [true, "Please provide a poster link/image"],
     },
     genres: [{ type: mongoose.Schema.Types.ObjectId, ref: "Genre" }],
-    language: {type : String },
+    Language: {type : String },
     Overview: { type: String, required: [true, "Movie must have an overview"] },
     popularity: {type : Number},
-    release_date: {type : Date},
-    runtime: {type : Number},
+    date: {type : Date},
+    runTime: {type : String},
     title: {type:String},
-    trailer_url: {type: String},
-    reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }],
+    trailerUrl: {type: String},
+    reviews: [{type:Number}],
  
   added_by: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" },
 });
