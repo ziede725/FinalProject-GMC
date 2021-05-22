@@ -17,6 +17,7 @@ import {getMovies} from './Redux/Actions/movie.actions'
 import {useDispatch} from 'react-redux'
 
 
+
 function App() {
   //Use isAuth for the global authentication state (or Redux)
   const isAuth = useSelector( state=> state.root.isAuth)
@@ -55,6 +56,7 @@ function App() {
         <Route path="/my-reservations" component={Reservations} />
         <Route path="/my-favorites" component={Favorites} />
         <Route path={`/Movie/:id`} component={MoviePage}/>
+      
         {/* Path should be /theater/:id/dashboard in production  */}
         <PrivateRoute authed={isAuth}  path={`/theater/${userMail}/dashboard`} component={Dashboard}/> 
         
