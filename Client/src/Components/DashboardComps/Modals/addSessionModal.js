@@ -5,8 +5,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import {addRoom} from '../../../Redux/Actions/theater.actions'
-import {useDispatch} from 'react-redux'
+import {addSession} from '../../../Redux/Actions/theater.actions'
+import {useDispatch, useSelector} from 'react-redux'
 import TimePicker from 'rc-time-picker'
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import styled from 'styled-components'
@@ -29,6 +29,8 @@ const SessionModal=({open,setOpen})=> {
    const [startTime,setStartTime]= useState('') ;
    const [endTime,setEndTime] = useState('') ;  
    const [sessionName,setSessionName] = useState('') ; 
+   const id = useSelector(state=>state.root.user._id)
+   const str= 'HH:mm'
    const handleClose = () => {
     setOpen(false) ;    
   };
@@ -51,10 +53,17 @@ const SessionModal=({open,setOpen})=> {
             fullWidth
           />
             <Wrapper>
-            <TimePicker className='xxx' placeholder='startTime'
-            showSecond={false} minuteStep={30}/>
+            <TimePicker className='xxx' 
+            placeholder='startTime'
+            showSecond={false} 
+            minuteStep={30}
+            onChange={(value)=>setStartTime(value.format(str))}/>
           <ArrowRightAltIcon/>
-          <TimePicker className="xxx" placeholder="endTime" minuteStep={30}
+          <TimePicker 
+          className="xxx" 
+          placeholder="endTime" 
+          onChange={(value)=>setEndTime(value.format(str))}
+          minuteStep={30}
           showSecond={false}/>
             </Wrapper>
           </DialogWrapper>
@@ -70,8 +79,8 @@ const SessionModal=({open,setOpen})=> {
           <Button onClick={
             
             ()=>{
-                // dispatch(addRoom(roomName,roomCapacity))
-              handleClose() }
+                dispatch(addSession(id, sessionName,startTime,endTime))
+                handleClose() }
             
           }
              color="primary">

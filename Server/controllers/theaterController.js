@@ -41,7 +41,7 @@ const editTheater = async (req, res, next) => {
   const body = req.body;
 
   try {
-    await checkedTheater(id);
+    // await checkedTheater(id);
 
     const updatedTheater = await Theater.findOneAndUpdate(
       { _id: id },

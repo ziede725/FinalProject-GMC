@@ -1,12 +1,11 @@
 import axios from 'axios'
-import {GET_ROOMS, GET_SCREENINGS} from './actionTypes'
-
+import {GET_ROOMS, GET_SCREENINGS,GET_SESSIONS} from './actionTypes'
 
 export const addRoom = (roomName, roomCapacity)=>async(dispatch)=>{
 let token = localStorage.getItem('token') ; 
  try {
      const res = await axios.post("http://localhost:7200/api/rooms/add",{roomName,roomCapacity,token}) ; 
-     console.log('payload')
+    
      const payload = await axios.get('http://localhost:7200/api/rooms',{ params: { token }})
    
      dispatch(getRooms())
@@ -96,5 +95,56 @@ export const editScreening= (id,movieName, date,startTime,endTime, discount,visi
         
     }
 }
+
+export const getSession= ()=> async(dispatch) =>{
+let token =localStorage.getItem("token")
+try {
+    const res = await axios.get(`http://localhost:7200/api/sessions/${token}`) ; 
+    console.log(res.data.sessions)
+    dispatch({type:GET_SESSIONS ,payload:res.data.sessions }) ; 
+} catch (error) {
+    
+}    
+}
+export const addSession= (id,sessionName,startTime,endTime)=>async(dispatch)=>{
+
+    try {
+        const res = await axios.post(`http://localhost:7200/api/sessions/add` , {id,sessionName,startTime,endTime}) ; 
+        dispatch(getSession()) ; 
+    } catch (error) {
+        
+    }
+
+}
+
+
+export const editSesssion= (id,sessionName,startTime,endTime)=>async(dispatch)=>{
+
+    let token = localStorage.getItem("token") ; 
+
+    try {
+        const res = await axios.post(`http://localhost:7200/api/sessions/` , {id,token,sessionName,startTime,endTime}) ; 
+        dispatch(getSession()) ; 
+    } catch (error) {
+        
+    }
+
+}
+
+
+export const deleteSession= (id,sessionName,startTime,endTime)=>async(dispatch)=>{
+
+    let token = localStorage.getItem("token") ; 
+
+    try {
+        const res = await axios.post(`http://localhost:7200/api/sessions/` , {token,sessionName,startTime,endTime}) ; 
+        dispatch(getSession()) ; 
+    } catch (error) {
+        
+    }
+
+}
+
+
 
 

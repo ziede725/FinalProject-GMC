@@ -3,7 +3,7 @@ const router = require("express").Router();
 
 const sessionController = require("../controllers/sessionController");
 
-router.get('/',sessionController.getSession)
+router.get('/:id',sessionController.getSession)
 
 router.post('/add',sessionController.addSession)
 

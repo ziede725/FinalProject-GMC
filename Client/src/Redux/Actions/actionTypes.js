@@ -13,5 +13,6 @@ export const GET_RESERVATIONS= 'GET_RESERVATIONS' ;
 export const ADD_MOVIE = "ADD_MOVIE" ; 
 export const GET_MOVIES = "GET_MOVIES"
 export const GET_ERROR= "GET_ERROR"
-export const GET_REVIEWS= "GET_REVIEWS"
+export const GET_REVIEWS= "GET_REVIEWS" ; 
+export const GET_SESSIONS= "GET_SESSIONS" ; 
  

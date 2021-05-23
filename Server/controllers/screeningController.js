@@ -9,7 +9,6 @@ require('dotenv').config() ;
 const createScreening = async (req, res, next) => {
   const { token ,movieName,date, startTime, endTime, discount,visibility,roomName,price} = req.body;
   // Movie ID and room ID should be added later ; 
-console.log(req.body)
   try {
     //check if screening already exists in the same room same date same time
     // const screeningExsit = await Screening.findOne({
@@ -57,13 +56,12 @@ console.log(req.body)
 //Edit Screening
 const editScreening = async (req, res, next) => {
   const id = req.params.id;
-  console.log(req.body)
 
   try {
     //check if screening exist
-    console.log(id)
+    
     const screeningExist = await Screening.findById(id);
-    console.log(id)
+   
     if (!screeningExist)
       throw new ErrorHandler(
         404,
@@ -160,10 +158,10 @@ const getScreenings=async(req,res,next)=>{
     const decodedTheaterId = jwt.verify(token,process.env.JWT_SECRET)
    
     let objectId= mongoose.Types.ObjectId(decodedTheaterId.id)
-    console.log(objectId)
+    
    
     const screenings = await Screening.find({theaterId:objectId}).exec();
-    console.log(screenings)
+   
     res.status(200).json({
       success: true , 
       screenings
