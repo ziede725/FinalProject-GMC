@@ -2,7 +2,7 @@ import React from 'react' ;
 import { makeStyles,withStyles, Typography,Paper, Input } from '@material-ui/core'
 import Image from '../../assets/lloyd-dirks-4SLz_RCk6kQ-unsplash.jpg' 
 import { Formik, Form } from "formik";
-import CheckboxesGroup from '../../Components/Form /Checkbox'
+import CheckboxesGroup from '../../Components/Form/Checkbox'
 import * as Yup from 'yup'
 import styled from 'styled-components'
 import {useState} from 'react'

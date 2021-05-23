@@ -17,6 +17,7 @@ app.use(express.json());
 app.use("/api/admins", require("./routes/admin.route"));
 app.use("/api/customers", require("./routes/customer.route"));
 app.use("/api/theaters", require("./routes/theater.route"));
+app.use("/api/sessions",require("./routes/sessions.route"))
 app.use("/api/movies", require("./routes/movie.route"));
 app.use("/api/genres", require("./routes/genre.route"));
 app.use("/api/rooms", require("./routes/room.route"));

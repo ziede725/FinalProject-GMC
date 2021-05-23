@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Rating } from "@material-ui/lab";
+import Rating from '../moviePage/Rating'
 import { Typography } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 const Card = styled.div`

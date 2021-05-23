@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
+import 'rc-time-picker/assets/index.css';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import TimePicker from 'rc-time-picker'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -13,7 +15,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import {MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers';
 import moment from 'moment';
 import  styled from 'styled-components'
-import TimePicker from '@material-ui/lab/TimePicker';
+
 
 
 const Wrapper= styled.div`
@@ -48,13 +50,43 @@ export default function ScreeningModal({open,setOpen}) {
   //   if (e.target.value>)
   //   setPrice(e.target.value)
   // }
-  const format = 'h:mm a';
-
-const now = moment().hour(0).minute(0);
-  function onChange(value) {
-    console.log(value && value.format(format));
+  const showSecond = true;
+  const str = showSecond ? 'HH:mm:ss' : 'HH:mm';
+  
+  const now = moment().hour(14).minute(30);
+  
+  function generateOptions(length, excludedOptions) {
+    const arr = [];
+    for (let value = 0; value < length; value++) {
+      if (excludedOptions.indexOf(value) < 0) {
+        arr.push(value);
+      }
+    }
+    return arr;
   }
   
+  function onChange(value) {
+    console.log(value && value.format(str));
+  }
+  
+  function disabledHours() {
+    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 22, 23];
+  }
+  
+  function disabledMinutes(h) {
+    switch (h) {
+      case 9:
+        return generateOptions(60, [30]);
+      case 21:
+        return generateOptions(60, [0]);
+      default:
+        return generateOptions(60, [0, 30]);
+    }
+  }
+  
+  function disabledSeconds(h, m) {
+    return [h + m % 60];
+  }
 
   return (
     <div>
@@ -62,7 +94,17 @@ const now = moment().hour(0).minute(0);
       <Dialog  open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add new screening</DialogTitle>
         <DialogContent>
-          
+        
+        <TimePicker
+        
+      showSecond={showSecond}
+      defaultValue={now}
+      className="xxx"
+      onChange={onChange}
+      disabledHours={disabledHours}
+      disabledMinutes={disabledMinutes}
+      disabledSeconds={disabledSeconds}
+    />
           
          
              <Autocomplete
@@ -124,6 +166,7 @@ const now = moment().hour(0).minute(0);
             type="number"
             fullWidth
           />
+         
          
     <FormLabel component="legend">Visibility</FormLabel>
     <RadioGroup aria-label="gender" name="gender1" value={visibility} onChange={(e)=>setVisibility(e.target.value)}>

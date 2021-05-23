@@ -91,6 +91,10 @@ return(
             
             </DashButton>
 
+            <DashButton onClick={()=>routeChange('sessions')}>
+            <span>Sessions</span>
+            </DashButton>
+
             <DashButton onClick={()=>routeChange('screenings')}>
             <Span>Screenings</Span>
             <VideocamOutlinedIcon/>
@@ -105,6 +109,7 @@ return(
             <span>Settings</span>
             <SettingsOutlinedIcon/>
             </DashButton>
+            
             
             <DashButton onClick={()=>
             dispatch(logOut())}> 

@@ -8,6 +8,7 @@ import Rooms from './Rooms';
 import ScreeningPage from './Screening'
 import Settings from './Settings'
 import Dash from './welcomePage'
+import Sessions from './Sessions'
 
 const Content=styled.div`
 width: 100%; 
@@ -33,6 +34,7 @@ const Dashboard=({match})=>{
         <Route path={`${match.path}/rooms`} component={Rooms}/>
         <Route path={`${match.path}/screenings`} component={ScreeningPage}/>
         <Route path={`${match.path}/settings`} component={Settings}/>
+        <Route path = {`${match.path}/sessions`} component={Sessions}/>
             
         </Content>
         </DashWrapper>
