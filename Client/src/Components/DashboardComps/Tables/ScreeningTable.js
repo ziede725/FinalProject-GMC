@@ -4,14 +4,14 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import {makeStyles,withStyles} from '@material-ui/core'
+import {makeStyles,TableContainer,withStyles} from '@material-ui/core'
 import styled from 'styled-components';
 import TablePagination from '@material-ui/core/TablePagination';
 import DeleteButton from '../Buttons/DeleteButton'
-import EditButton from '../Buttons/EditButton'
 import {useDispatch, useSelector} from 'react-redux'
 import {deleteScreening} from '../../../Redux/Actions/theater.actions'
 import EditScreeningButton from '../Buttons/editScreeningButton';
+import Paper from '@material-ui/core/Paper';
 
 const StyledTableRow = withStyles((theme) => ({
     root: {
@@ -57,7 +57,7 @@ const ScreeningTable=({rows,open,setOpen})=>{
       };
 return (
     <>
-
+  <TableContainer component={Paper}>
   <Table className={classes.table}>
             <TableHead title='Reservations'>
                 <TableRow>
@@ -106,7 +106,7 @@ return (
 
             </TableBody>
         </Table>
-
+        </TableContainer>
        
   
     </>

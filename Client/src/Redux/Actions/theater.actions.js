@@ -100,16 +100,16 @@ export const getSession= ()=> async(dispatch) =>{
 let token =localStorage.getItem("token")
 try {
     const res = await axios.get(`http://localhost:7200/api/sessions/${token}`) ; 
-    console.log(res.data.sessions)
+
     dispatch({type:GET_SESSIONS ,payload:res.data.sessions }) ; 
 } catch (error) {
     
 }    
 }
-export const addSession= (id,sessionName,startTime,endTime)=>async(dispatch)=>{
+export const addSession= (id,sessionName,order,startTime,endTime)=>async(dispatch)=>{
 
     try {
-        const res = await axios.post(`http://localhost:7200/api/sessions/add` , {id,sessionName,startTime,endTime}) ; 
+        const res = await axios.post(`http://localhost:7200/api/sessions/add` , {id,sessionName,order,startTime,endTime}) ; 
         dispatch(getSession()) ; 
     } catch (error) {
         

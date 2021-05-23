@@ -13,17 +13,12 @@ const editSession=async(req,res,next)=>{
 }
 
 const addSession=async(req,res,next)=>{
-    const {id,sessionName,startTime,endTime} = req.body ; 
+    const {id,sessionName,order,startTime,endTime} = req.body ; 
     try {
 
+    
 
-        const sessionExist = await Sessions.findOne({sessionName}) ; 
-        if (sessionExist)
-        {
-            throw new ErrorHandler(500,"Another session with same name exists already ")
-        }
-
-        const newSession = await Sessions.create({sessionName,startTime,endTime,theaterId: id}) ; 
+        const newSession = await Sessions.create({sessionName,order,startTime,endTime,theaterId: id}) ; 
        
         const theater = await Theater.findByIdAndUpdate(id,{$push:{sessions:newSession._id}}) ; 
 

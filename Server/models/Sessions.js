@@ -5,6 +5,7 @@ const sessionSchema = new mongoose.Schema({
     sessionName:{type: String},
     startTime: {type: String},
     endTime: {type:String},
+    order:{type: Number},
 
     theaterId: { type: mongoose.Schema.Types.ObjectId, ref: "Screening" }
     })
