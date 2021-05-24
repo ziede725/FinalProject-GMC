@@ -31,7 +31,9 @@ export default function ScreeningModal({open,setOpen}) {
     const [discount,setDiscount]= React.useState('') ; 
     const [room,setRoom] = React.useState('') ; 
     const [price,setPrice]= React.useState(''); 
+    const [session,setSession]= React.useState("") ; 
     const movies = useSelector(state=>state.movie.movies)
+    const sessions= useSelector(state=>state.theater.sessions)
     const rooms = useSelector(state=>state.theater.room)
  
     const dispatch = useDispatch() ; 
@@ -95,16 +97,16 @@ export default function ScreeningModal({open,setOpen}) {
         <DialogTitle id="form-dialog-title">Add new screening</DialogTitle>
         <DialogContent>
         
-        <TimePicker
-        
-      showSecond={showSecond}
-      defaultValue={now}
-      className="xxx"
-      onChange={onChange}
-      disabledHours={disabledHours}
-      disabledMinutes={disabledMinutes}
-      disabledSeconds={disabledSeconds}
-    />
+         
+        <Autocomplete
+        id="combo-box-demo"
+        options={sessions}
+       getOptionLabel={(option) => option.sessionName}
+       style={{ width: 300 }}
+       onChange={(event,value)=> value && setSession(value._id)}
+       renderInput={(params) => <TextField {...params} label="Select available session" variant="outlined" />}
+       />
+
           
          
              <Autocomplete
@@ -112,7 +114,7 @@ export default function ScreeningModal({open,setOpen}) {
         options={movies}
        getOptionLabel={(option) => option.title}
        style={{ width: 300 }}
-       onChange={(event,value)=> setMovieId(value._id)}
+       onChange={(event,value)=> value && setMovieId(value._id)}
        renderInput={(params) => <TextField {...params} label="Select available movies" variant="outlined" />}
        />
 
