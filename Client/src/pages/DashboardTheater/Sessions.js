@@ -18,7 +18,6 @@ const Sessions = ()=>{
 
  useEffect(()=>{
     setOrder(sessions.length+1) 
-    console.log(order)
     
  })
  useEffect(()=>{

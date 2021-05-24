@@ -118,12 +118,12 @@ export const addSession= (id,sessionName,order,startTime,endTime)=>async(dispatc
 }
 
 
-export const editSesssion= (id,sessionName,startTime,endTime)=>async(dispatch)=>{
+export const editSesssion= (id,sessionName,order,startTime,endTime)=>async(dispatch)=>{
 
     let token = localStorage.getItem("token") ; 
 
     try {
-        const res = await axios.post(`http://localhost:7200/api/sessions/` , {id,token,sessionName,startTime,endTime}) ; 
+        const res = await axios.patch(`http://localhost:7200/api/sessions/edit` , {id,token,sessionName,order,startTime,endTime}) ; 
         dispatch(getSession()) ; 
     } catch (error) {
         
@@ -132,12 +132,13 @@ export const editSesssion= (id,sessionName,startTime,endTime)=>async(dispatch)=>
 }
 
 
-export const deleteSession= (id,sessionName,startTime,endTime)=>async(dispatch)=>{
+export const deleteSession= (id)=>async(dispatch)=>{
 
     let token = localStorage.getItem("token") ; 
 
     try {
-        const res = await axios.post(`http://localhost:7200/api/sessions/` , {token,sessionName,startTime,endTime}) ; 
+        console.log('deleted session')
+        const res = await axios.delete(`http://localhost:7200/api/sessions/delete` , {data:{token,id}}) ; 
         dispatch(getSession()) ; 
     } catch (error) {
         
