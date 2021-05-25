@@ -15,6 +15,8 @@ import { useSelector } from "react-redux";
 import MoviePage from './pages/MoviePage/MoviePage'
 import {getMovies} from './Redux/Actions/movie.actions'
 import {useDispatch} from 'react-redux'
+import { getUser } from "./Redux/Actions/actions";
+
 
 
 
@@ -23,6 +25,7 @@ function App() {
   const isAuth = useSelector( state=> state.root.isAuth)
   const userMail = useSelector(state=>state.root.user.email)
   const role = useSelector(state=> state.root.user.role)
+  const dispatch= useDispatch() ;  
  
   
  
@@ -30,7 +33,11 @@ function App() {
   //******************************************************** */
   const history= useHistory()
   const [location, setLocation] = React.useState("Tunis");
- 
+ useEffect(()=>{
+  dispatch(getUser())
+
+
+ })
  
 
   

@@ -2,6 +2,8 @@ const Admin = require("../models/Admin");
 const Customer = require("../models/Customer");
 const Theater = require("../models/Theater");
 const ErrorHandler = require("../helpers/errorHandler");
+const mongoose= require('mongoose')
+const jwt = require('jsonwebtoken')
 
 
 const sendToken = (user, statusCode, res) => {
@@ -95,6 +97,45 @@ exports.registerCustomer = async (req, res, next) => {
     next(error);
   }
 };
+exports.getUser = async(req,res,next)=>{
+  const token = req.params.id ;
+  const user ={}
+  
+  
+  try {
+   
+    const id= jwt.verify(token,process.env.JWT_SECRET) ; 
+   
+    const object= mongoose.Types.ObjectId(id.id) ; 
+    const customer = await Customer.findById(object)
+    const admin = await Admin.findById(object) 
+    const theater =await Theater.findById(object)
+   
+    if (customer)
+    {
+      res.status(200).json({
+        success: true,
+        user:customer
+      })
+    }
+    else if(admin)
+    {
+      res.status(200).json({
+        success: true,
+        user:admin
+      })
+    }
+    else{
+      res.status(200).json({
+        success: true,
+        user:theater
+      })
+    }
+ 
+  } catch (error) {
+    next(error)
+  }
+}
 exports.loginUser = async(req,res,next)=>{
   const {email,password} = req.body ; 
   

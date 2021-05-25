@@ -1,4 +1,4 @@
-const {LOGIN_USER, LOGOUT,REGISTER_THEATER,REGISTER_CUSTOMER, GET_ERROR} = require('../Actions/actionTypes')
+const {LOGIN_USER, LOGOUT,REGISTER_THEATER,REGISTER_CUSTOMER,GET_USER, GET_ERROR} = require('../Actions/actionTypes')
 
 const initialState = {
     isAuth: false , 
@@ -25,7 +25,8 @@ const rootReducer=(state=initialState,{type,payload})=>{
         console.log(payload)
         localStorage.setItem("token",payload.token)
         return {...state , user:payload.user,isAuth: true ,load: false}
-
+        case GET_USER: 
+        return {...state, user:payload.user,isAuth:true,load: false}
         case GET_ERROR: 
         console.log(payload)
         return {...state , error:payload}
