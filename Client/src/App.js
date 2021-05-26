@@ -1,6 +1,6 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect} from "react";
 import "./App.css";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import HomePage from "./pages/Home/Home";
 import Navigation from "./Components/Navigation/Navigation";
 import Account from "./pages/Account/Account";
@@ -13,7 +13,6 @@ import Dashboard from './pages/DashboardTheater/Dashboard'
 import PrivateRoute from './pages/Routes/PrivateRoute' ; 
 import { useSelector } from "react-redux";
 import MoviePage from './pages/MoviePage/MoviePage'
-import {getMovies} from './Redux/Actions/movie.actions'
 import {useDispatch} from 'react-redux'
 import { getUser } from "./Redux/Actions/actions";
 
@@ -24,14 +23,12 @@ function App() {
   //Use isAuth for the global authentication state (or Redux)
   const isAuth = useSelector( state=> state.root.isAuth)
   const userMail = useSelector(state=>state.root.user.email)
-  const role = useSelector(state=> state.root.user.role)
   const dispatch= useDispatch() ;  
  
   
  
   
   //******************************************************** */
-  const history= useHistory()
   const [location, setLocation] = React.useState("Tunis");
  useEffect(()=>{
   dispatch(getUser())

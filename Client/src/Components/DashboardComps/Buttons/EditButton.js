@@ -3,7 +3,6 @@ import React, { useState } from 'react' ;
 import {Wrapper} from '../SideMenu'
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import EditModal from '../Modals/editModal'
-import ScreeningModal from '../Modals/ScreeningModal'
 
 const EditButton=({ roomNamee,id,roomCapacityy})=>{
 const [open,setOpen]= useState(false) ; 

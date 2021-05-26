@@ -49,30 +49,7 @@ export default function EditScreeningModal({id,open,setOpen}) {
             fullWidth
           />
           
-          <TextField
-            autoFocus
-            margin="dense"
-            id="date"
-            type="date"
-            onChange={(e)=>setDate(e.target.value)}
-            fullWidth
-          />
-            <TextField
-            autoFocus
-            margin="dense"
-            id="startTime"
-            type="time"
-            onChange={(e)=>setStartTime(e.target.value)}
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="endTime"
-            onChange={(e)=>setEndTime(e.target.value)}
-            type="time"
-            fullWidth
-          />
+       
             <TextField
             autoFocus
             margin="dense"

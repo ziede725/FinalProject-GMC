@@ -6,10 +6,8 @@ import Image from '../../assets/krists-luhaers-AtPWnYNDJnM-unsplash.jpg'
 import Rating from '../../Components/moviePage/Rating'
 import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
-const Container = styled.div`
 
 
-`
 const UpperSection = styled.section`
 width: 100% ; 
 height:40% ;

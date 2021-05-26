@@ -1,12 +1,10 @@
-import React ,{useState} from "react";
+import React from "react";
 import { Formik, Field, Form } from "formik";
-import { Button, makeStyles, TextField, Typography } from "@material-ui/core";
-import axios from "axios";
+import {  makeStyles, TextField, Typography } from "@material-ui/core";
 import * as Yup from "yup";
 import { GoogleLogin } from "react-google-login";
 import {Container} from '@material-ui/core'
 import {Link} from '@material-ui/core'
-import {Redirect} from 'react-router-dom' ; 
 import {useDispatch, useSelector} from 'react-redux' ; 
 import  {loginUser}  from "../../Redux/Actions/actions";
 import {useHistory} from 'react-router-dom'
@@ -116,7 +114,7 @@ const LogInForm = (props) => {
                 helperText={errors.password}
                 error={errors.password}
                 placeholder="Enter password"
-                type="input"
+                type="password"
                 name="password"
                 as={TextField}
               />

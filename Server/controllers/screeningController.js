@@ -1,4 +1,5 @@
 const Screening = require("../models/Screening");
+const Sessions = require('../models/Sessions')
 const ErrorHandler = require("../helpers/errorHandler");
 const mongoose = require('mongoose')
 const jwt=require('jsonwebtoken') ; 
@@ -7,7 +8,8 @@ const Room = require("../models/Room");
 require('dotenv').config() ; 
 //Create Screening
 const createScreening = async (req, res, next) => {
-  const { token ,movieName,date, startTime, endTime, discount,visibility,roomName,price} = req.body;
+  const { token ,movieName,date, session, discount,visibility,roomName,price} = req.body;
+  console.log(req.body)
   // Movie ID and room ID should be added later ; 
   try {
     //check if screening already exists in the same room same date same time
@@ -21,20 +23,21 @@ const createScreening = async (req, res, next) => {
     //     400,
     //     `A screening already exists in room ${roomId}, on ${date}, at ${startTime}`
     //   );
-  
+    
     const decodedTheaterId = jwt.verify(token,process.env.JWT_SECRET)
-   
+    let seance =  await Sessions.findByIdAndUpdate(session,{$push:{dates:date}})
+    
     
     let  objectId = mongoose.Types.ObjectId(decodedTheaterId.id);
    
    
-    const room = await Room.findOne({$and:[{roomName},{Theater_id:objectId}]}); 
+    const room = await Room.findById(roomName) ; 
+    console.log(room)
      
     const screening = await Screening.create({
       movieName,
       date,
-      startTime,
-      endTime,
+      session:session,
       discount,
       published:visibility,
       roomId:room._id,

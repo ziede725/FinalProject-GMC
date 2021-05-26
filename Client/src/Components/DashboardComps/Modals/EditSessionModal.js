@@ -1,13 +1,11 @@
 import React, { useEffect ,useState} from 'react';
-import * as yup from 'yup';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {editSesssion, getSession} from '../../../Redux/Actions/theater.actions'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import TimePicker from 'rc-time-picker'
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import styled from 'styled-components'

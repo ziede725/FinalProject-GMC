@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Field, Form } from "formik";
-import { Button, Select, TextField ,MenuItem} from "@material-ui/core";
+import {  Select, TextField ,MenuItem} from "@material-ui/core";
 import * as Yup from "yup";
-import { Redirect,useHistory } from "react-router-dom";
+import {useHistory } from "react-router-dom";
 import {makeStyles} from "@material-ui/core"
 import { GoogleLogin } from "react-google-login";
-import {Typography,Container} from '@material-ui/core'
 import { registerTheater } from "../../Redux/Actions/actions";
 import { useDispatch } from "react-redux";
 import { SubmitButton } from "../../Components/DashboardComps/Buttons/submitButton";

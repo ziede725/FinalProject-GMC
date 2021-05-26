@@ -2,19 +2,18 @@ import React, { useEffect } from 'react';
 import 'rc-time-picker/assets/index.css';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import TimePicker from 'rc-time-picker'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {RadioGroup,Radio,FormControlLabel,FormLabel} from '@material-ui/core'
-import {addScreening} from '../../../Redux/Actions/theater.actions'
+import {addScreening, getRooms, getSession} from '../../../Redux/Actions/theater.actions'
 import { useDispatch, useSelector } from 'react-redux';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import DateFnsUtils from '@date-io/date-fns';
 import {MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers';
-import moment from 'moment';
 import  styled from 'styled-components'
+import { getMovies } from '../../../Redux/Actions/movie.actions';
 
 
 
@@ -25,70 +24,51 @@ wrap: wrap; `
 export default function ScreeningModal({open,setOpen}) {
     const [visibility,setVisibility]= React.useState('Private'); 
     const [movieId,setMovieId]= React.useState('') ; 
-    const [date,setDate]= React.useState('') ; 
-    const [startTime,setStartTime]= React.useState('') ; 
-    const [endTime,setEndTime]= React.useState('') ; 
+    const [date,setDate]= React.useState('') ;  
     const [discount,setDiscount]= React.useState('') ; 
     const [room,setRoom] = React.useState('') ; 
     const [price,setPrice]= React.useState(''); 
-    const [session,setSession]= React.useState("") ; 
+    const [session,setSession]= React.useState() ; 
+    const [filteredSessions,setFilteredSessions] = React.useState() ; 
     const movies = useSelector(state=>state.movie.movies)
     const sessions= useSelector(state=>state.theater.sessions)
     const rooms = useSelector(state=>state.theater.room)
+    const DATE = new Date() ; 
  
     const dispatch = useDispatch() ; 
-   
-    
+  
   useEffect(()=>{
     setOpen(open)
+    dispatch(getMovies())
+    dispatch(getSession())
+    dispatch(getRooms())
+    console.log(date)
   },[open,setOpen])
 
   
   const handleClose = () => {
     setOpen(false);
   };
+
+const formatDate = (date)=>{
+  const [year,month,day]=date.substring(0,10).split("-")
+  
+}
+
+  const handleChange= (sessions,date)=>{
+    setDate(date.toLocaleDateString())
+  
+    const arr =sessions.filter(el=> !el.dates.includes(date.toLocaleDateString()))
+    setFilteredSessions(arr) ; 
+   
+
+  }
   // const handleChange= (e)=>{
 
   //   if (e.target.value>)
   //   setPrice(e.target.value)
   // }
-  const showSecond = true;
-  const str = showSecond ? 'HH:mm:ss' : 'HH:mm';
-  
-  const now = moment().hour(14).minute(30);
-  
-  function generateOptions(length, excludedOptions) {
-    const arr = [];
-    for (let value = 0; value < length; value++) {
-      if (excludedOptions.indexOf(value) < 0) {
-        arr.push(value);
-      }
-    }
-    return arr;
-  }
-  
-  function onChange(value) {
-    console.log(value && value.format(str));
-  }
-  
-  function disabledHours() {
-    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 22, 23];
-  }
-  
-  function disabledMinutes(h) {
-    switch (h) {
-      case 9:
-        return generateOptions(60, [30]);
-      case 21:
-        return generateOptions(60, [0]);
-      default:
-        return generateOptions(60, [0, 30]);
-    }
-  }
-  
-  function disabledSeconds(h, m) {
-    return [h + m % 60];
-  }
+
 
   return (
     <div>
@@ -97,18 +77,35 @@ export default function ScreeningModal({open,setOpen}) {
         <DialogTitle id="form-dialog-title">Add new screening</DialogTitle>
         <DialogContent>
         
+
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+           <KeyboardDatePicker
+          disablePast
+          disableToolbar
+          variant="inline"
+          initialFocusedDate={date}
+          format="dd/MM/yyyy"
+          margin="normal"
+          id="date-picker-inline"
+          value={date}
+          onChange={(value)=>handleChange(sessions,value)}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+          autoOk={true}
+        />
+           </MuiPickersUtilsProvider>
+          
          
         <Autocomplete
         id="combo-box-demo"
-        options={sessions}
+        options={filteredSessions}
        getOptionLabel={(option) => option.sessionName}
        style={{ width: 300 }}
        onChange={(event,value)=> value && setSession(value._id)}
        renderInput={(params) => <TextField {...params} label="Select available session" variant="outlined" />}
        />
 
-          
-         
              <Autocomplete
         id="combo-box-demo"
         options={movies}
@@ -120,23 +117,6 @@ export default function ScreeningModal({open,setOpen}) {
 
           
         
-           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-           <KeyboardDatePicker
-          disablePast
-          disableToolbar
-          variant="inline"
-          format="MM/dd/yyyy"
-          margin="normal"
-          id="date-picker-inline"
-          label="Date picker inline"
-          
-          onChange={(value)=>console.log(value)}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-           </MuiPickersUtilsProvider>
-          
          
              <Autocomplete
         id="roomName"
@@ -182,9 +162,8 @@ export default function ScreeningModal({open,setOpen}) {
             Cancel
           </Button>
           <Button onClick={()=> {
-           dispatch(addScreening(movieId, date,startTime,endTime, discount,visibility,room._id,price))
-            
-            
+            console.log(session)
+           dispatch(addScreening(movieId, date,session, discount,visibility,room._id,price))
             handleClose()
           }} color="primary">
             Save
