@@ -41,9 +41,12 @@ const ScreeningTable=({rows,open,setOpen})=>{
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const movies = useSelector(state=>state.movie.movies)
     const sessions = useSelector(state=>state.theater.sessions)
+    const rooms = useSelector(state=>state.theater.room)
     const dispatch=useDispatch(); 
     const classes = useStyles() ;
-    console.log("rows", rows )
+    
+  
+  
     
 
     const handleMovie = (id)=>{
@@ -53,7 +56,7 @@ const ScreeningTable=({rows,open,setOpen})=>{
     }
     const handleTime = (time,id)=>{
       let session = sessions.find(el=> el._id === id)
-      console.log(session)
+     
       if (time)
       {
         return (session.startTime) ; 
@@ -61,6 +64,10 @@ const ScreeningTable=({rows,open,setOpen})=>{
       else {
         return (session.endTime) ; 
       }
+    }
+    const handleRoom=(id)=>{
+      let room = rooms.find(el=> el.Theater_id === id )
+     return room.roomName ; 
     }
 
    const handleClick=(id,visibility)=>{
@@ -93,26 +100,27 @@ return (
                     <TableCell align="center">Date</TableCell>
                     <TableCell align="center">Start Time </TableCell>
                     <TableCell alignt="center">End Time </TableCell>
-                    <TableCell alignt="center">Discount </TableCell>
+                    <TableCell alignt="center">Room</TableCell>
                     <TableCell alignt="center">Published/Private</TableCell>
+                  
                    
                 </TableRow>
             </TableHead>
 
             <TableBody>
-                { rows.slice(page*rowsPerPage, page*rowsPerPage + rowsPerPage).map((row)=>(
+                {rows.slice(page*rowsPerPage, page*rowsPerPage + rowsPerPage).map((row)=>(
                   
                     <StyledTableRow key={row._id}>
-                    <TableCell padding='default' align="center" children={handleMovie(row.movieId)}/>
+                    <TableCell padding='default' align="center" children={row.movieId && handleMovie(row.movieId)}/>
                     <TableCell padding='default' align="center" children={row.date}/>
-                    <TableCell padding='default' align="center" children={handleTime(true,row.sessionId)}/>
-                    <TableCell padding='default' align="center" children={handleTime(false,row.sessionId)}/>
-                    <TableCell padding='default' align="center" children={row.discount}/>
+                    <TableCell padding='default' align="center" children={row.sessionId && handleTime(true,row.sessionId)}/>
+                    <TableCell padding='default' align="center" children={row.sessionId && handleTime(false,row.sessionId)}/>
+                    <TableCell padding='default' align="center" children={handleRoom(row.theaterId)}/>
                     <TableCell padding='default' align="center" children={row.visibility}/>
                     <StyledDivFlexRow> 
                     <DeleteButton published={row.visibility} handleClick={()=>handleClick(row._id,row.visibility)}/>
                     <EditScreeningButton id={row._id} 
-                    published={row.visibility}/>
+                    published={row.visibility} date ={row.date}/>
                      
                     </StyledDivFlexRow>
                    

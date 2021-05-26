@@ -19,6 +19,7 @@ const StyledTableRow = withStyles((theme) => ({
 const useStyles = makeStyles({
     table: {
       width:'100%',
+      marginLeft:"40px" 
     },
   });
 const createData=(customerId, ScreeningID, roomName, ReservationID )=> 
@@ -29,7 +30,6 @@ const createData=(customerId, ScreeningID, roomName, ReservationID )=>
 const TableWrapper=styled.div`
 position: absolute;
 width:60%;
-margin-left: 3%
 
 `
 const rows=[

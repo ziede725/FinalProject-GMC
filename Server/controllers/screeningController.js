@@ -57,11 +57,16 @@ const createScreening = async (req, res, next) => {
 //Edit Screening
 const editScreening = async (req, res, next) => {
   const id = req.params.id;
+  console.log(req.body)
 
   try {
     //check if screening exist
     
     const screeningExist = await Screening.findById(id);
+    console.log(screeningExist.sessionId,screeningExist.date)
+    const session = await Sessions.findByIdAndUpdate(screeningExist.sessionId,{$pull:{dates:screeningExist.date}})
+    const newSession = await Sessions.findByIdAndUpdate(screeningExist.sessionId,{$push:{dates:req.body.date}})
+     
    
     if (!screeningExist)
       throw new ErrorHandler(
@@ -91,6 +96,7 @@ const deleteScreening = async (req, res, next) => {
   try {
     //check if the screening exist
     const screeningExist = await Screening.findById(id);
+    const session = await Sessions.findByIdAndUpdate(screeningExist.sessionId,{$pull:{dates:screeningExist.date}})
     if (!screeningExist)
       throw new ErrorHandler(
         400,

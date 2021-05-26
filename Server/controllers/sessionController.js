@@ -7,10 +7,7 @@ const editSession=async(req,res,next)=>{
     const {id,token,sessionName,order,startTime,endTime}= req.body
     
     try {
-        const editedSession = await Sessions.findByIdAndUpdate(id,{sessionName,order,startTime,endTime})
-        console.log(editedSession) ;  
-        
-        
+        const editedSession = await Sessions.findByIdAndUpdate(id,{sessionName,order,startTime,endTime})      
         res.status(200).json({
             succes: true , 
             editedSession

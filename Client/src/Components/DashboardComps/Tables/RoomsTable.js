@@ -26,7 +26,8 @@ const StyledTableRow = withStyles((theme) => ({
   }))(TableRow);
 const useStyles = makeStyles({
     table: {
-      width:'100%',
+      width:'70%',
+      marginLeft:"15%"
     },
   });
 // const createData=(roomName, capacity )=> 
@@ -80,6 +81,7 @@ return (
                 <TableRow>
                     <TableCell align="left">Room Name</TableCell>
                     <TableCell align="left">Capacity</TableCell>
+                   
                     
                 </TableRow>
             </TableHead>
@@ -87,8 +89,9 @@ return (
             <TableBody>
                 { rows.slice(page*rowsPerPage, page*rowsPerPage + rowsPerPage).map((row)=>(
                     <StyledTableRow key={row._id}>
-                    <TableCell align="left">{row.roomName}</TableCell>
-                    <TableCell align="left">{row.roomCapacity}</TableCell>
+                    <TableCell align="center">{row.roomName}</TableCell>
+                    <TableCell align="center">{row.roomCapacity}</TableCell>
+                  
                     <StyledDivFlexRow>
                     <DeleteButton handleClick={()=> handleClick(row._id)}/>
                     <EditButton 
@@ -108,9 +111,7 @@ return (
 
             </TableBody>
         </Table>
-
-  </TableContainer>     
-  <TablePagination
+        {/* <TablePagination
       component="div"
       rowsPerPageOptions={[5,10]}
       count={rows.length}
@@ -118,7 +119,9 @@ return (
       onChangePage={handleChangePage}
       rowsPerPage={rowsPerPage}
       onChangeRowsPerPage={handleChangeRowsPerPage}
-    />  
+    />   */}
+  </TableContainer>     
+ 
     </>
 )
 } 

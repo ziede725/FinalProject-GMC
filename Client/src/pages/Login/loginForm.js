@@ -14,7 +14,7 @@ require("dotenv").config();
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string()
-    .min(6, "Password must contain more than 6 caracters !")
+    .min(6)
     .max(15)
     .required("Required"),
 });
@@ -101,8 +101,9 @@ const LogInForm = (props) => {
             <div>
               <Field className={classes.fieldClass}
                 color='primary'
-                helperText={errors.email}
-                error={errors.email}
+                // helperText={errors.email}
+                // error={errors.email}
+                required={true}
                 placeholder="Enter email"
                 type="input"
                 name="email"
@@ -111,8 +112,9 @@ const LogInForm = (props) => {
             </div>
             <div>
               <Field className={classes.fieldClass}
-                helperText={errors.password}
-                error={errors.password}
+                // helperText={errors.password}
+                //  error={errors.password}
+                required={true}
                 placeholder="Enter password"
                 type="password"
                 name="password"

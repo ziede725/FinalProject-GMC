@@ -4,7 +4,7 @@ import {Wrapper} from '../SideMenu'
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import EditScreeningModal from '../Modals/editScreeningModal'
 
-const EditScreeningButton=({ id,published})=>{
+const EditScreeningButton=({ id,published,date})=>{
 const [open,setOpen]= useState(false) ; 
 
 
@@ -20,7 +20,7 @@ const handleModal=(published)=>{
    
     return(
         <Wrapper>
-            <EditScreeningModal id={id} open={open} setOpen={setOpen}/>              
+            <EditScreeningModal id={id} open={open} setOpen={setOpen} prevDate={date}/>              
             <IconButton onClick={()=>handleModal(published)}>
                 <EditOutlinedIcon/>
             </IconButton>

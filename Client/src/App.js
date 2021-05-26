@@ -15,6 +15,8 @@ import { useSelector } from "react-redux";
 import MoviePage from './pages/MoviePage/MoviePage'
 import {useDispatch} from 'react-redux'
 import { getUser } from "./Redux/Actions/actions";
+import { getMovies } from "./Redux/Actions/movie.actions";
+import { getScreenings } from "./Redux/Actions/theater.actions";
 
 
 
@@ -32,6 +34,8 @@ function App() {
   const [location, setLocation] = React.useState("Tunis");
  useEffect(()=>{
   dispatch(getUser())
+  dispatch(getMovies())
+  dispatch(getScreenings())
 
 
  })
