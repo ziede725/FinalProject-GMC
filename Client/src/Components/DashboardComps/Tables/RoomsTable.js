@@ -104,7 +104,13 @@ return (
                     
                 ))
                 }
-                 <TablePagination
+              
+
+            </TableBody>
+        </Table>
+
+  </TableContainer>     
+  <TablePagination
       component="div"
       rowsPerPageOptions={[5,10]}
       count={rows.length}
@@ -112,13 +118,7 @@ return (
       onChangePage={handleChangePage}
       rowsPerPage={rowsPerPage}
       onChangeRowsPerPage={handleChangeRowsPerPage}
-    />
-
-            </TableBody>
-        </Table>
- 
-  </TableContainer>     
-  
+    />  
     </>
 )
 } 

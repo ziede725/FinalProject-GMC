@@ -9,7 +9,7 @@ require('dotenv').config() ;
 //Create Screening
 const createScreening = async (req, res, next) => {
   const { token ,movieName,date, session, discount,visibility,roomName,price} = req.body;
-  console.log(req.body)
+  
   // Movie ID and room ID should be added later ; 
   try {
     //check if screening already exists in the same room same date same time
@@ -25,9 +25,7 @@ const createScreening = async (req, res, next) => {
     //   );
     
     const decodedTheaterId = jwt.verify(token,process.env.JWT_SECRET)
-    let seance =  await Sessions.findByIdAndUpdate(session,{$push:{dates:date}})
-    
-    
+    let seance =  await Sessions.findByIdAndUpdate(session,{$push:{dates:date}})    
     let  objectId = mongoose.Types.ObjectId(decodedTheaterId.id);
    
    
@@ -35,11 +33,11 @@ const createScreening = async (req, res, next) => {
     console.log(room)
      
     const screening = await Screening.create({
-      movieName,
+      movieId:movieName,
       date,
-      session:session,
+      sessionId:session,
       discount,
-      published:visibility,
+      visibility:visibility,
       roomId:room._id,
       price,
       theaterId:objectId,
@@ -99,8 +97,10 @@ const deleteScreening = async (req, res, next) => {
         `No screening with id : ${id} is found in the database`
       );
       // objectId= mongoose.Types.ObjectId(id)
-
+   
+   
     await Screening.findOneAndDelete({ _id: id }).exec();
+  
     res.status(200).json({
       success: true,
       message: "Screening was deleted with success",

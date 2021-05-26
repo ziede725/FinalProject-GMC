@@ -29,7 +29,8 @@ export default function ScreeningModal({open,setOpen}) {
     const [room,setRoom] = React.useState('') ; 
     const [price,setPrice]= React.useState(''); 
     const [session,setSession]= React.useState() ; 
-    const [filteredSessions,setFilteredSessions] = React.useState() ; 
+    const [filteredSessions,setFilteredSessions] = React.useState() ;
+    const [disabled,setDisabled] = React.useState(true) ;  
     const movies = useSelector(state=>state.movie.movies)
     const sessions= useSelector(state=>state.theater.sessions)
     const rooms = useSelector(state=>state.theater.room)
@@ -57,6 +58,7 @@ const formatDate = (date)=>{
 
   const handleChange= (sessions,date)=>{
     setDate(date.toLocaleDateString())
+    setDisabled(false) ; 
   
     const arr =sessions.filter(el=> !el.dates.includes(date.toLocaleDateString()))
     setFilteredSessions(arr) ; 
@@ -102,6 +104,7 @@ const formatDate = (date)=>{
         options={filteredSessions}
        getOptionLabel={(option) => option.sessionName}
        style={{ width: 300 }}
+       disabled={disabled}
        onChange={(event,value)=> value && setSession(value._id)}
        renderInput={(params) => <TextField {...params} label="Select available session" variant="outlined" />}
        />

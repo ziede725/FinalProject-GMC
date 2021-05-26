@@ -89,7 +89,11 @@ return (
                     
                 ))
                 }
-                 <TablePagination
+             
+
+            </TableBody>
+        </Table>
+        <TablePagination
       component="div"
       rowsPerPageOptions={[5,10]}
       count={sessions.length}
@@ -98,9 +102,6 @@ return (
       rowsPerPage={rowsPerPage}
       onChangeRowsPerPage={handleChangeRowsPerPage}
     />
-
-            </TableBody>
-        </Table>
   </TableWrapper>
         
   

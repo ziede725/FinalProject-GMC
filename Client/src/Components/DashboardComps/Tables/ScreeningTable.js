@@ -39,12 +39,39 @@ display: flex ;
 const ScreeningTable=({rows,open,setOpen})=>{
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-   const dispatch=useDispatch(); 
-    const classes = useStyles() ; 
-   rows.map(row=> console.log(row.published))
+    const movies = useSelector(state=>state.movie.movies)
+    const sessions = useSelector(state=>state.theater.sessions)
+    const dispatch=useDispatch(); 
+    const classes = useStyles() ;
+    console.log("rows", rows )
+    
 
-   const handleClick=(id)=>{
-    dispatch(deleteScreening(id))
+    const handleMovie = (id)=>{
+     let movie =  movies.find(el=> el._id ===id)
+    //  const {genres,reviews,_id,title,runTime,Language,Overview,date,trailerUrl,img} 
+     return movie.title
+    }
+    const handleTime = (time,id)=>{
+      let session = sessions.find(el=> el._id === id)
+      console.log(session)
+      if (time)
+      {
+        return (session.startTime) ; 
+      }
+      else {
+        return (session.endTime) ; 
+      }
+    }
+
+   const handleClick=(id,visibility)=>{
+     if(visibility==='Public')
+     {
+       alert('You can not delete a public screening') ; 
+     }
+     else {
+      dispatch(deleteScreening(id))
+     }
+
     
   }
     const handleChangePage = (event, newPage) => {
@@ -76,14 +103,14 @@ return (
                 { rows.slice(page*rowsPerPage, page*rowsPerPage + rowsPerPage).map((row)=>(
                   
                     <StyledTableRow key={row._id}>
-                    <TableCell padding='default' align="center"children={row.movieName}/>
+                    <TableCell padding='default' align="center" children={handleMovie(row.movieId)}/>
                     <TableCell padding='default' align="center" children={row.date}/>
-                    <TableCell padding='default' align="center" children={row.startTime}/>
-                    <TableCell padding='default' align="center" children={row.endTime}/>
+                    <TableCell padding='default' align="center" children={handleTime(true,row.sessionId)}/>
+                    <TableCell padding='default' align="center" children={handleTime(false,row.sessionId)}/>
                     <TableCell padding='default' align="center" children={row.discount}/>
                     <TableCell padding='default' align="center" children={row.visibility}/>
                     <StyledDivFlexRow> 
-                    <DeleteButton handleClick={()=>handleClick(row._id)}/>
+                    <DeleteButton published={row.visibility} handleClick={()=>handleClick(row._id,row.visibility)}/>
                     <EditScreeningButton id={row._id} 
                     published={row.visibility}/>
                      
@@ -94,7 +121,14 @@ return (
                     
                 ))
                 }
-                 <TablePagination
+    
+
+            </TableBody>
+      
+        </Table>
+     
+        </TableContainer>
+        <TablePagination
       component="div"
       rowsPerPageOptions={[5,10]}
       count={rows.length}
@@ -102,12 +136,7 @@ return (
       onChangePage={handleChangePage}
       rowsPerPage={rowsPerPage}
       onChangeRowsPerPage={handleChangeRowsPerPage}
-    />
-
-            </TableBody>
-        </Table>
-        </TableContainer>
-       
+    />  
   
     </>
 )
