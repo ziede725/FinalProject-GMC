@@ -2,12 +2,12 @@ import axios from 'axios'
 import {GET_MOVIES} from './actionTypes' ; 
 
 
-export const addMovie=(title,runTime,Language, Overview ,date, distributor ,genres ,trailerUrl, img)=>async(dispatch)=>{
+export const addMovie=(data)=>async(dispatch)=>{
 
 
     try {
-        const response = await axios.post("http://localhost:7200/api/movies/create",{title,runTime,Language, Overview ,date, distributor ,genres ,trailerUrl, img})
-        
+        const response = await axios.post("http://localhost:7200/api/movies/create",data)
+       
         dispatch(getMovies())
     } catch (error) {
         // alert(error.response.data.error); 

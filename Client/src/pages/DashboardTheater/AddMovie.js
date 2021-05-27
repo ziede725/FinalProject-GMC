@@ -8,6 +8,9 @@ import styled from 'styled-components'
 import {useState} from 'react'
 import { addMovie } from '../../Redux/Actions/movie.actions';
 import { useDispatch } from 'react-redux';
+import axios from 'axios'
+import { object } from 'yup/lib/locale';
+
 
 const inputSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
@@ -147,14 +150,31 @@ const MoviePage=()=>{
     const [Overview,setOverview ] = useState('') ; 
     const [date,setDate ] = useState('') ; 
     const [distributor,setDistributor ] = useState('') ; 
-    // const [genres,setGenres ] = useState('') ; 
+     const [genres,setGenres ] = useState('') ; 
     const [trailerUrl,setTrailerUrl ] = useState('') ; 
-    const [img,setImg ] = useState('') ; 
+    const [file,setFile ] = useState() ; 
     const [state, setState] = React.useState({Thriller:false, Action:false, Drama:false,Historical:false,Comedy:false,Fantasy:false,
     Romance:false,Documentary:false, ScienceFiction:false , Adventure:false , CrimeAndMystery:false , ScienceFiction:false , Western:false,Horror:false,
     MusicalFilm:false,animation:false
     
     });
+    const send=()=>{
+        const data = new FormData()
+        data.append('title',title)
+        data.append('runTime',runTime)
+        data.append('Language',Language)
+        data.append('Overview',Overview)
+        data.append('date',date)
+        data.append('distributor',distributor)
+        Object.keys(state).forEach(key=>data.append(key,state[key]))
+        data.append('trailerUrl',trailerUrl)
+        data.append("img",file)
+        
+        dispatch(addMovie( data))
+       
+    }
+
+
     const handleChange = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
         
@@ -162,7 +182,7 @@ const MoviePage=()=>{
       const { Thriller, Action, Drama , Historical,Comedy,Fantasy,
         Adventure,CrimeAndMystery,MusicalFilm,animation,Romance,Horror,Documentary,ScienceFiction,Western } = state;
     
-
+ 
    
 const classe=styles() ;
 const classes =useStyles() ; 
@@ -201,25 +221,33 @@ const classes =useStyles() ;
             </div>
        
        <div>
+       
          <div className={classes.flexRow2}>
          <div className={classes.flexColumn}>
+             
         <Typography variant='h6' className={classes.typographyClass}>
             Enter poster URL  
         </Typography>
-         <Input placeholder='Choose Movie poster' className={classes.inputClass} type='text'onChange={(e)=>setImg(e.target.value)}></Input>
+        <form enctype="multipart/form-data">
+         <input placeholder='Choose Movie poster' accept=".png" className={classes.inputClass} type='file' name='img' onChange={(e)=>setFile(e.target.files[0])}></input>
+         </form>
+         
          </div>
              <div className={classes.flexColumn}>
              <Typography variant='h6' className={classes.typographyClass}>Enter Trailer URL</Typography>
              <Input type='text' placeholder='Trailer URL' className={classes.inputClass} onChange={e=>setTrailerUrl(e.target.value)} ></Input>
              </div>
          </div>
- 
+      
          </div>
-         <StyledButton onClick={()=>dispatch(addMovie(title,runTime,Language, Overview ,date, distributor ,state ,trailerUrl, img))}>ADD MOVIE</StyledButton>
-         </StyledPaper>
+         <StyledButton onClick={send}>ADD MOVIE
+            </StyledButton>
+           
+
+</StyledPaper>
          
         </WrapperMoviePage>
-       
+  
 
         </>
     )

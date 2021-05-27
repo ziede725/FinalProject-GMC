@@ -5,7 +5,8 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 
 
 
-const DeleteButton=({handleClick})=>{
+const DeleteButton=({published,handleClick})=>{
+    
 
     return(
         <Wrapper>

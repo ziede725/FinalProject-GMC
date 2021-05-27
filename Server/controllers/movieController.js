@@ -51,13 +51,18 @@ const getMovieByName =async (req,res,next)=>{
     }
 }
 const createMovie = async(req,res,next)=>{
-    const {title,runTime,Language,Overview,date,distributor,genres,trailerUrl,img} =req.body
-    console.log(req.body)
+      const {title,runTime,Language,Overview,date,distributor,Thriller, Action, Drama,Historical,Comedy,Fantasy,
+        Romance,Documentary, ScienceFiction , Adventure , CrimeAndMystery , Western,Horror,
+        MusicalFilm,animation,trailerUrl} =req.body
+     const genres ={Thriller, Action, Drama,Historical,Comedy,Fantasy,
+        Romance,Documentary, ScienceFiction , Adventure , CrimeAndMystery , Western,Horror,
+        MusicalFilm,animation}
+        
+        console.log(req.file)
    
     try{
         
-        const filterGenres = Object.entries(genres).filter(el=> el[1] === true ) ; 
-        
+        const filterGenres = Object.entries(genres).filter(el=> el[1]==="true" ) ; 
         // const doc = await Genre.findOne({name:"Documentary"}) ; 
         // console.log(doc)
         const genresID= await Promise.all(filterGenres.map( async el => await Genre.findOne({name:el[0]}).then(res=>res)))
@@ -67,7 +72,8 @@ const createMovie = async(req,res,next)=>{
         // genresID.map(el=> {mongoose.Types.ObjectId(el)
         // console.log(mongoose.Types.ObjectId(el))})
 
-        const body = {title,runTime,Language,Overview,date,genres:id,distributor,trailerUrl,img}
+        const body = {title,runTime,Language,Overview,date,genres:id,distributor,trailerUrl,img:req.file.filename}
+        console.log(body)
         const newMovie =  await Movie.create(body) ;
        
         if (!newMovie){
