@@ -9,6 +9,7 @@ import ScreeningPage from './Screening'
 import Settings from './Settings'
 import Dash from './welcomePage'
 import Sessions from './Sessions'
+import { useSelector } from 'react-redux';
 
 const Content=styled.div`
 width: 100%; 
@@ -18,9 +19,9 @@ const DashWrapper=styled.div`
 display:flex ; `
 
 const Dashboard=({match})=>{
+    const user = useSelector(state=> state.root.user)
     
     useEffect(()=>{
-        console.log('hello')
         console.log(`${match.path}`)
     },[])
     return(
@@ -33,7 +34,7 @@ const Dashboard=({match})=>{
         <Route path={`${match.path}/reservations`} component={DataTable}/>
         <Route path={`${match.path}/rooms`} component={Rooms}/>
         <Route path={`${match.path}/screenings`} component={ScreeningPage}/>
-        <Route path={`${match.path}/settings`} component={Settings}/>
+        <Route path={`${match.path}/settings`}  render={(props) => <Settings {...props} user={user}/> } />
         <Route path = {`${match.path}/sessions`} component={Sessions}/>
             
         </Content>

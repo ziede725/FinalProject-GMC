@@ -2,6 +2,7 @@ const ErrorHandler = require("../helpers/errorHandler");
 const Theater = require("../models/Theater");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const mongoose = require('mongoose')
 
 // get all theaters  query
 
@@ -39,15 +40,17 @@ const getTheaterById = async (req, res, next) => {
 const editTheater = async (req, res, next) => {
   const id = req.params.id;
   const body = req.body;
+  console.log(body)
 
   try {
-    // await checkedTheater(id);
+ 
 
     const updatedTheater = await Theater.findOneAndUpdate(
       { _id: id },
       { $set: body },
       { new: true, runValidators: true }
     ).exec();
+    console.log("updated theater:",updatedTheater)
     res.status(200).json({
       success: true,
       message: `Theater with id : ${id} has been successfully edited `,
@@ -83,25 +86,39 @@ const deleteTheater = async (req, res, next) => {
 const resetPassword = async (req, res, next) => {
   const id = req.params.id;
   const pwd = req.body.password;
-
+  const {currentPassword,newPassword} = req.body ; 
+  console.log(currentPassword) ; 
+  console.log('new password',newPassword)
   try {
+
     TheaterExist = await Theater.findById(id).exec();
+     
     if (!TheaterExist)
       throw new ErrorHandler(
         404,
         `No Theater with id : '${id}' is found in the database`
       );
-    if (pwd.length <= 6)
-      throw new ErrorHandler(404, `password too short, minimum length : 6`);
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(pwd, salt);
-    await Theater.findOneAndUpdate(
-      { _id: id },
-      { $set: { password: hashedPassword } },
-      { runValidators: true }
-    )
-      .select("password")
-      .exec();
+      console.log(TheaterExist.matchPasswords(currentPassword))
+    //   if(TheaterExist.matchPasswords(currentPassword))
+    //   { console.log("in if")
+    //     if (newPassword.length <= 6)
+    //     throw new ErrorHandler(404, `password too short, minimum length : 6`);
+         
+    //    const salt = await bcrypt.genSalt(10);
+    //   const hashedPassword = await bcrypt.hash(newPassword, salt);
+    //   await Theater.findOneAndUpdate(
+    //   { _id: id },
+    //   { $set: { password: hashedPassword } },
+    //   { runValidators: true }
+    // )
+    //   .select("password")
+    //   .exec();
+        
+    //   } 
+    
+      
+   
+   
 
     res.status(200).json({
       succces: true,

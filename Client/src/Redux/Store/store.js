@@ -12,6 +12,7 @@ export default function configureStore() {
    const composedEnhancers = composeWithDevTools(...enhancers)
 
   const store = createStore(allReducers, composedEnhancers)
+  // const store = createStore(allReducers,...enhancers)
 
   return store
 }

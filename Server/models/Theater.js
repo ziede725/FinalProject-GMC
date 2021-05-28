@@ -20,7 +20,7 @@ const theaterSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide a password"],
     minLength: 6,
-    select: false,
+    select: true,
   },
   resetPasswordToek: String,
   resetPasswordExpire: Date,
@@ -32,7 +32,7 @@ const theaterSchema = new mongoose.Schema({
     ],
   },
   role:{type: String ,default:'theater'},
-  adress: { type: String },
+  address: { type: String },
   town: { type: String },
   city: { type: String , required: true },
   zipcode: { type: Number },
@@ -52,8 +52,11 @@ theaterSchema.pre("save", async function (next) {
 });
 
 //Match Passwords
-theaterSchema.methods.matchPasswords = async function (password) {
-  return await bcrypt.compare(password, this.password);
+theaterSchema.methods.matchPasswords =  function (password) {
+ 
+ bcrypt.compare(password, this.password,(err,result)=>{
+  return result})
+  
 };
 
 //Get Signed Token

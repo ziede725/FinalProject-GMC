@@ -1,4 +1,4 @@
-import React from 'react' ; 
+import React, { useState } from 'react' ; 
 import { Formik, Field, Form } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
@@ -8,6 +8,8 @@ import styled from 'styled-components';
 import {Paper} from '@material-ui/core'; 
 import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
 import {IconButton} from '@material-ui/core'
+import { useDispatch, useSelector } from 'react-redux';
+import { changeTheaterPassword, editTheater } from '../../Redux/Actions/actions';
 
 
 const Wrapper = styled.div`
@@ -20,6 +22,15 @@ width: 70% ;
 align-items : center; 
 
 `
+const StyledButton = styled.button`
+
+`
+const WrapperFlex= styled.div`
+display: flex ; 
+flex-direction: column ; 
+justify-content: space-around ; 
+`
+
 const useStyles = makeStyles((theme)=>({
 
     
@@ -36,143 +47,149 @@ const useStyles = makeStyles((theme)=>({
   
 }))
 
-const SignupSchema = Yup.object().shape({
-    fullName: Yup.string().required('Required') , 
-    password: Yup.string()
-      .min(6, "Password must contain more than 6 caracters !")
-      .max(15)
-      .required("Required"),
-    userName: Yup.string().email("Invalid email").required("Required"),
-    email: Yup.string().email("Invalid email").required("Required"),
-    phoneNumber : Yup.string().matches("((\+|00)216)?([2579][0-9]{7}|(3[012]|4[01]|8[0128])[0-9]{6}|42[16][0-9]{5})").required('required'),
-    address : Yup.string().max(40), 
-    town:Yup.string().max(40) ,
-    city: Yup.string().max(40), 
-    zipcode:Yup.string().max(4).min(4) 
-  });
 
 
 
-const Settings =()=>{
+
+const Settings =({user})=>{
     const classes=useStyles() ; 
+    const [fullName,setFullName] = useState(user.theaterName) ; 
+    const [email,setEmail]= useState(user.email) ; 
+    const [userName,setUserName]= useState(user.userName) ; 
+    const [phone,setPhone]= useState(user.phoneNumber) ; 
+    const [address,setAddress]= useState(user.address) ; 
+    const [city,setCity]= useState(user.city) ; 
+    const [town,setTown]= useState(user.town) ; 
+    const [zipCode,setZipCode]= useState(user.zipcode) ; 
+    const [currentPassword,setCurrentPassword] = useState("") ; 
+    const [newPassword,setNewPassword] = useState("") ; 
+    const dispatch= useDispatch() ; 
+    console.log(user)
+    const id = user._id
+    const handleClick=()=>{
+      dispatch(editTheater(id,fullName,email,userName,phone,address,city,town,zipCode))
+      console.log(id,fullName,email,userName,phone,address,city,town,zipCode)
+     
+    }
     return(
-        <>
-
-<Formik
-        initialValues={{ fullName:"",email: "", password: "" ,phoneNumber:"",address:"",town:"Tunis",city:"Tunis",zipcode:2045}}
-        validationSchema={SignupSchema}
-        onSubmit={async ({ email, password }) => {
-        //   axios
-        //     .post("http://localhost:7200/api/customers/login", {
-        //       email,
-        //       password,
-        //     })
-        //     .then((res) => {
-        //       setLoggedIn(res.data.success)
-        //     })
-        //     .catch((err) => console.log(err));
-        }}
-      >
-        {({ values, errors, isSubmitting }) => (
-        
-               
+        <>              
                 <Wrapper>
                     <Paper className={classes.Paper}>
-              <Field className={classes.field}
+              <TextField className={classes.field}
                 color='primary'
-                helperText={errors.fullName}
-                error={errors.fullName}
                 placeholder="Enter full Name "
                 type="input"
-                name="Name"
-                as={TextField}
+                name="fullName" 
+                onChange={e=> setFullName(e.target.value)}
+                defaultValue={fullName}
+               
               />
 
-              <Field  className={classes.field}
+              <TextField  className={classes.field}
                 color='primary'
-                helperText={errors.email}
-                error={errors.email}
+                disabled={true}
                 placeholder="Enter email"
                 type="input"
                 name="email"
-                as={TextField}
+                defaultValue={email}
+              
               />
-               <Field  className={classes.field}
+               {/* <Field  className={classes.field}
                 color='primary'
                 helperText={errors.password}
                 error={errors.password}
                 placeholder="Change password"
                 type="input"
-                name="email"
+                name="password"
                 as={TextField}
-              />
+              /> */}
 
-              <Field  className={classes.field}
+              <TextField  className={classes.field}
                 color='primary'
-                helperText={errors.userName}
-                error={errors.userName}
+                onChange={(e)=>setUserName(e.target.value)}
                 placeholder="User Name"
                 type="input"
-                name="UserName"
-                as={TextField}
+                name="userName"
+                defaultValue={userName}
               />
 
-              <Field  className={classes.field}
-                helperText={errors.phoneNumber}
-                error={errors.phoneNumber}
+              <TextField  className={classes.field}
                 placeholder="Phone Number"
                 type="input"
                 name="phone"
-                as={TextField}
+                onChange={e=> setPhone(e.target.value)}
+                defaultValue={phone}
               />
 
-                <Field  className={classes.field}
-                helperText={errors.address}
-                error={errors.password}
+                <TextField  className={classes.field}
                 placeholder="Address"
                 type="input"
-                name="adress"
-                as={TextField}
+                name="address"
+                onChange={e=>setAddress(e.target.value)}
+                defaultValue={address}
               />
-                 <Field  className={classes.field}
-                helperText={errors.city}
-                error={errors.city}
+                 <TextField  className={classes.field}
                 placeholder="city"
                 type="input"
                 name="city"
-                as={TextField}
+                onChange={e=>setCity(e.target.value)}
+                defaultValue={city}
               />
-                 <Field  className={classes.field}
-                helperText={errors.town}
-                error={errors.town}
+                 <TextField  className={classes.field}
                 placeholder="Town"
                 type="input"
                 name="town"
-                as={TextField}
+                onChange={e=>setTown(e.target.value)}
+                defaultValue={town}
               />
-                 <Field  className={classes.field}
-                helperText={errors.zipcode}
-                error={errors.zipcode}
+                 <TextField  className={classes.field}
                 placeholder="Zip code "
                 type="input"
                 name="zipcode"
-                as={TextField}
+                onChange={e=>setZipCode(e.target.value)}
+                defaultValue={zipCode}
               />
 
        
             
-            
-            <IconButton type="submit" disabled={isSubmitting}>
+            <button type="submit" onClick={handleClick}>Submit</button>
+            {/* <IconButton type="submit" disabled={isSubmitting} >
               <SaveOutlinedIcon/>
-            </IconButton>
+            </IconButton> */}
             
             </Paper>
+            </Wrapper>
+
+            <Wrapper>
+              <Paper>
+                <WrapperFlex>
+              <TextField className={classes.field}
+                color='primary'
+                placeholder="Enter current password "
+                type="input"
+                name="currentPassword" 
+                onChange={e=> setCurrentPassword(e.target.value)}
+                defaultValue={null}
+               
+              />
+               <TextField className={classes.field}
+                color='primary'
+                placeholder="Enter new password "
+                type="input"
+                name="newPassword" 
+                onChange={e=> setNewPassword(e.target.value)}
+                defaultValue={null}
+               
+              />
+              <StyledButton onClick={()=>dispatch(changeTheaterPassword(user._id,currentPassword,newPassword))}>Confirm</StyledButton>
+              </WrapperFlex>
+              </Paper>
             </Wrapper>
          
        
         
-        )}
-      </Formik>
+   
+   
         </>
     )
 }

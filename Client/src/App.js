@@ -16,7 +16,7 @@ import MoviePage from './pages/MoviePage/MoviePage'
 import {useDispatch} from 'react-redux'
 import { getUser } from "./Redux/Actions/actions";
 import { getMovies } from "./Redux/Actions/movie.actions";
-import { getScreenings } from "./Redux/Actions/theater.actions";
+import { getRooms, getScreenings, getSession } from "./Redux/Actions/theater.actions";
 
 
 
@@ -36,6 +36,8 @@ function App() {
   dispatch(getUser())
   dispatch(getMovies())
   dispatch(getScreenings())
+  dispatch(getRooms())
+  dispatch(getSession())
 
 
  })

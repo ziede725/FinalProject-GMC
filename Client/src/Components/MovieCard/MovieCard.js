@@ -36,6 +36,7 @@ const Content = styled.div`
 `;
 
 const MovieCard = ({movieUrl,rating,id}) => {
+  console.log(movieUrl)
   return (
     <Card background={movieUrl}>
       <RouterLink to={`/movie/${id}`}>

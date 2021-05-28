@@ -72,7 +72,7 @@ const createMovie = async(req,res,next)=>{
         // genresID.map(el=> {mongoose.Types.ObjectId(el)
         // console.log(mongoose.Types.ObjectId(el))})
 
-        const body = {title,runTime,Language,Overview,date,genres:id,distributor,trailerUrl,img:req.file.filename}
+        const body = {title,runTime,Language,Overview,date,genres:id,distributor,trailerUrl,img:req.file.path}
         console.log(body)
         const newMovie =  await Movie.create(body) ;
        
