@@ -8,7 +8,7 @@ const CarouselItem = styled.div`
   position: relative;
   min-height: 350px;
   width: 100%;
-  background-image: url("https://images.unsplash.com/photo-1588189629354-6d0385b3d5ba?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=889&q=80");
+
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -78,29 +78,40 @@ const CallToAction = styled.button`
     transition: 0.2s ease-in;
   }
 `;
-const HeroCarouselItem = ({ isActive }) => {
+
+const HeroCarouselItem = ({ isActive, movie }) => {
   return (
     <ThemeProvider theme={theme}>
-      <CarouselItem>
+      <CarouselItem
+        style={{
+          backgroundImage: `url('${movie.img}')`,
+        }}
+      >
         <CarouselItemContent>
-          {isActive && (
-            <>
-              <Typography variant="h6">highlights</Typography>
-              <Typography variant="h2">John Wick:</Typography>
-              <Typography variant="h3">Chapter 3 - Parabellum</Typography>
-              <Typography variant="h5">Action | Thriller - 2h 12min</Typography>
-              <ButtonsArea>
-                <TrailerButton>
-                  <Icon>play_circle_outline</Icon>
-                  <span>watch trailer</span>
-                </TrailerButton>
-                <CallToAction>
-                  <span>book now !</span>
-                  <ConfirmationNumberOutlinedIcon />
-                </CallToAction>
-              </ButtonsArea>
-            </>
-          )}
+          <>
+            <Typography variant="h6">highlights</Typography>
+            <Typography variant="h2">{movie.title}</Typography>
+            <Typography variant="h5">
+              {movie.genres.map((genre) => (
+                <span> {genre.name} </span>
+              ))}{" "}
+              - {movie.runTime}
+            </Typography>
+            <ButtonsArea>
+              <TrailerButton>
+                <Icon>play_circle_outline</Icon>
+                <span>
+                  <a style={{ color: "white" }} href={movie.trailerUrl}>
+                    watch trailer
+                  </a>
+                </span>
+              </TrailerButton>
+              <CallToAction>
+                <span>book now !</span>
+                <ConfirmationNumberOutlinedIcon />
+              </CallToAction>
+            </ButtonsArea>
+          </>
         </CarouselItemContent>
       </CarouselItem>
     </ThemeProvider>

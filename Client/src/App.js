@@ -6,47 +6,35 @@ import Navigation from "./Components/Navigation/Navigation";
 import Account from "./pages/Account/Account";
 import Reservations from "./pages/Reservations/Reservations";
 import Favorites from "./pages/Favorites/Favorites";
-import {PaperFormLogin,PaperFormRegister} from "./pages/Login/Paper"
+import { PaperFormLogin, PaperFormRegister } from "./pages/Login/Paper";
 import { ThemeProvider } from "@material-ui/core";
 import { theme } from "./theme";
-import Dashboard from './pages/DashboardTheater/Dashboard'
-import PrivateRoute from './pages/Routes/PrivateRoute' ; 
+import Dashboard from "./pages/DashboardTheater/Dashboard";
+import PrivateRoute from "./pages/Routes/PrivateRoute";
 import { useSelector } from "react-redux";
-import MoviePage from './pages/MoviePage/MoviePage'
-import {getMovies} from './Redux/Actions/movie.actions'
-import {useDispatch} from 'react-redux'
-
-
+import MoviePage from "./pages/MoviePage/MoviePage";
+import { getMovies } from "./Redux/Actions/movie.actions";
+import { useDispatch } from "react-redux";
 
 function App() {
   //Use isAuth for the global authentication state (or Redux)
-  const isAuth = useSelector( state=> state.root.isAuth)
-  const userMail = useSelector(state=>state.root.user.email)
-  const role = useSelector(state=> state.root.user.role)
- 
-  
- 
-  
-  //******************************************************** */
-  const history= useHistory()
-  const [location, setLocation] = React.useState("Tunis");
- 
- 
+  const isAuth = useSelector((state) => state.root.isAuth);
+  const userMail = useSelector((state) => state.root.user.email);
+  const role = useSelector((state) => state.root.user.role);
 
-  
-  
+  //******************************************************** */
+  const history = useHistory();
+  const [location, setLocation] = React.useState("Tunis");
+
   return (
     <>
-
-  <ThemeProvider theme={theme}>
-  <Navigation
-        auth={isAuth}
-        setLocation={setLocation}
-        location={location}
-      />
-  </ThemeProvider>
-   
-
+      <ThemeProvider theme={theme}>
+        <Navigation
+          auth={isAuth}
+          setLocation={setLocation}
+          location={location}
+        />
+      </ThemeProvider>
 
       <Switch>
         <Route exact path="/" component={HomePage} />
@@ -55,11 +43,14 @@ function App() {
         <Route path="/my-account" component={Account} />
         <Route path="/my-reservations" component={Reservations} />
         <Route path="/my-favorites" component={Favorites} />
-        <Route path={`/Movie/:id`} component={MoviePage}/>
-      
+        <Route path={`/Movie/:id`} component={MoviePage} />
+
         {/* Path should be /theater/:id/dashboard in production  */}
-        <PrivateRoute authed={isAuth}  path={`/theater/${userMail}/dashboard`} component={Dashboard}/> 
-        
+        <PrivateRoute
+          authed={isAuth}
+          path={`/theater/${userMail}/dashboard`}
+          component={Dashboard}
+        />
       </Switch>
     </>
   );

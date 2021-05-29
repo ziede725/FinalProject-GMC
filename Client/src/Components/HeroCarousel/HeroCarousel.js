@@ -7,7 +7,7 @@ import "swiper/components/pagination/pagination.min.css";
 import SwiperCore, { Pagination } from "swiper/core";
 
 SwiperCore.use([Pagination]);
-const HeroCarousel = () => {
+const HeroCarousel = ({ Movies }) => {
   console.log();
   const [swiper, setSwiper] = useState(null);
 
@@ -23,18 +23,11 @@ const HeroCarousel = () => {
       }}
       onSlideChange={() => console.log("slide change")}
     >
-      <SwiperSlide style={{ width: "80vw" }}>
-        {({ isActive }) => <HeroCarouselItem isActive={isActive} />}
-      </SwiperSlide>
-      <SwiperSlide style={{ width: "80vw" }}>
-        {({ isActive }) => <HeroCarouselItem isActive={isActive} />}
-      </SwiperSlide>
-      <SwiperSlide style={{ width: "80vw" }}>
-        {({ isActive }) => <HeroCarouselItem isActive={isActive} />}
-      </SwiperSlide>
-      <SwiperSlide style={{ width: "80vw" }}>
-        {({ isActive }) => <HeroCarouselItem isActive={isActive} />}
-      </SwiperSlide>
+      {Movies.map((movie) => (
+        <SwiperSlide style={{ width: "80vw" }}>
+          <HeroCarouselItem movie={movie} />
+        </SwiperSlide>
+      ))}
     </Swiper>
   );
 };

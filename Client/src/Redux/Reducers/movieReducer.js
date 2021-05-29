@@ -1,21 +1,17 @@
-import {GET_MOVIES} from '../Actions/actionTypes'
-const initialState={
+import { GET_MOVIES, SET_LOCATION } from "../Actions/actionTypes";
+const initialState = {
+  movies: [],
+};
 
-    movies:[],
+const movieReducer = (state = initialState, { type, payload }) => {
+  switch (type) {
+    case GET_MOVIES:
+      return { ...state, movies: [...payload] };
 
-}
-
-const movieReducer =(state=initialState,{type,payload})=>{
-
-    switch(type){
-
-        case GET_MOVIES: 
-         return {...state, movies:[...payload]}
-    
-        default: 
-        return state ; 
-    }
-
-  
-}
-export default movieReducer ; 
+    case SET_LOCATION:
+      return { ...state, location: payload };
+    default:
+      return state;
+  }
+};
+export default movieReducer;
