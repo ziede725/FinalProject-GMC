@@ -51,6 +51,14 @@ export default function EditScreeningModal({id,open,setOpen,prevDate}) {
  
     const dispatch = useDispatch() ; 
   
+    useEffect(()=>{
+      if(visibility==="Public")
+      {
+        alert("Once Public the screening can't be edited anymore , are you sure ?")
+      }
+      
+      
+    },[visibility])
   useEffect(()=>{
     setOpen(open)
     dispatch(getMovies())

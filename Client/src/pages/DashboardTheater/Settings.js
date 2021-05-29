@@ -1,15 +1,10 @@
-import React, { useState } from 'react' ; 
-import { Formik, Field, Form } from "formik";
-import axios from "axios";
-import * as Yup from "yup";
+import React, { useEffect, useState } from 'react' ; 
 import {makeStyles, TextField} from '@material-ui/core'
-import {Button} from "@material-ui/core"
 import styled from 'styled-components';
 import {Paper} from '@material-ui/core'; 
-import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
-import {IconButton} from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheaterPassword, editTheater } from '../../Redux/Actions/actions';
+import {Autocomplete} from '@material-ui/lab'
 
 
 const Wrapper = styled.div`
@@ -30,7 +25,23 @@ display: flex ;
 flex-direction: column ; 
 justify-content: space-around ; 
 `
+const Error =styled.span`
+font-size: 14px ; 
+color : red ; 
+`
+const FlexRow =styled.div`
+display:flex ; 
+flex-direction : row ; 
+justify-content: space-around ; 
 
+`
+const FormTitle = styled.h4`
+color: blue ; 
+position: relative ; 
+left: 20px ; 
+font-size: 20px ;
+font-family: "Gill Sans", sans-serif; 
+`
 const useStyles = makeStyles((theme)=>({
 
     
@@ -39,10 +50,20 @@ const useStyles = makeStyles((theme)=>({
 
         },
         Paper:{
-            width: "60%" ,
+            width: "fitContent" ,
             height: 'fitContent', 
-            margin:'3%'
+            margin:'3%',
+            paddingLeft:'20px',
+            paddingBottom:'20px',
 
+        },
+        root:{
+          width:"67%",
+          marginLeft:"12px",
+        },
+        background:{
+          backgroundColor:'#f3f2f7',
+          height:"100vh"
         }
   
 }))
@@ -53,7 +74,7 @@ const useStyles = makeStyles((theme)=>({
 
 const Settings =({user})=>{
     const classes=useStyles() ; 
-    const [fullName,setFullName] = useState(user.theaterName) ; 
+    const [theaterName,setTheaterName] = useState(user.theaterName) ; 
     const [email,setEmail]= useState(user.email) ; 
     const [userName,setUserName]= useState(user.userName) ; 
     const [phone,setPhone]= useState(user.phoneNumber) ; 
@@ -64,24 +85,48 @@ const Settings =({user})=>{
     const [currentPassword,setCurrentPassword] = useState("") ; 
     const [newPassword,setNewPassword] = useState("") ; 
     const dispatch= useDispatch() ; 
-    const error = useSelector(state=> state.root.error)
+    const [response,setResponse] = useState("") ; 
+    const [error,setError] = useState("") ; 
+    const cities = ["Tunis","Sousse","Sfax"]
     const id = user._id
+
+
     const handleClick=()=>{
-      dispatch(editTheater(id,fullName,email,userName,phone,address,city,town,zipCode))
-      console.log(id,fullName,email,userName,phone,address,city,town,zipCode)
+      
+      const response= dispatch(editTheater(id,theaterName,email,userName,phone,address,city,town,zipCode))
+      
      
     }
+    const handlePassword = async()=>{
+    
+        const response= await dispatch(changeTheaterPassword(user._id,currentPassword,newPassword))  
+     
+        if(response.success)
+        {
+          // setResponse(response.message) ; 
+          alert(response.message) ; 
+       
+        }
+        else{
+          
+          setError(response.error)
+        }
+    }
+  
     return(
-        <>              
+        <>       
+        <div className={classes.background}>
+        <FlexRow>     
                 <Wrapper>
                     <Paper className={classes.Paper}>
+                      <FormTitle>Profile Infos</FormTitle>
               <TextField className={classes.field}
                 color='primary'
-                placeholder="Enter full Name "
+                placeholder="Enter Theater Name "
                 type="input"
-                name="fullName" 
-                onChange={e=> setFullName(e.target.value)}
-                defaultValue={fullName}
+                name="theaterName" 
+                onChange={e=> setTheaterName(e.target.value)}
+                defaultValue={theaterName}
                
               />
 
@@ -94,15 +139,7 @@ const Settings =({user})=>{
                 defaultValue={email}
               
               />
-               {/* <Field  className={classes.field}
-                color='primary'
-                helperText={errors.password}
-                error={errors.password}
-                placeholder="Change password"
-                type="input"
-                name="password"
-                as={TextField}
-              /> */}
+        
 
               <TextField  className={classes.field}
                 color='primary'
@@ -128,13 +165,17 @@ const Settings =({user})=>{
                 onChange={e=>setAddress(e.target.value)}
                 defaultValue={address}
               />
-                 <TextField  className={classes.field}
-                placeholder="city"
-                type="input"
-                name="city"
-                onChange={e=>setCity(e.target.value)}
-                defaultValue={city}
-              />
+               
+               <Autocomplete
+        id="combo-box-demo"
+        options={cities}
+       getOptionLabel={(option) => option}
+       style={{ width: 300 }}
+       
+       onChange={(event,value)=> value && setCity(value)}
+       
+       renderInput={(params) => <TextField type="input" {...params} className={classes.root} label=" * City"  />}/>
+     
                  <TextField  className={classes.field}
                 placeholder="Town"
                 type="input"
@@ -149,10 +190,10 @@ const Settings =({user})=>{
                 onChange={e=>setZipCode(e.target.value)}
                 defaultValue={zipCode}
               />
-
-       
-            
-            <button type="submit" onClick={handleClick}>Submit</button>
+              <div>
+              <button type="submit" onClick={handleClick}>Submit</button>
+              </div>
+          
             {/* <IconButton type="submit" disabled={isSubmitting} >
               <SaveOutlinedIcon/>
             </IconButton> */}
@@ -161,8 +202,9 @@ const Settings =({user})=>{
             </Wrapper>
 
             <Wrapper>
-              <Paper>
+              <Paper className={classes.Paper}>
                 <WrapperFlex>
+                  <FormTitle>Change Passowrd </FormTitle>
               <TextField className={classes.field}
                 color='primary'
                 placeholder="Enter current password "
@@ -176,16 +218,20 @@ const Settings =({user})=>{
                <TextField className={classes.field}
                 color='primary'
                 placeholder="Enter new password "
-                type="input"
+                type="password"
                 name="newPassword" 
                 onChange={e=> setNewPassword(e.target.value)}
                 defaultValue={null}
                
               />
-              <StyledButton onClick={()=>dispatch(changeTheaterPassword(user._id,currentPassword,newPassword))}>Confirm</StyledButton>
+              {error&& <Error>{error}</Error>}
+               
+              <StyledButton onClick={handlePassword}>Confirm</StyledButton>
               </WrapperFlex>
               </Paper>
             </Wrapper>
+            </FlexRow>  
+            </div>
          
        
         

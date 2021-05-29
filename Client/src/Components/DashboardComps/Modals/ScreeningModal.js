@@ -14,8 +14,16 @@ import DateFnsUtils from '@date-io/date-fns';
 import {MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers';
 import  styled from 'styled-components'
 import { getMovies } from '../../../Redux/Actions/movie.actions';
+import {makeStyles} from '@material-ui/core'
 
-
+const useHelperTextStyles = makeStyles(() => ({
+  root: {
+      color:"green !important",
+  } ,
+  textField :{
+    marginBottom:"10px" , 
+  }
+}));
 
 const Wrapper= styled.div`
 display:flex ;
@@ -34,10 +42,19 @@ export default function ScreeningModal({open,setOpen}) {
     const movies = useSelector(state=>state.movie.movies)
     const sessions= useSelector(state=>state.theater.sessions)
     const rooms = useSelector(state=>state.theater.room)
+    const helperTextStyles = useHelperTextStyles() ; 
     const DATE = new Date() ; 
  
     const dispatch = useDispatch() ; 
   
+    useEffect(()=>{
+      if(visibility==="Public")
+      {
+        alert("Once Public the screening can't be edited anymore , are you sure ?")
+      }
+      
+      
+    },[visibility])
   useEffect(()=>{
     setOpen(open)
     dispatch(getMovies())
@@ -49,6 +66,7 @@ export default function ScreeningModal({open,setOpen}) {
   
   const handleClose = () => {
     setOpen(false);
+    setDisabled(true); 
   };
 
 const formatDate = (date)=>{
@@ -106,7 +124,9 @@ const formatDate = (date)=>{
        style={{ width: 300 }}
        disabled={disabled}
        onChange={(event,value)=> value && setSession(value._id)}
-       renderInput={(params) => <TextField {...params} label="Select available session" variant="outlined" />}
+       
+       renderInput={(params) => <TextField {...params} label=" * Sessions" className={helperTextStyles.textField} FormHelperTextProps={{classes:{root:helperTextStyles.root}}} 
+        helperText="Pick date before selecting session" variant="outlined" />}
        />
 
              <Autocomplete
@@ -115,7 +135,7 @@ const formatDate = (date)=>{
        getOptionLabel={(option) => option.title}
        style={{ width: 300 }}
        onChange={(event,value)=> value && setMovieId(value._id)}
-       renderInput={(params) => <TextField {...params} label="Select available movies" variant="outlined" />}
+       renderInput={(params) => <TextField {...params} className={helperTextStyles.textField} label=" * Select available movies" variant="outlined" />}
        />
 
           
@@ -127,7 +147,7 @@ const formatDate = (date)=>{
        getOptionLabel={(option) => option.roomName}
        style={{ width: 300 }}
        onChange={(event,value)=> setRoom(value)}
-       renderInput={(params) => <TextField {...params} label="Select a room" variant="outlined" />}
+       renderInput={(params) => <TextField {...params} className={helperTextStyles.textField} label=" * Select a room" variant="outlined" />}
        />
              <TextField
             autoFocus
@@ -137,7 +157,7 @@ const formatDate = (date)=>{
             onChange={(e)=>setPrice(e.target.value)}
             InputProps={{inputProps:{min:0}}}
             type="number"
-            
+            variant='outlined'
             fullWidth
             required={true}
           />
@@ -150,6 +170,8 @@ const formatDate = (date)=>{
             InputProps={{inputProps:{min:0}}}
             type="number"
             fullWidth
+            className={helperTextStyles.textField}
+            variant='outlined'
           />
          
          

@@ -50,12 +50,12 @@ let token = localStorage.getItem('token')
     }
 }
 
-export const editTheater = (id,fullName, email,userName,phoneNumber,address,town,city,zipcode)=> async(dispatch)=>{
+export const editTheater = (id,theaterName, email,userName,phoneNumber,address,city,town,zipcode)=> async(dispatch)=>{
 
     try {
-        const res = await axios.patch(`http://localhost:7200/api/theaters/${id}/edit`,{fullName, email,userName,phoneNumber,address,town,city,zipcode})
-        console.log(res) ; 
-        dispatch(getUser())
+        const res = await axios.patch(`http://localhost:7200/api/theaters/${id}/edit`,{theaterName,email,userName,phoneNumber,address,city,town,zipcode})
+     dispatch(getUser())
+    return res ;    
     } catch (error) {
         console.log(error)
         
@@ -65,11 +65,11 @@ export const editTheater = (id,fullName, email,userName,phoneNumber,address,town
 export const changeTheaterPassword=(id,currentPassword,newPassword)=> async(dispatch)=>{
     try {
         const res = await axios.patch(`http://localhost:7200/api/theaters/${id}/reset-password`,{currentPassword,newPassword})
-        console.log(res)
+     return res.data ; 
    
     } catch (error) {
-        console.log(error.response.data.error)
-        dispatch({type:GET_ERROR,payload:error.response.data.error})
+       
+        return error.response.data ; 
     }
 }
 
