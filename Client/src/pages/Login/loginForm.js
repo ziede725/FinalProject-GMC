@@ -20,16 +20,10 @@ const SignupSchema = Yup.object().shape({
 });
 const useStyles= makeStyles((theme)=>({
     fieldClass:{
-      marginBottom: '10px'
+      marginBottom: '30px'
 
   } , 
-  containerClass: {
-    display: 'flex',
-    flexDirection: 'column' , 
-    justifyContent: 'center',
-    alignItems:'center'
-
-  } ,
+  
   button:{
     color: 'black' , 
     backgroundColor : 'black' ,
@@ -39,13 +33,24 @@ const useStyles= makeStyles((theme)=>({
     marginBottom: '10px',
   },
   typographyStyle:{
-    marginTop:'10px',
+    marginBottom:"25px"
 
   }
  
 })
 )
 
+const Wrapper= styled.div`
+display:flex ; 
+flex-direction: column; 
+justify-content: space-between ; 
+padding-left:15px ; 
+padding-top: 0px ; 
+`
+const FormWrapper= styled.div`
+display: flex ; 
+flex-direction : column ; 
+justify-content: space-between`
 export const Error = styled.h6`
 color: red ; `
 
@@ -71,19 +76,15 @@ const LogInForm = (props) => {
     // setLoggedIn(data.success)
     
   };
+
   const responseGoogle = (res) => {
     console.log(res);
   };
   return (
-    <div className={classes.containerClass}>
-      {/* {loggedIn&& <Redirect to = '/' />} */}
-
-     
+    
+      <>
+      <Wrapper>
       <Typography className={classes.typographyStyle} variant='h4'>Sign In </Typography>
-      {err && <Error>{err}</Error>}
-
-
-      <Container>
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={SignupSchema}
@@ -95,9 +96,9 @@ const LogInForm = (props) => {
         }
       >
         {({ values, errors, isSubmitting }) => (
-          <Container>
+        
                 <Form>
-                 <Container className={classes.containerClass}>
+                 <FormWrapper>
             <div>
               <Field className={classes.fieldClass}
                 color='primary'
@@ -109,6 +110,7 @@ const LogInForm = (props) => {
                 name="email"
                 as={TextField}
               />
+            {errors.email&& <div>{errors.email}</div>}
             </div>
             <div>
               <Field className={classes.fieldClass}
@@ -138,15 +140,16 @@ const LogInForm = (props) => {
               cookiePolicy={"single_host_origin"}
               disabled={false}
             />
-           </Container>
+        </FormWrapper>
           </Form>
-          </Container>
+        
         
         )}
       </Formik>
-      </Container>
+      </Wrapper>
+  </>
      
-    </div>
+
   );
 };
 

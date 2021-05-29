@@ -25,7 +25,8 @@ function App() {
   //Use isAuth for the global authentication state (or Redux)
   const isAuth = useSelector( state=> state.root.isAuth)
   const userMail = useSelector(state=>state.root.user.email)
-  const dispatch= useDispatch() ;  
+  const dispatch= useDispatch() ; 
+  const error = useSelector(state=>state.root.error) ;  
  
   
  
@@ -43,7 +44,7 @@ function App() {
  })
  
 
-  
+  console.log(error)
   
   return (
     <>

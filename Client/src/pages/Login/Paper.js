@@ -13,8 +13,7 @@ const useStyles = makeStyles((theme) => ({
     
       display: 'flex',
       justifyContent: 'center',
-      alignContent: "center",
-      height:'92vh',
+      height:'100%',
       width:'100%',
       backgroundImage:`url(${Image})`,
       backgroundPosition:"center",
@@ -25,22 +24,25 @@ const useStyles = makeStyles((theme) => ({
   
     paperContainerRegistration: {
         display:'flex',
-        justifyContent:'center',
-        alignItems:'center',
+        justifyContent:'start',
+        alignItems:"start",
+        padding:"50px",
         opacity:'0.88',
-        margin:'50px',
-        width:'25%',
-        height:'75%'
+        margin:'100px',
+        width:"fit-content",
+        height:'fit-content'
      
     },
     paperContainerLogin:{
+        
         display:'flex',
         justifyContent:'center',
-        alignItems:'center',
+        paddingTop:"50px",
+        alignItems:'start',
         opacity:'0.88',
         margin:'50px',
         width:'25%',
-        height:'65%'
+        height:'76vh'
 
     }
 

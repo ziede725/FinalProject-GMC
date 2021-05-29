@@ -87,43 +87,44 @@ const resetPassword = async (req, res, next) => {
   const id = req.params.id;
   const pwd = req.body.password;
   const {currentPassword,newPassword} = req.body ; 
-  console.log(currentPassword) ; 
-  console.log('new password',newPassword)
+
   try {
 
-    TheaterExist = await Theater.findById(id).exec();
+    TheaterExist = await Theater.findById(id);
+    console.log(TheaterExist) ; 
      
     if (!TheaterExist)
       throw new ErrorHandler(
         404,
         `No Theater with id : '${id}' is found in the database`
       );
-      console.log(TheaterExist.matchPasswords(currentPassword))
-    //   if(TheaterExist.matchPasswords(currentPassword))
-    //   { console.log("in if")
-    //     if (newPassword.length <= 6)
-    //     throw new ErrorHandler(404, `password too short, minimum length : 6`);
-         
-    //    const salt = await bcrypt.genSalt(10);
-    //   const hashedPassword = await bcrypt.hash(newPassword, salt);
-    //   await Theater.findOneAndUpdate(
-    //   { _id: id },
-    //   { $set: { password: hashedPassword } },
-    //   { runValidators: true }
-    // )
-    //   .select("password")
-    //   .exec();
-        
-    //   } 
+     const response =await TheaterExist.matchPasswords(currentPassword) ; 
     
-      
-   
-   
+      if(response)
+      { 
+        if (newPassword.length <= 6)
+        throw new ErrorHandler(404, `password too short, minimum length : 6`);
+         
+       const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(newPassword, salt);
+      await Theater.findOneAndUpdate(
+      { _id: id },
+      { $set: { password: hashedPassword } },
+      { runValidators: true }
+    )
+      .select("password")
+      .exec();
+        
+    
 
     res.status(200).json({
       succces: true,
       message: "Password reset successfully",
-    });
+    })
+  }
+    else {
+      throw new ErrorHandler(400,"You entered a wrong password ")
+    }
   } catch (error) {
     next(error);
   }

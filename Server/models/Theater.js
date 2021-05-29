@@ -52,10 +52,10 @@ theaterSchema.pre("save", async function (next) {
 });
 
 //Match Passwords
-theaterSchema.methods.matchPasswords =  function (password) {
+theaterSchema.methods.matchPasswords = async function (password) {
  
- bcrypt.compare(password, this.password,(err,result)=>{
-  return result})
+ res= await bcrypt.compare(password, this.password)
+return res ; 
   
 };
 

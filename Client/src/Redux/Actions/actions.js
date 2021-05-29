@@ -63,13 +63,13 @@ export const editTheater = (id,fullName, email,userName,phoneNumber,address,town
 }
 
 export const changeTheaterPassword=(id,currentPassword,newPassword)=> async(dispatch)=>{
-console.log(currentPassword,newPassword)
     try {
         const res = await axios.patch(`http://localhost:7200/api/theaters/${id}/reset-password`,{currentPassword,newPassword})
         console.log(res)
    
     } catch (error) {
-        console.log(error)
+        console.log(error.response.data.error)
+        dispatch({type:GET_ERROR,payload:error.response.data.error})
     }
 }
 

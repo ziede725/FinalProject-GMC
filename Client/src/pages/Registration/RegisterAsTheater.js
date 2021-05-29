@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import {  Select, TextField ,MenuItem} from "@material-ui/core";
 import * as Yup from "yup";
 import {useHistory } from "react-router-dom";
@@ -16,7 +16,7 @@ const SignupSchema = Yup.object().shape({
   
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string()
-    .min(6, "Password must contain more than 6 caracters !")
+    .min(6, "Password must be > 6 caracters")
     .max(15)
     .required("Required"),
   location:Yup.string().required("enter valid location")
@@ -28,10 +28,12 @@ const useStyles= makeStyles((theme)=>({
 }
 })
 )
+const ErrMsg = styled.div`
+color:red ;
+ `
 const Wrapper= styled.div`
 display: flex ; 
-flex-direction: column ; 
-align-items: center;`
+flex-direction: column ; `
 
 const RegistrationFormTheater = () => {
   const classes = useStyles() ; 
@@ -61,56 +63,55 @@ const RegistrationFormTheater = () => {
         }
       >
        
-        {({ values, errors, isSubmitting,handleChange }) => (
+        {({ values, errors,touched, isSubmitting,handleChange,handleBlur}) => (
           
           <Form>
             <Wrapper>
             <h2> Register as Theater</h2>
             <Field className={classes.fieldClass}
-                helperText={errors.theaterName}
-                error={errors.theaterName}
+                
                 placeholder="Enter Theater Name"
                 type="input"
                 name="theaterName"
                 as={TextField}
+                onBlur={handleBlur}
               />
               
               <Field className={classes.fieldClass}
-                helperText={errors.email}
-                error={errors.email}
+                error={touched.email&&errors.email}
                 placeholder="email"
-               
                 type="input"
-                name="email"
-                
+                name="email"  
                 as={TextField}
+                onBlur={handleBlur}
               />
+               <ErrorMessage name="email" render={msg=><ErrMsg>{msg}</ErrMsg>}/>
          
               <Field className={classes.fieldClass}
-                helperText={errors.password}
-                error={errors.password}
                 placeholder="password"
                 type="input"
                 name="password"
-              
-                
+                onBlur={handleBlur}
                 as={TextField}
               />
+              <ErrorMessage name="password" render={msg=><ErrMsg>{msg}</ErrMsg>}/>
         
               <Field className={classes.fieldClass}
-                helperText={errors.userName}
-                error={errors.userName}
                 placeholder="userName"
                 type="input"
                 name="userName"
+                onBlur={handleBlur}
                 as={TextField}
               />
+              <ErrorMessage name="userName" render={msg=><ErrMsg>{msg}</ErrMsg>}/>
               <Select 
           select
           labelId="Location"
           name="location"
           value={values.location}
           onChange={handleChange}
+          onBlur={handleBlur}
+          helperText={touched.location&&errors.location}
          >
           <MenuItem value="sfax">Sfax</MenuItem>
           <MenuItem value="tunis">Tunis</MenuItem>

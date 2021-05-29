@@ -64,7 +64,7 @@ const Settings =({user})=>{
     const [currentPassword,setCurrentPassword] = useState("") ; 
     const [newPassword,setNewPassword] = useState("") ; 
     const dispatch= useDispatch() ; 
-    console.log(user)
+    const error = useSelector(state=> state.root.error)
     const id = user._id
     const handleClick=()=>{
       dispatch(editTheater(id,fullName,email,userName,phone,address,city,town,zipCode))
@@ -170,6 +170,7 @@ const Settings =({user})=>{
                 name="currentPassword" 
                 onChange={e=> setCurrentPassword(e.target.value)}
                 defaultValue={null}
+               
                
               />
                <TextField className={classes.field}
