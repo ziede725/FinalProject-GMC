@@ -40,11 +40,10 @@ export const addMovie =
 export const getMovies = () => async (dispatch) => {
   try {
     const response = await axios.get("http://localhost:7200/api/movies");
-    console.log(response);
 
     dispatch({ type: GET_MOVIES, payload: response.data.movies });
   } catch (error) {
-    alert(error.response.data.error);
+    alert(error);
   }
 };
 
@@ -53,15 +52,6 @@ export const setLocation = (location) => (dispatch) => {
     type: SET_LOCATION,
     payload: location,
   });
-};
-
-export const getMoviesByLocation = () => async (dispatch) => {
-  try {
-    const location = useSelector((state) => state.location);
-    const response = await axios.get("http://localhost:7200/api/movies");
-  } catch (error) {
-    alert(error.response.data.error);
-  }
 };
 
 export const rateMovie = (movieId, reviews, customerId) => async (dispatch) => {

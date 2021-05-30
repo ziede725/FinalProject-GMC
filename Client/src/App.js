@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React from "react";
 import "./App.css";
 import { Switch, Route, useHistory } from "react-router-dom";
 import HomePage from "./pages/Home/Home";
@@ -13,27 +13,21 @@ import Dashboard from "./pages/DashboardTheater/Dashboard";
 import PrivateRoute from "./pages/Routes/PrivateRoute";
 import { useSelector } from "react-redux";
 import MoviePage from "./pages/MoviePage/MoviePage";
-import { getMovies } from "./Redux/Actions/movie.actions";
-import { useDispatch } from "react-redux";
 
 function App() {
   //Use isAuth for the global authentication state (or Redux)
   const isAuth = useSelector((state) => state.root.isAuth);
   const userMail = useSelector((state) => state.root.user.email);
   const role = useSelector((state) => state.root.user.role);
+  const location = useSelector((state) => state.root.location);
 
   //******************************************************** */
   const history = useHistory();
-  const [location, setLocation] = React.useState("Tunis");
 
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Navigation
-          auth={isAuth}
-          setLocation={setLocation}
-          location={location}
-        />
+        <Navigation isAuth={isAuth} location={location} />
       </ThemeProvider>
 
       <Switch>

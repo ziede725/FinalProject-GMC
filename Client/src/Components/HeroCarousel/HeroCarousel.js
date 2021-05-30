@@ -1,34 +1,23 @@
-import React, { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper.scss";
+import React from "react";
+import Slider from "react-slick";
+
 import HeroCarouselItem from "./HeroCarouselItem";
-import "swiper/swiper.min.css";
-import "swiper/components/pagination/pagination.min.css";
-import SwiperCore, { Pagination } from "swiper/core";
 
-SwiperCore.use([Pagination]);
 const HeroCarousel = ({ Movies }) => {
-  console.log();
-  const [swiper, setSwiper] = useState(null);
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
 
-  console.log(swiper);
   return (
-    <Swiper
-      spaceBetween={30}
-      slidesPerView={"auto"}
-      centeredSlides={true}
-      loop={true}
-      pagination={{
-        clickable: true,
-      }}
-      onSlideChange={() => console.log("slide change")}
-    >
-      {Movies.map((movie) => (
-        <SwiperSlide style={{ width: "80vw" }}>
-          <HeroCarouselItem movie={movie} />
-        </SwiperSlide>
+    <Slider {...settings}>
+      {Movies.map((movie, index) => (
+        <HeroCarouselItem key={index} movie={movie} />
       ))}
-    </Swiper>
+    </Slider>
   );
 };
 

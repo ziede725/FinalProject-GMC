@@ -34,7 +34,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case GET_ERROR:
       console.log(payload);
       return { ...state, error: payload };
-
+    case SET_LOCATION:
+      return { ...state, location: payload };
     default:
       return state;
   }

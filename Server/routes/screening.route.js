@@ -7,14 +7,15 @@ router.patch("/:id/edit", screeningController.editScreening);
 //Publish Screening
 router.patch("/:id/publish", screeningController.publishScreening);
 //Remove Screening
-router.delete("/:id", screeningController.deleteScreening); 
+router.delete("/:id", screeningController.deleteScreening);
 
+router.get("/", screeningController.getAll);
 //Get All Screenings
 router.get("/all", screeningController.getAllScreenings);
 
 //get Screening by Theater ID
 router.get("/theater/", screeningController.getScreenings);
-//Get Screening by theater ID 
+//Get Screening by theater ID
 router.get("/:id", screeningController.getScreeningById);
 //Get screenings by movie
 router.get("/movie/:movieId", screeningController.getScreeningsByMovie);
