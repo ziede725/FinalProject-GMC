@@ -31,7 +31,7 @@ const createRoom = async (req, res, next) => {
       roomName,
       roomCapacity,
       Theater_id:objectId,
-      location : theater.city
+      location : theater.city.trim()
     });
     res.status(201).json({
       success: true,

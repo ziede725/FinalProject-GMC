@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {LOGIN_USER,LOGOUT, REGISTER_THEATER,LOAD_USER,GET_USER, GET_ERROR} from './actionTypes' ; 
+import {LOGIN_USER,LOGOUT, REGISTER_THEATER,LOAD_USER,REGISTER_CUSTOMER,GET_USER, GET_ERROR} from './actionTypes' ; 
 
 
 export const loginUser = (user,history)=>async (dispatch) => {
@@ -34,7 +34,15 @@ export const logOut = (history)=> async (dispatch)=>{
         console.log(error) ; 
     }
 }
-
+export const registerCustomer=(user,history) => async(dispatch)=>{
+    try {
+        let response = await axios.post('http://localhost:7200/api/customers/register',user)
+        history.push('/')
+        dispatch({type: REGISTER_CUSTOMER , payload:{...response.data,history}})
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const registerTheater=(user,history) => async (dispatch)=>{
 
     

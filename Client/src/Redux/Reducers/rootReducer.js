@@ -17,6 +17,9 @@ const rootReducer=(state=initialState,{type,payload})=>{
         case LOGOUT: 
         localStorage.removeItem("token") ; 
         return {...state , user:{}, isAuth: false }
+        case REGISTER_CUSTOMER: 
+        localStorage.setItem("token",payload.token)
+        return{...state,user:payload.user,isAuth:true,load:false}
         case REGISTER_THEATER: 
         console.log(payload)
         localStorage.setItem("token",payload.token)

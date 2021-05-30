@@ -30,7 +30,7 @@ const createScreening = async (req, res, next) => {
    
    
     const room = await Room.findById(roomName) ; 
-    console.log(room)
+    
      
     const screening = await Screening.create({
       movieId:movieName,
@@ -41,7 +41,7 @@ const createScreening = async (req, res, next) => {
       roomId:room._id,
       price,
       theaterId:objectId,
-      location: room.location 
+      location: room.location.trim() 
 
     });
     res.status(201).json({

@@ -29,8 +29,9 @@ const useStyles = makeStyles((theme) => ({
         padding:"50px",
         opacity:'0.88',
         margin:'100px',
-        width:"fit-content",
-        height:'fit-content'
+        minWidth:"fit-content",
+        width:"70%",
+        height:'400px'
      
     },
     paperContainerLogin:{

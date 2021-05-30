@@ -76,13 +76,13 @@ exports.registerCustomer = async (req, res, next) => {
     password,
     phoneNumber,
   } = req.body;
-
+  try {
   const userExist = await Customer.findOne({email}) ; 
   if (userExist)
   {
-    throw new ErrorHandler(400,"user already exists ")
+    throw new ErrorHandler(409,"user already exists ")
   }
-  try {
+  
     const customer = await Customer.create({
       firstName,
       lastName,

@@ -13,7 +13,7 @@ const sendToken = (user, statusCode, res) => {
     })  
     
   };
-router.post("/", async (req, res) => {
+router.post("/google", async (req, res) => {
     const { token }  = req.body
     const ticket = await client.verifyIdToken({
         idToken: token,
