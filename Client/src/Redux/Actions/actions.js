@@ -6,15 +6,22 @@ export const loginUser = (user,history)=>async (dispatch) => {
 
     try {
         let result = await axios.post("http://localhost:7200/api/login",user) ;
-       
+        
+        if(result.data.user.role==="theater")
+        {
+            history.push(`/theater/${user.email}/dashboard`)
+        }else{
+                history.push('/')
+        }
         dispatch({type: LOGIN_USER , payload: {...result.data,history}})
+      
          
     }
     catch(error)
     {
         // dispatch({type : FAIL_USER , payload: error.response.data.errors})
        console.log(error)
-          dispatch({type:GET_ERROR, payload: error.response.data.error})
+          
     }
 } 
 export const logOut = (history)=> async (dispatch)=>{

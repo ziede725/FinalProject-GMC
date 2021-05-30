@@ -13,10 +13,6 @@ const rootReducer=(state=initialState,{type,payload})=>{
     {
         case LOGIN_USER : 
         localStorage.setItem("token",payload.token) ;
-        if(payload.user.role==="theater")
-        {
-            payload.history.push(`/theater/${payload.user.email}/dashboard`)
-        } 
         return {...state ,user: payload.user , load: false ,isAuth:true }
         case LOGOUT: 
         localStorage.removeItem("token") ; 

@@ -9,6 +9,8 @@ import { GoogleLogin } from "react-google-login";
 import {Typography} from '@material-ui/core'
 import { SubmitButton } from "../../Components/DashboardComps/Buttons/submitButton";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import {getUser} from '../../Redux/Actions/actions'
 
 const SignupSchema = Yup.object().shape({
   userName: Yup.string().min(4, "tooShort").max(50).required("Required"),
@@ -41,10 +43,25 @@ align-items: center;`
 const RegistrationForm = () => {
   const [loggedIn , setLoggedIn] = useState(false) ; 
   const classes = useStyles() ; 
-  const handleLogin = (data)=>{
-      setLoggedIn(data) ; 
-  }
-  
+  const dispatch = useDispatch() ; 
+  const handleLogin = async (googleData) => {
+    const res = await fetch("http://localhost:7200/api/auth", {
+      method: "POST",
+      body: JSON.stringify({
+        token: googleData.tokenId,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    // store returned user somehow
+    localStorage.setItem('token',data.token)
+    dispatch(getUser()) ; 
+    setLoggedIn(data.success)
+   
+    
+  };
   return (
   
   <div>

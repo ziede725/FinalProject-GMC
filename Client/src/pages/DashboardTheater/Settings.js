@@ -5,6 +5,7 @@ import {Paper} from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheaterPassword, editTheater } from '../../Redux/Actions/actions';
 import {Autocomplete} from '@material-ui/lab'
+import { set } from 'mongoose';
 
 
 const Wrapper = styled.div`
@@ -89,8 +90,6 @@ const Settings =({user})=>{
     const [error,setError] = useState("") ; 
     const cities = ["Tunis","Sousse","Sfax"]
     const id = user._id
-
-
     const handleClick=()=>{
       
       const response= dispatch(editTheater(id,theaterName,email,userName,phone,address,city,town,zipCode))
@@ -104,7 +103,10 @@ const Settings =({user})=>{
         if(response.success)
         {
           // setResponse(response.message) ; 
+          setError(null) ; 
           alert(response.message) ; 
+          setResponse(response.message)
+         
        
         }
         else{
@@ -171,6 +173,7 @@ const Settings =({user})=>{
         options={cities}
        getOptionLabel={(option) => option}
        style={{ width: 300 }}
+       defaultValue={city}
        
        onChange={(event,value)=> value && setCity(value)}
        

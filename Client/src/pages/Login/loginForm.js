@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState} from "react";
 import { Formik, Field, Form } from "formik";
 import {  makeStyles, TextField, Typography } from "@material-ui/core";
 import * as Yup from "yup";
@@ -6,8 +6,8 @@ import { GoogleLogin } from "react-google-login";
 import {Container} from '@material-ui/core'
 import {Link} from '@material-ui/core'
 import {useDispatch, useSelector} from 'react-redux' ; 
-import  {loginUser}  from "../../Redux/Actions/actions";
-import {useHistory} from 'react-router-dom'
+import  {getUser, loginUser}  from "../../Redux/Actions/actions";
+import {Redirect, useHistory} from 'react-router-dom'
 import  styled from 'styled-components'
 import {SubmitButton} from '../../Components/DashboardComps/Buttons/submitButton'
 require("dotenv").config();
@@ -55,12 +55,11 @@ export const Error = styled.h6`
 color: red ; `
 
 const LogInForm = (props) => {
-  // const [loggedIn , setLoggedIn] = useState(false) ; 
+  const [loggedIn , setLoggedIn] = useState(false) ; 
   const err= useSelector(state=>state.root.error)
   let history  =useHistory() ; 
   const dispatch = useDispatch() ; 
   const classes=useStyles() ; 
-  console.log(history)
   const handleLogin = async (googleData) => {
     const res = await fetch("http://localhost:7200/api/auth", {
       method: "POST",
@@ -73,9 +72,15 @@ const LogInForm = (props) => {
     });
     const data = await res.json();
     // store returned user somehow
-    // setLoggedIn(data.success)
+    localStorage.setItem('token',data.token)
+    dispatch(getUser()) ; 
+    setLoggedIn(data.success)
+   
     
   };
+//   const handleLogin = (data)=>{
+//     setLoggedIn(data) ; 
+// }
 
   const responseGoogle = (res) => {
     console.log(res);
@@ -83,6 +88,7 @@ const LogInForm = (props) => {
   return (
     
       <>
+      {loggedIn && <Redirect to = '/'/>}
       <Wrapper>
       <Typography className={classes.typographyStyle} variant='h4'>Sign In </Typography>
       <Formik

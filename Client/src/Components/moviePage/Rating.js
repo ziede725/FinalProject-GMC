@@ -19,12 +19,11 @@ const auth = useSelector(state=>state.root.isAuth)
 const id= useParams() ; 
 // console.log(user)
 // console.log(auth)
-console.log(movie)
 
 const handleChange=(rating)=>{
 
 if(auth)
-{   console.log("hello world")
+{   
     setEdit(false) ; 
     setValue(rating);
     dispatch(rateMovie(movie._id,rating,user._id))
