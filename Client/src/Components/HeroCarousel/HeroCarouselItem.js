@@ -92,7 +92,7 @@ const HeroCarouselItem = ({ isActive, movie }) => {
             <Typography variant="h6">highlights</Typography>
             <Typography variant="h2">{movie.title}</Typography>
             <Typography variant="h5">
-              {movie.genres.map((genre, index) => (
+              {movie.genres&& movie.genres.map((genre, index) => (
                 <span key={index}> {genre.name} </span>
               ))}{" "}
               - {movie.runTime}

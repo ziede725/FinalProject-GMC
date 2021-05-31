@@ -2,17 +2,7 @@ import axios from "axios";
 import { GET_MOVIES, SET_LOCATION } from "./actionTypes";
 
 export const addMovie =
-  (
-    title,
-    runTime,
-    Language,
-    Overview,
-    date,
-    distributor,
-    genres,
-    trailerUrl,
-    img
-  ) =>
+  (data) =>
   async (dispatch) => {
     try {
         const response = await axios.post("http://localhost:7200/api/movies/create",data)

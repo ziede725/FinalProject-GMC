@@ -76,7 +76,7 @@ return(
             <Rating movie={movie} ></Rating>        
         
 
-    <MovCard imgURL={movie.img} />
+    <MovCard imgURL={movie.img&&movie.img} />
     </LowerSection>
 
     </>
