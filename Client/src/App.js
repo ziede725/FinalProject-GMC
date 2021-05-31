@@ -18,6 +18,7 @@ import { getUser } from "./Redux/Actions/actions";
 import { getMovies } from "./Redux/Actions/movie.actions";
 import { getRooms, getScreenings, getSession } from "./Redux/Actions/theater.actions";
 import ResetPassword from './pages/ResetPassword/ResetPassword'
+import ForgotPassword from "./pages/ResetPassword/ForgotPassword";
 
 
 
@@ -62,6 +63,7 @@ function App() {
         <Route path="/my-favorites" component={Favorites} />
         <Route path={`/Movie/:id`} component={MoviePage}/>
         <Route path={`/reset-password/:token`} component={ResetPassword}/>
+        <Route path ={`/forgot-password`} component={ForgotPassword}/>
       
         {/* Path should be /theater/:id/dashboard in production  */}
         <PrivateRoute

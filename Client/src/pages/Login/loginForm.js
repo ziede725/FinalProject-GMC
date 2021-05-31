@@ -3,13 +3,13 @@ import { Formik, Field, Form } from "formik";
 import {  makeStyles, TextField, Typography } from "@material-ui/core";
 import * as Yup from "yup";
 import { GoogleLogin } from "react-google-login";
-import {Container} from '@material-ui/core'
 import {Link} from '@material-ui/core'
 import {useDispatch, useSelector} from 'react-redux' ; 
 import  {getUser, loginUser}  from "../../Redux/Actions/actions";
 import {Redirect, useHistory} from 'react-router-dom'
 import  styled from 'styled-components'
 import {SubmitButton} from '../../Components/DashboardComps/Buttons/submitButton'
+import axios from 'axios'
 require("dotenv").config();
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -129,7 +129,9 @@ const LogInForm = (props) => {
                 as={TextField}
               />
             </div>
-            <Link className={classes.linkStyle} href='#' onClick={()=>console.log('m clicked')}>Forgot Password ?</Link>
+            <Link className={classes.linkStyle} href='/forgot-password' 
+            // onClick={()=>history.push('/forgot-password')}
+            >Forgot Password ?</Link>
             
             <SubmitButton type="submit" >
               Submit
