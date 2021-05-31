@@ -31,7 +31,7 @@ const customerSchema = new Schema(
       type: String,
       required: [true, "Please provide a password"],
       minLength: 6,
-      select: false,
+      // select: false,
     },
     resetPasswordToek: String,
     resetPasswordExpire: Date,
@@ -79,15 +79,15 @@ customerSchema.methods.getSignedToken = function () {
 
 //Generate
 
-customerSchema.methods.getResetPasswordToken = function () {
-  const resetToken = crypto.randomBytes(20).toString("hex");
-  this.resetPasswordToken = crypto
-    .createHash("sha256")
-    .update(resetToken)
-    .digest("hex");
+// customerSchema.methods.getResetPasswordToken = function () {
+//   const resetToken = crypto.randomBytes(20).toString("hex");
+//   this.resetPasswordToken = crypto
+//     .createHash("sha256")
+//     .update(resetToken)
+//     .digest("hex");
 
-  this.resetPasswordExpire = Date.now() + 10 * (60 * 1000);
-  return resetToken;
-};
+//   this.resetPasswordExpire = Date.now() + 10 * (60 * 1000);
+//   return resetToken;
+// };
 const Customer = model("Customer", customerSchema);
 module.exports = Customer;

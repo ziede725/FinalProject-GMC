@@ -31,7 +31,7 @@ app.use("/api/auth", require("./routes/googleAuth.route"));
 app.use('/api/login', require("./routes/login.route"))
 app.use("/test", require("./routes/test.route"));
 // we need to implement the reset password in this route
-app.post("/passwordReset");
+app.use("/passwordReset",require("./routes/password.reset"));
 
 //Error Handler(Keep as Last Middleware)
 app.use(errorHandler);

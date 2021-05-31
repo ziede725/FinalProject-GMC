@@ -17,6 +17,7 @@ import {useDispatch} from 'react-redux'
 import { getUser } from "./Redux/Actions/actions";
 import { getMovies } from "./Redux/Actions/movie.actions";
 import { getRooms, getScreenings, getSession } from "./Redux/Actions/theater.actions";
+import ResetPassword from './pages/ResetPassword/ResetPassword'
 
 
 
@@ -67,6 +68,7 @@ function App() {
         <Route path="/my-reservations" component={Reservations} />
         <Route path="/my-favorites" component={Favorites} />
         <Route path={`/Movie/:id`} component={MoviePage}/>
+        <Route path={`/reset-password/:token`} component={ResetPassword}/>
       
         {/* Path should be /theater/:id/dashboard in production  */}
         <PrivateRoute authed={isAuth}  path={`/theater/${userMail}/dashboard`} component={Dashboard}/> 

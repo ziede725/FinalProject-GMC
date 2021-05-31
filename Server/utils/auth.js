@@ -4,6 +4,7 @@ const Theater = require("../models/Theater");
 const ErrorHandler = require("../helpers/errorHandler");
 const mongoose= require('mongoose')
 const jwt = require('jsonwebtoken')
+const bcrypt= require('bcrypt') ; 
 
 
 const sendToken = (user, statusCode, res) => {
@@ -34,37 +35,7 @@ exports.registerAdmin = async (req, res, next) => {
     next(error);
   }
 };
-// exports.loginAdmin = async (req, res, next) => {
-//   const { email, password } = req.body;
 
-//   if (!email || !password)
-//     throw new ErrorHandler(400, " Please provide email and password");
-
-//   try {
-//     const admin = await Admin.findOne({ email }).select("+password").exec();
-//     if (!admin) throw new ErrorHandler(404, "Invalid credentials email");
-
-//     const isMatch = await admin.matchPasswords(password);
-//     if (!isMatch) throw new ErrorHandler(404, "Invalid Credentials pwd");
-//     sendToken(admin, 200, res);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-exports.forgotPasswordAdmin = async (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    message: `You requested a reset password link, chek your email!`,
-  });
-};
-
-exports.logoutAdmin = (req, res, next) => {
-  try {
-    unSetToken(200, res);
-  } catch (error) {
-    next(error);
-  }
-};
 
 //Customer authentication
 exports.registerCustomer = async (req, res, next) => {
@@ -230,6 +201,37 @@ exports.forgotPasswordTheater = async (req, res, next) => {
     message: `You requested a reset password link, chek your email!`,
   });
 };
+
+exports.ChangePassword=async(req,res,next)=>{
+  const token = req.params.token ; 
+ const body = req.body ;  
+
+  try {
+      const user_id = jwt.verify(token,process.env.JWT_SECRET) ; 
+      
+      const id = mongoose.Types.ObjectId(user_id.id) ;
+      console.log(id) ; 
+      const salt = await bcrypt.genSalt(10);
+      const password = await bcrypt.hash(body.password, salt);
+      const customer = await Customer.findOneAndUpdate(
+        { _id: id },
+        { $set: {password:password} },
+        { new: true, runValidators: true }
+      ).exec();
+      console.log(customer) ; 
+      
+      // const theater = Theater.findByIdAndUpdate(id,{$set:{password:password}}) ; 
+
+      res.status(200).json({
+        success: true, 
+        message: "Password has been reset successfully !"
+      })
+      
+    
+  } catch (error) {
+    next(error) ; 
+  }
+}
 
 
 // const unSetToken = (statusCode, res) => {
