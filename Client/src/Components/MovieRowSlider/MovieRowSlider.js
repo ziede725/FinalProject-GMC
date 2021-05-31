@@ -2,31 +2,21 @@ import {
   ThemeProvider,
   Typography,
   Container,
-  Icon,
   IconButton,
 } from "@material-ui/core";
-import { Swiper, SwiperSlide } from "swiper/react";
+import Slider from "react-slick";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import React from "react";
+import React, { useRef } from "react";
 import { theme } from "../../theme";
 import MovieCard from "../MovieCard/MovieCard";
 import styled from "styled-components";
-// Import Swiper styles
-import "swiper/swiper.min.css";
-import "swiper/components/navigation/navigation.min.css";
-import SwiperCore, { Navigation } from "swiper/core";
-import {useSelector} from 'react-redux'
-SwiperCore.use([Navigation]);
 
-
-const Wrapper= styled.div`
-display:flex ;
-justify-content: space-around ;  `
 const Top = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  margin-bottom: 16px;
 `;
 const CustomNavigation = styled.div`
   display: flex;
@@ -42,10 +32,24 @@ const CustomNavigation = styled.div`
   }
 `;
 
-const MovieRowSlider = ({ title, movieArray }) => {
-  const movies = useSelector(state=>state.movie.movies)
+const MovieRowSlider = ({ title, Movies }) => {
   const navigationPrevRef = React.useRef(null);
   const navigationNextRef = React.useRef(null);
+  const sliderRef = useRef();
+  const nextClick = () => {
+    sliderRef.current.slickNext();
+  };
+  const prevClick = () => {
+    sliderRef.current.slickPrev();
+  };
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+  };
+
   return (
     <ThemeProvider theme={theme}>
       ¨
@@ -56,57 +60,24 @@ const MovieRowSlider = ({ title, movieArray }) => {
           </Typography>
           <CustomNavigation>
             <IconButton style={{ color: "#eee" }}>
-              <ArrowBackIosIcon ref={navigationPrevRef} />
+              <ArrowBackIosIcon
+                ref={navigationPrevRef}
+                onClick={(e) => prevClick()}
+              />
             </IconButton>
             <IconButton style={{ color: "#eee" }}>
-              <ArrowForwardIosIcon ref={navigationNextRef} />
+              <ArrowForwardIosIcon
+                ref={navigationNextRef}
+                onClick={(e) => nextClick()}
+              />
             </IconButton>
           </CustomNavigation>
         </Top>
-        <Swiper
-          breakpoints={{
-            0: {
-              slidesPerView: 1,
-            },
-            600: {
-              slidesPerView: 3,
-            },
-            960: {
-              slidesPerView: 5,
-            },
-            1440: {
-              slidesPerView: 6,
-            },
-            1920: {
-              slidesPerView: 7,
-            },
-          }}
-          navigation={{
-            prevEl: navigationPrevRef.current,
-            nextEl: navigationNextRef.current,
-          }}
-          onBeforeInit={(swiper) => {
-            swiper.params.navigation.prevEl = navigationPrevRef.current;
-            swiper.params.navigation.nextEl = navigationNextRef.current;
-          }}
-          loop={false}
-          spaceBetween={30}
-          style={{ marginTop: "2rem" }}
-        >
-          
-         
-         <Wrapper>
-         {movies.map(el=>
-             <MovieCard movieUrl={el.img} id={el._id} key={el._id}/>
-            )} 
-         </Wrapper>
-         <Wrapper>
-
-         </Wrapper>
-            
-         
-         
-        </Swiper>
+        <Slider {...settings} ref={sliderRef}>
+          {Movies.map((el) => (
+            <MovieCard movieUrl={el.img} id={el._id} key={el._id} />
+          ))}
+        </Slider>
       </Container>
     </ThemeProvider>
   );

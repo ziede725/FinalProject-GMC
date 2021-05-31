@@ -1,12 +1,15 @@
-const {LOGIN_USER, LOGOUT,REGISTER_THEATER,REGISTER_CUSTOMER,GET_USER, GET_ERROR} = require('../Actions/actionTypes')
+const {LOGIN_USER, LOGOUT,REGISTER_THEATER,REGISTER_CUSTOMER,GET_USER, SET_LOCATION, GET_ERROR} = require('../Actions/actionTypes')
+
 
 const initialState = {
-    isAuth: false , 
-    user:{} , 
-    load : false ,
-    error: "",
+  isAuth: false,
+  user: {},
+  load: false,
+  error: "",
+  location: "Tunis",
+};
 
-}
+
 
 const rootReducer=(state=initialState,{type,payload})=>{
     switch(type)
@@ -28,7 +31,9 @@ const rootReducer=(state=initialState,{type,payload})=>{
         return {...state, user:payload.user,isAuth:true,load: false}
         case GET_ERROR: 
         console.log(payload)
-        return {...state , error:payload}
+        return {...state , error:payload};
+        case SET_LOCATION:
+          return { ...state, location: payload };
         default : 
         return state ;
     } 

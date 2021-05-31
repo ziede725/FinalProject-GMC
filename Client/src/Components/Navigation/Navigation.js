@@ -24,7 +24,8 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import SearchIcon from "@material-ui/icons/Search";
 import MenuIcon from "@material-ui/icons/Menu";
 import { logOut } from "../../Redux/Actions/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_LOCATION } from "../../Redux/Actions/actionTypes";
 const useStyles = makeStyles((theme) => ({
   small: {
     width: theme.spacing(4),
@@ -100,17 +101,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navigation = ({ location, setLocation, isAuth }) => {
+const Navigation = ({ isAuth, location }) => {
   const classes = useStyles();
-  const dispatch = useDispatch() ;
-  let history = useHistory() ;  
+  const dispatch = useDispatch();
+  let history = useHistory();
 
-  const [desktopAccountAnchorEl, setDesktopAccountAnchorEl] = React.useState(
-    null
-  );
-  const [mobileAccountAnchorEl, setMobileAccountAnchorEl] = React.useState(
-    null
-  );
+  const handleLocation = (e) => {
+    dispatch({ type: SET_LOCATION, payload: e.target.value });
+  };
+
+  const user = useSelector((state) => state.root.user);
+
+  const [desktopAccountAnchorEl, setDesktopAccountAnchorEl] =
+    React.useState(null);
+  const [mobileAccountAnchorEl, setMobileAccountAnchorEl] =
+    React.useState(null);
   const [mobileMenuAnchorEl, setMobileMenuAnchorEl] = React.useState(null);
 
   const handleAccountDesktopMenuOpen = (event) => {
@@ -133,12 +138,9 @@ const Navigation = ({ location, setLocation, isAuth }) => {
     setMobileMenuAnchorEl(null);
   };
 
-  const handleLocation = (e) => {
-    setLocation(e.target.value);
-  };
-
   /*ADD logout logic here *******************/
   const handleLogout = () => {
+    dispatch(logOut(history));
     setMobileAccountAnchorEl(null);
     setDesktopAccountAnchorEl(null);
   };
@@ -329,7 +331,7 @@ const Navigation = ({ location, setLocation, isAuth }) => {
                           variant="body2"
                           style={{ marginRight: "1rem" }}
                         >
-                          Welcome back, John Doe
+                          Welcome back, {user.firstName} {user.lastName}
                         </Typography>
                         <Avatar
                           alt="John Doe"
@@ -337,7 +339,6 @@ const Navigation = ({ location, setLocation, isAuth }) => {
                           edge="end"
                           className={classes.small}
                         />
-
 
                         <IconButton
                           aria-label="account of current user"
@@ -356,14 +357,10 @@ const Navigation = ({ location, setLocation, isAuth }) => {
                         <Button component={RouterLink} to="/register">
                           Sign Up
                         </Button>
-                        <Button onClick={()=>dispatch(logOut(history))}>
-                          LOGOUT
-                        </Button>
                       </>
                     )}
                   </Box>
                 </Grid>
-
               </Grid>
             </Toolbar>
           </Container>

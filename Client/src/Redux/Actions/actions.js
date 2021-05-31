@@ -1,9 +1,7 @@
 import axios from 'axios';
 import {LOGIN_USER,LOGOUT, REGISTER_THEATER,LOAD_USER,REGISTER_CUSTOMER,GET_USER, GET_ERROR} from './actionTypes' ; 
 
-
-export const loginUser = (user,history)=>async (dispatch) => {
-
+export const loginUser = (user, history) => async (dispatch) => {
     try {
         let result = await axios.post("http://localhost:7200/api/login",user) ;
         
@@ -101,7 +99,7 @@ export const changeTheaterPassword=(id,currentPassword,newPassword)=> async(disp
 //       dispatch({ type: FAIL_USER, payload: error.response.data.errors });
 //     }
 //   };
-  
+
 //   export const login = (user, history) => async (dispatch) => {
 //     dispatch({ type: LOAD_USER });
 //     try {
@@ -112,7 +110,7 @@ export const changeTheaterPassword=(id,currentPassword,newPassword)=> async(disp
 //       dispatch({ type: FAIL_USER, payload: error.response.data.errors });
 //     }
 //   };
-  
+
 //   export const current = () => async (dispatch) => {
 //     try {
 //       const config = {
@@ -126,14 +124,14 @@ export const changeTheaterPassword=(id,currentPassword,newPassword)=> async(disp
 //       dispatch({ type: FAIL_USER, payload: error.response.data });
 //     }
 //   };
-  
+
 //   // logout
 //   export const logout = () => {
 //     return {
 //       type: LOGOUT_USER,
 //     };
 //   };
-  
+
 //   export const videErrors = () => {
 //     return {
 //       type: "VIDE_ERRORS",

@@ -6,11 +6,11 @@ import Navigation from "./Components/Navigation/Navigation";
 import Account from "./pages/Account/Account";
 import Reservations from "./pages/Reservations/Reservations";
 import Favorites from "./pages/Favorites/Favorites";
-import {PaperFormLogin,PaperFormRegister} from "./pages/Login/Paper"
+import { PaperFormLogin, PaperFormRegister } from "./pages/Login/Paper";
 import { ThemeProvider } from "@material-ui/core";
 import { theme } from "./theme";
-import Dashboard from './pages/DashboardTheater/Dashboard'
-import PrivateRoute from './pages/Routes/PrivateRoute' ; 
+import Dashboard from "./pages/DashboardTheater/Dashboard";
+import PrivateRoute from "./pages/Routes/PrivateRoute";
 import { useSelector } from "react-redux";
 import MoviePage from './pages/MoviePage/MoviePage'
 import {useDispatch} from 'react-redux'
@@ -49,16 +49,9 @@ function App() {
   
   return (
     <>
-
-  <ThemeProvider theme={theme}>
-  <Navigation
-        auth={isAuth}
-        setLocation={setLocation}
-        location={location}
-      />
-  </ThemeProvider>
-   
-
+      <ThemeProvider theme={theme}>
+        <Navigation isAuth={isAuth} location={location} />
+      </ThemeProvider>
 
       <Switch>
         <Route exact path="/" component={HomePage} />
@@ -71,8 +64,11 @@ function App() {
         <Route path={`/reset-password/:token`} component={ResetPassword}/>
       
         {/* Path should be /theater/:id/dashboard in production  */}
-        <PrivateRoute authed={isAuth}  path={`/theater/${userMail}/dashboard`} component={Dashboard}/> 
-        
+        <PrivateRoute
+          authed={isAuth}
+          path={`/theater/${userMail}/dashboard`}
+          component={Dashboard}
+        />
       </Switch>
     </>
   );
