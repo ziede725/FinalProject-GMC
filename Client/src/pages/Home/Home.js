@@ -19,9 +19,14 @@ const HomePage = () => {
     (e) => e.location.trim() === location.toLowerCase()
   ).map((screening) => screening.movieId);
 
+  const x = new Set();
   const thisWeek = MoviesByLocation.filter((e) =>
-    moment(e.date).isSame(new Date(), "month")
-  );
+    moment(e.date).isSame(new Date(), "year")
+  ).filter((el) => {
+    const duplicate = x.has(el._id);
+    x.add(el._id);
+    return !duplicate;
+  });
   const uniqueID = new Set();
   const GenresByLocation = MoviesByLocation.map((movie) => movie.genres)
     .reduce((a, b) => a.concat(b), [])
@@ -30,7 +35,6 @@ const HomePage = () => {
       uniqueID.add(el._id);
       return !duplicate;
     });
-  console.log(GenresByLocation);
 
   return (
     <div
