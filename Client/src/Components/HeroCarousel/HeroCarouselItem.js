@@ -4,6 +4,7 @@ import ConfirmationNumberOutlinedIcon from "@material-ui/icons/ConfirmationNumbe
 import React from "react";
 import styled from "styled-components";
 import { theme } from "../../theme";
+import { Link as RouterLink } from "react-router-dom";
 const CarouselItem = styled.div`
   position: relative;
   min-height: 350px;
@@ -92,24 +93,29 @@ const HeroCarouselItem = ({ isActive, movie }) => {
             <Typography variant="h6">highlights</Typography>
             <Typography variant="h2">{movie.title}</Typography>
             <Typography variant="h5">
-              {movie.genres&& movie.genres.map((genre, index) => (
-                <span key={index}> {genre.name} </span>
-              ))}{" "}
+              {movie.genres &&
+                movie.genres.map((genre, index) => (
+                  <span key={index}> {genre.name} </span>
+                ))}{" "}
               - {movie.runTime}
             </Typography>
             <ButtonsArea>
-              <TrailerButton>
-                <Icon>play_circle_outline</Icon>
-                <span>
-                  <a style={{ color: "white" }} href={movie.trailerUrl}>
-                    watch trailer
-                  </a>
-                </span>
-              </TrailerButton>
-              <CallToAction>
-                <span>book now !</span>
-                <ConfirmationNumberOutlinedIcon />
-              </CallToAction>
+              {movie.trailerUrl && (
+                <TrailerButton>
+                  <Icon>play_circle_outline</Icon>
+                  <span>
+                    <a style={{ color: "white" }} href={movie.trailerUrl}>
+                      watch trailer
+                    </a>
+                  </span>
+                </TrailerButton>
+              )}
+              <RouterLink to={`/movie/${movie._id}`}>
+                <CallToAction>
+                  <span>book now !</span>
+                  <ConfirmationNumberOutlinedIcon />
+                </CallToAction>
+              </RouterLink>
             </ButtonsArea>
           </>
         </CarouselItemContent>

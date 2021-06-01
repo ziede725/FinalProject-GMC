@@ -101,11 +101,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navigation = ({ isAuth, location }) => {
+const Navigation = ({ isAuth }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   let history = useHistory();
-
+  const location = useSelector((state) => state.root.location);
   const handleLocation = (e) => {
     dispatch({ type: SET_LOCATION, payload: e.target.value });
   };

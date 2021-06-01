@@ -43,7 +43,7 @@ const MovieRowSlider = ({ title, Movies }) => {
     sliderRef.current.slickPrev();
   };
   const settings = {
-    dots: false,
+    dots: true,
     infinite: false,
     speed: 500,
     slidesToShow: 4,
