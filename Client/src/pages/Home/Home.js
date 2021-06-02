@@ -31,9 +31,12 @@ const HomePage = () => {
   const GenresByLocation = MoviesByLocation.map((movie) => movie.genres)
     .reduce((a, b) => a.concat(b), [])
     .filter((el) => {
-      const duplicate = uniqueID.has(el._id);
-      uniqueID.add(el._id);
-      return !duplicate;
+      if(el){
+        const duplicate = uniqueID.has(el._id);
+        uniqueID.add(el._id);
+        return !duplicate;
+      }
+    
     });
 
   return (

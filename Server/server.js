@@ -32,6 +32,7 @@ app.use('/api/login', require("./routes/login.route"))
 app.use("/test", require("./routes/test.route"));
 // we need to implement the reset password in this route
 app.use("/passwordReset",require("./routes/password.reset"));
+app.use("/uploads",express.static("uploads"))
 
 //Error Handler(Keep as Last Middleware)
 app.use(errorHandler);

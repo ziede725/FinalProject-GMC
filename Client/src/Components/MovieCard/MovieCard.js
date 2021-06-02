@@ -10,7 +10,7 @@ const Card = styled.div`
   height: 320px;
   border-radius: 0.5rem;
   overflow: hidden;
-  background: ${(props) => `url(${props.background}) no-repeat top center`};
+  background: ${(props) => `url("http://localhost:7200/${props.background}") no-repeat top center`};
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -36,9 +36,10 @@ const Content = styled.div`
   }
 `;
 
-const MovieCard = ({ movieUrl, rating, id }) => {
+const MovieCard = ({ img, rating, id }) => {
+  console.log(img)
   return (
-    <Card background={movieUrl}>
+    <Card background={img}>
       <RouterLink to={`/movie/${id}`}>
         <Content>
           <div style={{ margin: "1rem" }}>
