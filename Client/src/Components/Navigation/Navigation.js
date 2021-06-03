@@ -161,31 +161,50 @@ const Navigation = ({ isAuth }) => {
       open={isAccountMenuOpen}
       onClose={handleAccountDesktopMenuClose}
     >
-      <MenuItem
-        onClick={handleAccountDesktopMenuClose}
-        style={{ color: "#182131" }}
-      >
-        <Link component={RouterLink} to="/my-account">
-          My account
-        </Link>
-      </MenuItem>
+      {user?.role === "customer" && (
+        <MenuItem
+          onClick={handleAccountMobileMenuClose}
+          style={{ color: "#182131" }}
+        >
+          <Link component={RouterLink} to="/my-account">
+            My account
+          </Link>
+        </MenuItem>
+      )}
+      {user?.role === "theater" && (
+        <MenuItem
+          onClick={handleAccountMobileMenuClose}
+          style={{ color: "#182131" }}
+        >
+          <Link
+            component={RouterLink}
+            to={`/theater/${user.email}/dashboard/reservations`}
+          >
+            Dashboard
+          </Link>
+        </MenuItem>
+      )}
       <Divider />
-      <MenuItem
-        onClick={handleAccountDesktopMenuClose}
-        style={{ color: "#182131" }}
-      >
-        <Link component={RouterLink} to="/my-reservations">
-          My Reservations
-        </Link>
-      </MenuItem>
-      <MenuItem
-        onClick={handleAccountDesktopMenuClose}
-        style={{ color: "#182131" }}
-      >
-        <Link component={RouterLink} to="/my-favorites">
-          My Favorites
-        </Link>
-      </MenuItem>
+      {user?.role === "customer" && (
+        <MenuItem
+          onClick={handleAccountDesktopMenuClose}
+          style={{ color: "#182131" }}
+        >
+          <Link component={RouterLink} to="/my-reservations">
+            My Reservations
+          </Link>
+        </MenuItem>
+      )}
+      {user?.role === "customer" && (
+        <MenuItem
+          onClick={handleAccountDesktopMenuClose}
+          style={{ color: "#182131" }}
+        >
+          <Link component={RouterLink} to="/my-favorites">
+            My Favorites
+          </Link>
+        </MenuItem>
+      )}
 
       <Divider />
       <MenuItem onClick={handleLogout} style={{ color: "#182131" }}>
@@ -205,14 +224,26 @@ const Navigation = ({ isAuth }) => {
       open={isAccountMobileMenuOpen}
       onClose={handleAccountMobileMenuClose}
     >
-      <MenuItem
-        onClick={handleAccountMobileMenuClose}
-        style={{ color: "#182131" }}
-      >
-        <Link component={RouterLink} to="/my-account">
-          My account
-        </Link>
-      </MenuItem>
+      {user?.role === "customer" && (
+        <MenuItem
+          onClick={handleAccountMobileMenuClose}
+          style={{ color: "#182131" }}
+        >
+          <Link component={RouterLink} to="/my-account">
+            My account
+          </Link>
+        </MenuItem>
+      )}
+      {user?.role === "theater" && (
+        <MenuItem
+          onClick={handleAccountMobileMenuClose}
+          style={{ color: "#182131" }}
+        >
+          <Link component={RouterLink} to="/dashboard">
+            Dashboard
+          </Link>
+        </MenuItem>
+      )}
       <Divider />
       <MenuItem
         onClick={handleAccountMobileMenuClose}

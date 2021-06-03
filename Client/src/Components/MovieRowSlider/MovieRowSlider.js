@@ -75,7 +75,7 @@ const MovieRowSlider = ({ title, Movies }) => {
         </Top>
         <Slider {...settings} ref={sliderRef}>
           {Movies.map((el) => (
-            <MovieCard movieUrl={el.img} id={el._id} key={el._id} />
+            <MovieCard movieUrl={el.img} movieID={el._id} key={el._id} />
           ))}
         </Slider>
       </Container>

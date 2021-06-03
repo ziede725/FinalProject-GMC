@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Rating from "../moviePage/Rating";
+
 import { Typography } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 const Card = styled.div`
@@ -36,10 +36,10 @@ const Content = styled.div`
   }
 `;
 
-const MovieCard = ({ movieUrl, rating, id }) => {
+const MovieCard = ({ movieUrl, movieID }) => {
   return (
     <Card background={movieUrl}>
-      <RouterLink to={`/movie/${id}`}>
+      <RouterLink to={`/movie/${movieID}`}>
         <Content>
           <div style={{ margin: "1rem" }}>
             <Typography
@@ -50,7 +50,6 @@ const MovieCard = ({ movieUrl, rating, id }) => {
             >
               Lorem ipsum dolor
             </Typography>
-            <Rating name="read-only" value={3} readOnly />
           </div>
           <div style={{ margin: "1rem" }}>
             <Typography
