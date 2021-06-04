@@ -13,11 +13,11 @@ const MovieReservation = ({ movieScreenings }) => {
       return !duplicate;
     });
 
+
   const [selectedTheater, setSelectedTheater] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
-  console.log(selectedTheater);
-  console.log(selectedDate);
+  console.log(Date.now())
   const handleTheater = (e) => {
     e.preventDefault();
     setSelectedTheater(e.target.value);
@@ -59,7 +59,7 @@ const MovieReservation = ({ movieScreenings }) => {
                 {theaters &&
                   theaters.map((theater, index) => (
                     <option key={index} value={theater.theaterName}>
-                      {theater.theaterName}
+                      {`${theater.theaterName} (${theater.city})`}
                     </option>
                   ))}
               </select>
@@ -77,6 +77,7 @@ const MovieReservation = ({ movieScreenings }) => {
                   </option>
                   {screeningsByTheater.map(
                     (screening, index) =>
+                    
                       moment(screening.date).isBefore(Date.now()) || (
                         <option key={index} value={screening.date}>
                           {screening.date}
@@ -96,8 +97,8 @@ const MovieReservation = ({ movieScreenings }) => {
                   <option defaultValue value="">
                     Choose a Time
                   </option>
-                  {sessions
-                    .filter((e) => e.dates.includes(selectedDate))
+                  {sessions && 
+                    sessions.filter((e) => e.dates.includes(selectedDate))
                     .filter((el) => {
                       const duplicate = x.has(el._id);
                       x.add(el._id);

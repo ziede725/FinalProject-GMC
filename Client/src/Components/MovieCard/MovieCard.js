@@ -48,7 +48,7 @@ const MovieCard = ({ movieUrl, movieID }) => {
               style={{ width: "100%" }}
               variant="h5"
             >
-              Lorem ipsum dolor
+             Book show 
             </Typography>
           </div>
           <div style={{ margin: "1rem" }}>

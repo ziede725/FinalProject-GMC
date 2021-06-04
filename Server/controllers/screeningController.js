@@ -32,7 +32,7 @@ const createScreening = async (req, res, next) => {
     //     400,
     //     `A screening already exists in room ${roomId}, on ${date}, at ${startTime}`
     //   );
-
+console.log("session:",session)
     const decodedTheaterId = jwt.verify(token, process.env.JWT_SECRET);
     let seance = await Sessions.findByIdAndUpdate(session, {
       $push: { dates: date },
@@ -40,6 +40,10 @@ const createScreening = async (req, res, next) => {
     let objectId = mongoose.Types.ObjectId(decodedTheaterId.id);
 
     const room = await Room.findById(roomName);
+    if(!room)
+    {
+      throw new ErrorHandler(409,"You can't create a screening with no rooms")
+    }
 
     const screening = await Screening.create({
       movieId: movieName,

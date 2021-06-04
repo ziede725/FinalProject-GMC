@@ -56,9 +56,8 @@ const RegistrationFormTheater = () => {
         }}
         validationSchema={SignupSchema}
         onSubmit={(user)=>{
-        
-         console.log(user)
-          dispatch(registerTheater(user,history))
+      
+           dispatch(registerTheater(user,history))      
         }
         }
       >

@@ -47,9 +47,13 @@ export const registerTheater=(user,history) => async (dispatch)=>{
     try {
        
         let response = await axios.post("http://localhost:7200/api/theaters/register",user)
-       
+        if(response.data.user.role==="theater")
+        {
+            history.push(`/theater/${user.email}/dashboard`)
+        }
         dispatch({type:REGISTER_THEATER,payload:{...response.data,history}})
     } catch (error) {
+        alert(error.response.data.error)
         
     }
 }
@@ -67,6 +71,7 @@ export const editTheater = (id,theaterName, email,userName,phoneNumber,address,c
 
     try {
         const res = await axios.patch(`http://localhost:7200/api/theaters/${id}/edit`,{theaterName,email,userName,phoneNumber,address,city,town,zipcode})
+        alert(res.data.message)
      dispatch(getUser())
     return res ;    
     } catch (error) {

@@ -27,7 +27,7 @@ import ForgotPassword from "./pages/ResetPassword/ForgotPassword";
 function App() {
   //Use isAuth for the global authentication state (or Redux)
   const isAuth = useSelector((state) => state.root.isAuth);
-  const userMail = useSelector((state) => state.root.user.email);
+  const userMail = useSelector((state) => state.root.user && state.root.user.email);
   const dispatch = useDispatch();
   const error = useSelector((state) => state.root.error);
 

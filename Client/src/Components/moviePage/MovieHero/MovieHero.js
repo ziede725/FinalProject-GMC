@@ -9,7 +9,7 @@ const CarouselItem = styled.div`
   position: relative;
   min-height: 350px;
   width: 100%;
-
+  background: ${(props) => `url("http://localhost:7200/${props.background}") no-repeat top center`};
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -81,26 +81,25 @@ const CallToAction = styled.button`
 `;
 
 const MovieHero = ({ Movie }) => {
+  // console.log(Movie?.img)
   return (
     <ThemeProvider theme={theme}>
-      <CarouselItem
-        style={{
-          backgroundImage: `url('${Movie.img}')`,
-        }}
+      <CarouselItem 
+      background={Movie?.img}
       >
         <CarouselItemContent>
           <>
             <Typography variant="h6">highlights</Typography>
-            <Typography variant="h2">{Movie.title}</Typography>
+            <Typography variant="h2">{Movie && Movie.title}</Typography>
             <Typography variant="h5">
-              {Movie.genres &&
+              {Movie&&Movie.genres &&
                 Movie.genres.map((genre, index) => (
                   <span key={index}> {genre.name} </span>
                 ))}{" "}
-              - {Movie.runTime}
+              - {Movie && Movie.runTime}
             </Typography>
             <ButtonsArea>
-              {Movie.trailerUrl && (
+              {Movie && Movie.trailerUrl && (
                 <TrailerButton>
                   <Icon>play_circle_outline</Icon>
                   <span>
@@ -113,7 +112,7 @@ const MovieHero = ({ Movie }) => {
             </ButtonsArea>
           </>
           <>
-            <Typography variant="p">{Movie.Overview}</Typography>
+            <Typography variant="p">{Movie && Movie.Overview}</Typography>
           </>
         </CarouselItemContent>
       </CarouselItem>

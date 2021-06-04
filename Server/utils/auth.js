@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt= require('bcrypt') ; 
 
 
+
 const sendToken = (user, statusCode, res) => {
   const token = user.getSignedToken();
   res.status(statusCode).json({
@@ -167,7 +168,7 @@ exports.loginUser = async(req,res,next)=>{
 exports.forgotPasswordCustomer = async (req, res, next) => {
   res.status(200).json({
     success: true,
-    message: `You requested a reset password link, chek your email!`,
+    message: `You requested a reset password link, check your email!`,
   });
 };
 exports.logoutCustomer = (req, res, next) => {
@@ -183,6 +184,16 @@ exports.registerTheater = async (req, res, next) => {
   const { theaterName, userName, email, password, location } = req.body;
   
   try {
+    const theaterExist =await Theater.findOne({email:email}) ;
+    const userNameExist = await Theater.findOne({userName:userName}) ;  
+    if(theaterExist)
+    {
+      throw new ErrorHandler(409,"Another account with this mail already exists ! ")
+    }
+    else if (userNameExist)
+    {
+      throw new ErrorHandler(409,"This user Name is already used ! ")
+    }
     const theater = await Theater.create({
       theaterName,
       userName,
@@ -198,7 +209,7 @@ exports.registerTheater = async (req, res, next) => {
 exports.forgotPasswordTheater = async (req, res, next) => {
   res.status(200).json({
     success: true,
-    message: `You requested a reset password link, chek your email!`,
+    message: `You requested a reset password link, check your email!`,
   });
 };
 
@@ -224,7 +235,8 @@ exports.ChangePassword=async(req,res,next)=>{
 
       res.status(200).json({
         success: true, 
-        message: "Password has been reset successfully !"
+        message: "Password has been reset successfully !",
+        
       })
       
     

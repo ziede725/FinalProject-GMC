@@ -81,7 +81,7 @@ export const addScreening= (movieName, date,session, discount,visibility,roomNam
         const payload = await axios.post(`http://localhost:7200/api/screenings/add/`,{token,movieName,date,session,discount,visibility,roomName,price})
        dispatch(getScreenings()); 
     } catch (error) {
-        console.log(error)
+     alert(error.response.data.error)
         
     }
 }

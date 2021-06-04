@@ -14,11 +14,11 @@ const HomePage = () => {
     dispatch(getMovies());
     dispatch(getScreenings());
   }, [location]);
-
   const MoviesByLocation = Screenings.filter(
-    (e) => e.location.trim() === location.toLowerCase()
+     (e) => e.location.trim().toLowerCase() == location.toLowerCase()
+  
   ).map((screening) => screening.movieId);
-
+    console.log(MoviesByLocation)
   const x = new Set();
   const thisWeek = MoviesByLocation.filter((e) =>
     moment(e.date).isSame(new Date(), "year")
@@ -27,6 +27,7 @@ const HomePage = () => {
     x.add(el._id);
     return !duplicate;
   });
+  console.log("thisweek",thisWeek)
   const uniqueID = new Set();
   const GenresByLocation = MoviesByLocation.map((movie) => movie.genres)
     .reduce((a, b) => a.concat(b), [])

@@ -7,10 +7,12 @@ export const addMovie = (data) => async (dispatch) => {
       "http://localhost:7200/api/movies/create",
       data
     );
+    alert(response.data.message)
 
     dispatch(getMovies());
   } catch (error) {
     // alert(error.response.data.error);
+    alert(error.response.data.error)
   }
 };
 
@@ -39,6 +41,7 @@ export const rateMovie = (movieId, reviews, customerId) => async (dispatch) => {
       customerId,
       movieId,
     });
+    alert(review.data.message)
     const movie = await axios.patch(
       `http://localhost:7200/api/movies/${movieId}`,
       rating
