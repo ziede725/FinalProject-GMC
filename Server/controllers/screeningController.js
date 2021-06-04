@@ -157,10 +157,15 @@ const publishScreening = async (req, res, next) => {
 
 const getAll = async (req, res, next) => {
   try {
-    const screenings = await Screening.find().populate({
-      path: "movieId",
-      populate: { path: "genres" },
-    });
+    const screenings = await Screening.find().populate([
+      { path: "roomId" },
+      { path: "theaterId" },
+      { path: "sessionId" },
+      {
+        path: "movieId",
+        populate: { path: "genres" },
+      },
+    ]);
     res.status(200).json({
       success: true,
       screenings,

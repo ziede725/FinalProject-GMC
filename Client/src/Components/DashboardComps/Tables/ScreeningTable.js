@@ -59,10 +59,10 @@ const ScreeningTable=({rows,open,setOpen})=>{
      
       if (time)
       {
-        return (session.startTime) ; 
+        return (session && session.startTime) ; 
       }
       else {
-        return (session.endTime) ; 
+        return (session && session.endTime) ; 
       }
     }
     const handleRoom=(id)=>{

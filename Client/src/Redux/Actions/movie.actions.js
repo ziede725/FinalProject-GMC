@@ -1,30 +1,28 @@
 import axios from "axios";
 import { GET_MOVIES, SET_LOCATION } from "./actionTypes";
 
-export const addMovie =
-  (data) =>
-  async (dispatch) => {
-    try {
-        const response = await axios.post("http://localhost:7200/api/movies/create",data)
-       
-        dispatch(getMovies())
-    } catch (error) {
-        // alert(error.response.data.error); 
-    }
-}
+export const addMovie = (data) => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:7200/api/movies/create",
+      data
+    );
 
-export const getMovies=()=> async(dispatch)=>
-{
-    try {
-        const response = await axios.get("http://localhost:7200/api/movies")
-        
-        
-        dispatch({type:GET_MOVIES, payload:response.data.movies})
-    } catch (error) {
-      alert(error)
-    }
-  };
+    dispatch(getMovies());
+  } catch (error) {
+    // alert(error.response.data.error);
+  }
+};
 
+export const getMovies = () => async (dispatch) => {
+  try {
+    const response = await axios.get("http://localhost:7200/api/movies");
+
+    dispatch({ type: GET_MOVIES, payload: response.data.movies });
+  } catch (error) {
+    alert(error);
+  }
+};
 
 export const setLocation = (location) => (dispatch) => {
   dispatch({

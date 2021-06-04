@@ -74,8 +74,10 @@ const MovieRowSlider = ({ title, Movies }) => {
           </CustomNavigation>
         </Top>
         <Slider {...settings} ref={sliderRef}>
-          {Movies&& Movies.map((el) => (
-            <MovieCard img={el.img} id={el._id} key={el._id} />
+          {/* {Movies&& Movies.map((el) => (
+            <MovieCard img={el.img} id={el._id} key={el._id} /> */}
+          {Movies.map((el) => (
+            <MovieCard movieUrl={el.img} movieID={el._id} key={el._id} />
           ))}
         </Slider>
       </Container>

@@ -43,6 +43,7 @@ const HomePage = () => {
     <div
       style={{
         backgroundColor: "#020916",
+        minHeight: "100vh",
       }}
     >
       <HeroCarousel Movies={MoviesByLocation} />
