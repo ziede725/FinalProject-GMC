@@ -18,7 +18,7 @@ export const loginUser = (user, history) => async (dispatch) => {
     catch(error)
     {
         // dispatch({type : FAIL_USER , payload: error.response.data.errors})
-       console.log(error)
+        alert(error.response.data.error)
           
     }
 } 
