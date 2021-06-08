@@ -1,4 +1,5 @@
 require("dotenv").config();
+const path = require('path') ; 
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -34,7 +35,20 @@ app.use("/test", require("./routes/test.route"));
 app.use("/passwordReset",require("./routes/password.reset"));
 app.use("/uploads",express.static("uploads"))
 
+
+//Serve static assets in production ; 
+if(process.env.NODE_ENV === "production")
+{
+  app.use(express.static('client/build')) ; 
+  app.get('*',(req,res)=>{
+    res.sendFile(path.resolve(__dirname,'client','build','index.html'))
+  })
+} 
+
 //Error Handler(Keep as Last Middleware)
 app.use(errorHandler);
+
+
+
 const port = process.env.PORT || 7200;
 app.listen(port, () => console.log(`Server is running on ${port}`));
