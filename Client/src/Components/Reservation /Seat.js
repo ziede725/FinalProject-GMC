@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     }
 }
    )
-const Seat = ({value,index})=> {
+const Seat = ({setValue,valeur,value,index})=> {
     const [color,setColor] = useState("disabled") ;
     const classes = useStyles() ; 
     console.log(Boolean(value))
@@ -49,7 +49,7 @@ useEffect(()=>{
      
     return (
         <>  
-            <Chair disabled={Boolean(value)} onClick={handleClick} onMouseOver={handleHover} onMouseOut={handleMouseOut}>
+            <Chair disabled={Boolean(value)} onClick={()=>handleReservation(index,value)} onMouseOver={handleHover} onMouseOut={handleMouseOut}>
             <EventSeatRoundedIcon classes={{colorPrimary:classes.colorPrimary , colorSecondary:classes.colorSecondary}} color={color} fontSize={"medium"}/>
             </Chair>
             

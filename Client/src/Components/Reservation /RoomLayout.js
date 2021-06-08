@@ -35,9 +35,7 @@ const RoomLayout= () =>{
     const [seats,setSeats] = useState([]) ; 
     const [value,setValue] = useState() ; 
 
-    const handleReservation=(index,value)=>{   
-        
-    }
+    
   
 return(
     <>
@@ -55,9 +53,11 @@ return(
         </Explanation>
         <Wrapper>
         {
-            screening&& screening.seats.map((el,index)=><Seat handleReservation={handleReservation} value={el} index={index}/>)
+            screening&& screening.seats.map((el,index)=><Seat setValue={setValue} valeur={value} value={el} index={index}/>)
         }
         </Wrapper>
+
+        <button>Submit</button>
         
     </>
 )
