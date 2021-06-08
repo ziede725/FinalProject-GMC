@@ -31,6 +31,11 @@ const screeningSchema = new mongoose.Schema(
       ref: "Theater",
      
     },
+    // seatsId:[{
+    //   type: mongoose.Schema.Types.ObjectId, 
+    //   ref: "Seat"
+    // }]
+    seats:[],
     discountId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Discount",

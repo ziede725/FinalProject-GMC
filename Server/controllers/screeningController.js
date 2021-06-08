@@ -1,4 +1,5 @@
 const Screening = require("../models/Screening");
+const Seat = require("../models/Seat")
 const Sessions = require("../models/Sessions");
 const ErrorHandler = require("../helpers/errorHandler");
 const mongoose = require("mongoose");
@@ -32,11 +33,9 @@ const createScreening = async (req, res, next) => {
     //     400,
     //     `A screening already exists in room ${roomId}, on ${date}, at ${startTime}`
     //   );
-console.log("session:",session)
+
     const decodedTheaterId = jwt.verify(token, process.env.JWT_SECRET);
-    let seance = await Sessions.findByIdAndUpdate(session, {
-      $push: { dates: date },
-    });
+    
     let objectId = mongoose.Types.ObjectId(decodedTheaterId.id);
 
     const room = await Room.findById(roomName);
@@ -44,7 +43,14 @@ console.log("session:",session)
     {
       throw new ErrorHandler(409,"You can't create a screening with no rooms")
     }
-
+    const seats =[] ; 
+   
+    for (let i = 0 ; i<room.roomCapacity ; i++)
+    {
+    
+      seats.push(0) ;  
+    }
+  
     const screening = await Screening.create({
       movieId: movieName,
       date,
@@ -55,6 +61,10 @@ console.log("session:",session)
       price,
       theaterId: objectId,
       location: room.location.trim(),
+      seats: seats,
+    });
+    let seance = await Sessions.findByIdAndUpdate(session, {
+      $push: { dates: date },
     });
     res.status(201).json({
       success: true,

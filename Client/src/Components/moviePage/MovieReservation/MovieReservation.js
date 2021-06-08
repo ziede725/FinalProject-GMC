@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import moment from "moment";
 import "./MovieReservation.scss";
+import { useHistory } from "react-router";
 
 const MovieReservation = ({ movieScreenings }) => {
   const x = new Set();
+  
   const theaters = movieScreenings
     .filter((screening) => screening.theaterId !== null)
     .map((screening) => screening.theaterId && screening.theaterId)
@@ -13,11 +15,12 @@ const MovieReservation = ({ movieScreenings }) => {
       return !duplicate;
     });
 
-
+  const history = useHistory() ; 
   const [selectedTheater, setSelectedTheater] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
-  const [selectedTime, setSelectedTime] = useState("");
-  console.log(Date.now())
+  const [selectedSession,setSelectedSession] = useState("") ; 
+  let selectedScreening=[]
+  
   const handleTheater = (e) => {
     e.preventDefault();
     setSelectedTheater(e.target.value);
@@ -28,17 +31,27 @@ const MovieReservation = ({ movieScreenings }) => {
   };
   const handleTime = (e) => {
     e.preventDefault();
-    setSelectedTime(e.target.value);
+    setSelectedSession(e.target.value)
+
   };
+  const handleReservation=(e)=> {
+    e.preventDefault()  ; 
+    history.push(`/${selectedScreening[0]._id}/RoomLayout`) ; 
+  }
+  selectedScreening = movieScreenings.filter(el=> el.theaterId.theaterName ===selectedTheater)
+  .filter(el=>el.date===selectedDate)
+  .filter(el=>el.sessionId._id===selectedSession)
+
+  console.log("Selected Screening", selectedScreening) ; 
   let screeningsByTheater = movieScreenings.filter(
     (e) => e.theaterId?.theaterName === selectedTheater
   );
   const sessions = screeningsByTheater.map((e) => e.sessionId);
   const toggleTime =
     (selectedTheater !== "") & (selectedDate !== "") ? true : false;
-  console.log(selectedTime);
   return (
     <>
+   
       {movieScreenings && (
         <div className="reservation__wrapper">
           <div className="text">
@@ -108,7 +121,7 @@ const MovieReservation = ({ movieScreenings }) => {
                       <option
                         id={session._id}
                         key={session._id}
-                        value={session.startTime}
+                        value={session._id}
                       >
                         {session.startTime}
                       </option>
@@ -117,7 +130,8 @@ const MovieReservation = ({ movieScreenings }) => {
               </div>
             )}
 
-            {selectedTime !== "" && <button>get Tickets</button>}
+            {selectedSession !== "" && <button onClick={handleReservation}>get Tickets</button>}
+            
           </div>
           {/* <table className="table">
             <thead>

@@ -15,7 +15,9 @@ const handleModal=()=>{
         <Wrapper>
               <EditModal roomNamee={roomNamee} roomCapacityy={roomCapacityy} open={open} handleModal={handleModal} id={id}  />
               
-            <IconButton onClick={()=>handleModal()}>
+            <IconButton onClick={()=>handleModal()}
+            disableRipple={true} disableTouchRipple={true} disableFocusRipple={true}
+            >
                 <EditOutlinedIcon/>
             </IconButton>
             
