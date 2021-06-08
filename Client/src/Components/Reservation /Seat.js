@@ -49,7 +49,7 @@ useEffect(()=>{
      
     return (
         <>  
-            <Chair disabled={Boolean(value)} onClick={()=>handleReservation(index,value)} onMouseOver={handleHover} onMouseOut={handleMouseOut}>
+            <Chair disabled={Boolean(value)} onClick={()=>console.log('hello')} onMouseOver={handleHover} onMouseOut={handleMouseOut}>
             <EventSeatRoundedIcon classes={{colorPrimary:classes.colorPrimary , colorSecondary:classes.colorSecondary}} color={color} fontSize={"medium"}/>
             </Chair>
             
