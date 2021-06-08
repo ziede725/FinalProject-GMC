@@ -1,4 +1,4 @@
-require("dotenv").config();
+// require("dotenv").config();
 const path = require('path') ; 
 const express = require("express");
 const cors = require("cors");
@@ -39,7 +39,7 @@ app.use("/uploads",express.static("uploads"))
 //Serve static assets in production ; 
 if(process.env.NODE_ENV === "production")
 {
-  require("dotenv").config();
+  
   app.use(express.static('/Client/build')) ; 
   app.get('*',(req,res)=>{
     res.sendFile(path.resolve(__dirname,'Client','build','index.html'))
