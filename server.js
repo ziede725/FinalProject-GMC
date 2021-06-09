@@ -15,6 +15,15 @@ app.use(cors());
 app.use(express.json());
 //Routes
 
+if(process.env.NODE_ENV === "production")
+{
+  console.log('hello im here')
+  app.use(express.static('/Client/build')) ; 
+  app.get('*',(req,res)=>{
+    res.sendFile(path.resolve(__dirname,'Client','build','index.html'))
+  })
+} 
+
 app.use("/api/admins", require("./routes/admin.route"));
 app.use("/api/customers", require("./routes/customer.route"));
 app.use("/api/theaters", require("./routes/theater.route"));
@@ -37,14 +46,7 @@ app.use("/uploads",express.static("uploads"))
 
 
 //Serve static assets in production ; 
-if(process.env.NODE_ENV === "production")
-{
-  
-  app.use(express.static('/Client/build')) ; 
-  app.get('*',(req,res)=>{
-    res.sendFile(path.resolve(__dirname,'Client','build','index.html'))
-  })
-} 
+
 
 //Error Handler(Keep as Last Middleware)
 app.use(errorHandler);
