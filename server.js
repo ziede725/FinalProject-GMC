@@ -1,4 +1,4 @@
-require("dotenv").config({path: "./.env"});
+
 const path = require('path') ; 
 const express = require("express");
 const cors = require("cors");
@@ -24,6 +24,9 @@ if(process.env.NODE_ENV === "production")
     res.sendFile(path.join(__dirname,'Client','build','index.html'))
   })
 } 
+else {
+  require("dotenv").config({path: "./.env"});
+}
 
 app.use("/api/admins", require("./routes/admin.route"));
 app.use("/api/customers", require("./routes/customer.route"));
