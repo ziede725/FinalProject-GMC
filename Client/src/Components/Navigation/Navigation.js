@@ -362,7 +362,7 @@ const Navigation = ({ isAuth }) => {
                           variant="body2"
                           style={{ marginRight: "1rem" }}
                         >
-                          Welcome back, {user.firstName} {user.lastName}
+                          Welcome back, {user && user.firstName} {user && user.lastName}
                         </Typography>
                         <Avatar
                           alt="John Doe"

@@ -41,6 +41,7 @@ export const editRoom=(roomName,roomCapacity,id)=> async(dispatch)=>{
 }
 export const getRooms = ()=> async(dispatch)=>{
     let token = localStorage.getItem("token") ; 
+    console.log("token",token)
 
     try {
      
