@@ -1,3 +1,4 @@
+require("dotenv").config({path: "../.env"});
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
@@ -7,7 +8,7 @@ const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
-
+console.log(process.env.MONGO_URI)
 const database = mongoose
   .connect(process.env.MONGO_URI, options)
   .then(() => console.log("Connected to database."))

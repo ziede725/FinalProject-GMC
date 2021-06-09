@@ -43,8 +43,7 @@ const SessionModal=({open,setOpen,order,sessions})=> {
   
    const handleClose = () => {
 
-    setOpen(false) ;
-    setDisabled(true);     
+    setOpen(false) ;    
   };
   useEffect(()=>{
     setSessionName(`Session ${order}`)

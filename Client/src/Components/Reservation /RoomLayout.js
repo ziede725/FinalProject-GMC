@@ -34,7 +34,7 @@ const RoomLayout= () =>{
     const [screening] = useSelector(state=>state.screenings.filter(el=>el._id==id.screeningId)) ; 
     const [seats,setSeats] = useState([]) ; 
     const [value,setValue] = useState() ; 
-
+    
     
   
 return(
