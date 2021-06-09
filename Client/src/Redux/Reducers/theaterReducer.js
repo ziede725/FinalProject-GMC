@@ -16,7 +16,11 @@ const theaterReducer =(state=initialState,{type,payload})=>{
     {
 
         case GET_ROOMS:
-            return {...state, room: [...payload]}
+            if(payload)
+            {
+                return {...state, room: [...payload]}    
+            }
+            return state ; 
 
         case GET_SCREENINGS: 
             return {...state , screenings: [...payload]}
@@ -25,7 +29,12 @@ const theaterReducer =(state=initialState,{type,payload})=>{
         return {...state , reservations:[...payload]}
 
         case GET_SETTINGS: 
-        return {...state, settings:[...payload]}
+        if(payload)
+        {
+            return {...state, settings:[...payload]}
+        }
+        return state ; 
+        
 
         case GET_SESSIONS:
         
