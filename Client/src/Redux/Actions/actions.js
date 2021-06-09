@@ -3,7 +3,7 @@ import {LOGIN_USER,LOGOUT, REGISTER_THEATER,LOAD_USER,REGISTER_CUSTOMER,GET_USER
 
 export const loginUser = (user, history) => async (dispatch) => {
     try {
-        let result = await axios.post("http://localhost:7200/api/login",user) ;
+        let result = await axios.post("/api/login",user) ;
         
         if(result.data.user.role==="theater")
         {
@@ -34,7 +34,7 @@ export const logOut = (history)=> async (dispatch)=>{
 }
 export const registerCustomer=(user,history) => async(dispatch)=>{
     try {
-        let response = await axios.post('http://localhost:7200/api/customers/register',user)
+        let response = await axios.post('/api/customers/register',user)
         history.push('/')
         dispatch({type: REGISTER_CUSTOMER , payload:{...response.data,history}})
     } catch (error) {
@@ -46,7 +46,7 @@ export const registerTheater=(user,history) => async (dispatch)=>{
     
     try {
        
-        let response = await axios.post("http://localhost:7200/api/theaters/register",user)
+        let response = await axios.post("/api/theaters/register",user)
         if(response.data.user.role==="theater")
         {
             history.push(`/theater/${user.email}/dashboard`)
@@ -60,7 +60,7 @@ export const registerTheater=(user,history) => async (dispatch)=>{
 export const getUser=()=> async(dispatch)=>{
 let token = localStorage.getItem('token')
     try {
-            const res= await axios.get(`http://localhost:7200/api/login/${token}`); 
+            const res= await axios.get(`/api/login/${token}`); 
             dispatch({type: GET_USER , payload:{...res.data}})
     } catch (error) {
         
@@ -70,7 +70,7 @@ let token = localStorage.getItem('token')
 export const editTheater = (id,theaterName, email,userName,phoneNumber,address,city,town,zipcode)=> async(dispatch)=>{
 
     try {
-        const res = await axios.patch(`http://localhost:7200/api/theaters/${id}/edit`,{theaterName,email,userName,phoneNumber,address,city,town,zipcode})
+        const res = await axios.patch(`/api/theaters/${id}/edit`,{theaterName,email,userName,phoneNumber,address,city,town,zipcode})
         alert(res.data.message)
      dispatch(getUser())
     return res ;    

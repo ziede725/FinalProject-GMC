@@ -18,7 +18,7 @@ export const addMovie = (data) => async (dispatch) => {
 
 export const getMovies = () => async (dispatch) => {
   try {
-    const response = await axios.get("http://localhost:7200/api/movies");
+    const response = await axios.get("/api/movies");
 
     dispatch({ type: GET_MOVIES, payload: response.data.movies });
   } catch (error) {
@@ -36,14 +36,14 @@ export const setLocation = (location) => (dispatch) => {
 export const rateMovie = (movieId, reviews, customerId) => async (dispatch) => {
   const rating = reviews;
   try {
-    const review = await axios.post(`http://localhost:7200/api/reviews`, {
+    const review = await axios.post(`/api/reviews`, {
       rating,
       customerId,
       movieId,
     });
     alert(review.data.message)
     const movie = await axios.patch(
-      `http://localhost:7200/api/movies/${movieId}`,
+      `/api/movies/${movieId}`,
       rating
     );
 
