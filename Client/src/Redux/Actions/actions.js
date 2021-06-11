@@ -60,10 +60,14 @@ export const registerTheater=(user,history) => async (dispatch)=>{
 export const getUser=()=> async(dispatch)=>{
 let token = localStorage.getItem('token')
     try {
+        if(token)
+        {
             const res= await axios.get(`/api/login/${token}`);
-            console.log("response for get user",res) 
             dispatch({type: GET_USER , payload:{...res.data}})
+        }
+            
     } catch (error) {
+        console.log(error)
         
     }
 }
@@ -83,7 +87,7 @@ export const editTheater = (id,theaterName, email,userName,phoneNumber,address,c
 
 export const changeTheaterPassword=(id,currentPassword,newPassword)=> async(dispatch)=>{
     try {
-        const res = await axios.patch(`http://localhost:7200/api/theaters/${id}/reset-password`,{currentPassword,newPassword})
+        const res = await axios.patch(`/api/theaters/${id}/reset-password`,{currentPassword,newPassword})
      return res.data ; 
    
     } catch (error) {

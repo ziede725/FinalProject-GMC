@@ -189,19 +189,17 @@ const getAll = async (req, res, next) => {
   }
 };
 //Get All Screenings
-const getAllScreenings = async (req, res, next) => {
-  try {
-    const decodedTheaterId = jwt.verify(token, process.env.JWT_SECRET);
-    let objectId = Mongoose.Types.ObjectId(decodedTheaterId.id);
-    const screenings = await Screening.find({ theaterId: objectId }).exec();
-    res.status(200).json({
-      success: true,
-      screenings,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+// const getAllScreenings = async (req, res, next) => {
+//   try {
+//     const screenings = await Screening.find().exec();
+//     res.status(200).json({
+//       success: true,
+//       screenings,
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 //GET SCREENING BY THEATER ID ;
 

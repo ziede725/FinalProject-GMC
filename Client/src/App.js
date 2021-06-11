@@ -17,11 +17,8 @@ import { useDispatch } from "react-redux";
 import { getUser } from "./Redux/Actions/actions";
 import { getMovies } from "./Redux/Actions/movie.actions";
 import RoomLayout from './Components/Reservation /RoomLayout'
-import {
-  getRooms,
-  getScreenings,
-  getSession,
-} from "./Redux/Actions/theater.actions";
+
+import { getScreenings } from "./Redux/Actions/screening.actions";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import ForgotPassword from "./pages/ResetPassword/ForgotPassword";
 
@@ -38,8 +35,7 @@ function App() {
     dispatch(getUser());
     dispatch(getMovies());
     dispatch(getScreenings());
-    dispatch(getRooms());
-    // dispatch(getSession());
+     dispatch(getSession());
   });
 
   console.log(error);

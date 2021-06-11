@@ -9,7 +9,7 @@ const CarouselItem = styled.div`
   position: relative;
   min-height: 350px;
   width: 100%;
-  background: ${(props) => `url("http://localhost:7200/${props.background}") no-repeat top center`};
+  background: ${(props) => `url("/${props.background}") no-repeat top center`};
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -81,7 +81,7 @@ const CallToAction = styled.button`
 `;
 
 const MovieHero = ({ Movie }) => {
-  // console.log(Movie?.img)
+  console.log(Movie?.img)
   return (
     <ThemeProvider theme={theme}>
       <CarouselItem 
