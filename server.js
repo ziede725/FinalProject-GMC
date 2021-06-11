@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 // else {
 //   
-// }
+// 
 
 app.use("/api/admins", require("./routes/admin.route"));
 app.use("/api/customers", require("./routes/customer.route"));
