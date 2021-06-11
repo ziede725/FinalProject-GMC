@@ -61,7 +61,7 @@ const LogInForm = (props) => {
   const dispatch = useDispatch() ; 
   const classes=useStyles() ; 
   const handleLogin = async (googleData) => {
-    const res = await fetch("http://localhost:7200/api/auth/google", {
+    const res = await fetch("/api/auth/google", {
       method: "POST",
       body: JSON.stringify({
         token: googleData.tokenId,

@@ -23,7 +23,7 @@ const ResetPassword =()=>{
 const handleClick=async()=>{
     if(newPassword===password)
     {
-        const response = await axios.post(`http://localhost:7200/passwordReset/${token.token}`,{password})
+        const response = await axios.post(`passwordReset/${token.token}`,{password})
         setServerRes(response)
     }
     else{

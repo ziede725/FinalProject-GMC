@@ -7,7 +7,7 @@ const ForgotPassword = () =>
 
     const handleClick=async()=>{
         try {
-            const result =  await axios.post('http://localhost:7200/test',{email}) ; 
+            const result =  await axios.post('/test',{email}) ; 
         if(result.data.success)
         {
             return alert('A confirmation Link has been Sent to your email,please check it! ')
