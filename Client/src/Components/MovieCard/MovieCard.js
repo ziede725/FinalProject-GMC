@@ -1,15 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import Rating from '../moviePage/Rating'
+
 import { Typography } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 const Card = styled.div`
   background-color: #eeeeee;
-  width: auto;
+  width: 90%;
+
   height: 320px;
   border-radius: 0.5rem;
   overflow: hidden;
-  background: ${props => `url(${props.background}) no-repeat top center`};
+  background: ${(props) => `url("http://localhost:7200/${props.background}") no-repeat top center`};
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -35,10 +36,10 @@ const Content = styled.div`
   }
 `;
 
-const MovieCard = ({movieUrl,rating,id}) => {
+const MovieCard = ({ movieUrl, movieID }) => {
   return (
     <Card background={movieUrl}>
-      <RouterLink to={`/movie/${id}`}>
+      <RouterLink to={`/movie/${movieID}`}>
         <Content>
           <div style={{ margin: "1rem" }}>
             <Typography
@@ -47,9 +48,8 @@ const MovieCard = ({movieUrl,rating,id}) => {
               style={{ width: "100%" }}
               variant="h5"
             >
-              Lorem ipsum dolor
+             Book show 
             </Typography>
-            <Rating name="read-only" value={3} readOnly />
           </div>
           <div style={{ margin: "1rem" }}>
             <Typography
@@ -57,8 +57,7 @@ const MovieCard = ({movieUrl,rating,id}) => {
               color="textPrimary"
               style={{ width: "100%" }}
               variant="h5"
-            >
-            </Typography>
+            ></Typography>
           </div>
         </Content>
       </RouterLink>

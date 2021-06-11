@@ -8,7 +8,7 @@ import ReactStars from "react-rating-stars-component";
 // `
 const Container = styled.div`
 
-`
+` 
 const Name = styled.div`
 
 `

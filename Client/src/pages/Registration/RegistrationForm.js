@@ -108,9 +108,10 @@ const RegistrationForm = () => {
               <ErrorMessage name="email" render={msg=><ErrMsg>{msg}</ErrMsg>}/>
               </div>
               <div>
+              
               <Field className={classes.fieldClass}
                 placeholder="password"
-                type="input"
+                type="password"
                 name="password"
                 as={TextField}
                 onBlur={handleBlur}

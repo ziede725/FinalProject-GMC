@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3e1ecd0e.chunk.css",
+    "main.js": "/static/js/main.b83ed219.chunk.js",
+    "main.js.map": "/static/js/main.b83ed219.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.d33eafc3.js",
+    "runtime-main.js.map": "/static/js/runtime-main.d33eafc3.js.map",
+    "static/css/2.2a68303d.chunk.css": "/static/css/2.2a68303d.chunk.css",
+    "static/js/2.8fceeef5.chunk.js": "/static/js/2.8fceeef5.chunk.js",
+    "static/js/2.8fceeef5.chunk.js.map": "/static/js/2.8fceeef5.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.2a68303d.chunk.css.map": "/static/css/2.2a68303d.chunk.css.map",
+    "static/css/main.3e1ecd0e.chunk.css.map": "/static/css/main.3e1ecd0e.chunk.css.map",
+    "static/js/2.8fceeef5.chunk.js.LICENSE.txt": "/static/js/2.8fceeef5.chunk.js.LICENSE.txt",
+    "static/media/felix-mooneeram-evlkOfkQ5rE-unsplash.81741049.jpg": "/static/media/felix-mooneeram-evlkOfkQ5rE-unsplash.81741049.jpg",
+    "static/media/lloyd-dirks-4SLz_RCk6kQ-unsplash.c3b4185b.jpg": "/static/media/lloyd-dirks-4SLz_RCk6kQ-unsplash.c3b4185b.jpg",
+    "static/media/slick-theme.css": "/static/media/slick.c94f7671.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d33eafc3.js",
+    "static/css/2.2a68303d.chunk.css",
+    "static/js/2.8fceeef5.chunk.js",
+    "static/css/main.3e1ecd0e.chunk.css",
+    "static/js/main.b83ed219.chunk.js"
+  ]
+}

@@ -1,0 +1,32 @@
+.movie-Hero__wrapper {
+  position: relative;
+  z-index: 1;
+  min-height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &::after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.4;
+  }
+}
+
+.movie-hero__content {
+  z-index: 99;
+  color: white;
+
+  .movie-Title {
+    h1 {
+      font-size: 2em;
+      color: white;
+      margin: 0;
+    }
+  }
+}

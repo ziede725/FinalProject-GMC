@@ -52,22 +52,22 @@ const ScreeningTable=({rows,open,setOpen})=>{
     const handleMovie = (id)=>{
      let movie =  movies.find(el=> el._id ===id)
     //  const {genres,reviews,_id,title,runTime,Language,Overview,date,trailerUrl,img} 
-     return movie.title
+     return movie&&movie.title
     }
     const handleTime = (time,id)=>{
       let session = sessions.find(el=> el._id === id)
      
       if (time)
       {
-        return (session.startTime) ; 
+        return (session && session.startTime) ; 
       }
       else {
-        return (session.endTime) ; 
+        return (session && session.endTime) ; 
       }
     }
     const handleRoom=(id)=>{
       let room = rooms.find(el=> el.Theater_id === id )
-     return room.roomName ; 
+     return room&&room.roomName ; 
     }
 
    const handleClick=(id,visibility)=>{

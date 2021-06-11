@@ -10,7 +10,7 @@ const DeleteButton=({published,handleClick})=>{
 
     return(
         <Wrapper>
-            <IconButton color="primary" onClick={handleClick}>
+            <IconButton disableRipple={true} disableTouchRipple={true} disableFocusRipple={true} color="primary" onClick={handleClick}>
                 <DeleteOutlineOutlinedIcon/>
             </IconButton>
         </Wrapper>

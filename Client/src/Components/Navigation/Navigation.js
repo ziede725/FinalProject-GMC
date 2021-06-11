@@ -24,7 +24,8 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import SearchIcon from "@material-ui/icons/Search";
 import MenuIcon from "@material-ui/icons/Menu";
 import { logOut } from "../../Redux/Actions/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_LOCATION } from "../../Redux/Actions/actionTypes";
 const useStyles = makeStyles((theme) => ({
   small: {
     width: theme.spacing(4),
@@ -100,17 +101,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navigation = ({ location, setLocation, isAuth }) => {
+const Navigation = ({ isAuth }) => {
   const classes = useStyles();
-  const dispatch = useDispatch() ;
-  let history = useHistory() ;  
+  const dispatch = useDispatch();
+  let history = useHistory();
+  const location = useSelector((state) => state.root.location);
+  const handleLocation = (e) => {
+    dispatch({ type: SET_LOCATION, payload: e.target.value });
+  };
 
-  const [desktopAccountAnchorEl, setDesktopAccountAnchorEl] = React.useState(
-    null
-  );
-  const [mobileAccountAnchorEl, setMobileAccountAnchorEl] = React.useState(
-    null
-  );
+  const user = useSelector((state) => state.root.user);
+
+  const [desktopAccountAnchorEl, setDesktopAccountAnchorEl] =
+    React.useState(null);
+  const [mobileAccountAnchorEl, setMobileAccountAnchorEl] =
+    React.useState(null);
   const [mobileMenuAnchorEl, setMobileMenuAnchorEl] = React.useState(null);
 
   const handleAccountDesktopMenuOpen = (event) => {
@@ -133,12 +138,9 @@ const Navigation = ({ location, setLocation, isAuth }) => {
     setMobileMenuAnchorEl(null);
   };
 
-  const handleLocation = (e) => {
-    setLocation(e.target.value);
-  };
-
   /*ADD logout logic here *******************/
   const handleLogout = () => {
+    dispatch(logOut(history));
     setMobileAccountAnchorEl(null);
     setDesktopAccountAnchorEl(null);
   };
@@ -159,31 +161,50 @@ const Navigation = ({ location, setLocation, isAuth }) => {
       open={isAccountMenuOpen}
       onClose={handleAccountDesktopMenuClose}
     >
-      <MenuItem
-        onClick={handleAccountDesktopMenuClose}
-        style={{ color: "#182131" }}
-      >
-        <Link component={RouterLink} to="/my-account">
-          My account
-        </Link>
-      </MenuItem>
+      {user?.role === "customer" && (
+        <MenuItem
+          onClick={handleAccountMobileMenuClose}
+          style={{ color: "#182131" }}
+        >
+          <Link component={RouterLink} to="/my-account">
+            My account
+          </Link>
+        </MenuItem>
+      )}
+      {user?.role === "theater" && (
+        <MenuItem
+          onClick={handleAccountMobileMenuClose}
+          style={{ color: "#182131" }}
+        >
+          <Link
+            component={RouterLink}
+            to={`/theater/${user.email}/dashboard/reservations`}
+          >
+            Dashboard
+          </Link>
+        </MenuItem>
+      )}
       <Divider />
-      <MenuItem
-        onClick={handleAccountDesktopMenuClose}
-        style={{ color: "#182131" }}
-      >
-        <Link component={RouterLink} to="/my-reservations">
-          My Reservations
-        </Link>
-      </MenuItem>
-      <MenuItem
-        onClick={handleAccountDesktopMenuClose}
-        style={{ color: "#182131" }}
-      >
-        <Link component={RouterLink} to="/my-favorites">
-          My Favorites
-        </Link>
-      </MenuItem>
+      {user?.role === "customer" && (
+        <MenuItem
+          onClick={handleAccountDesktopMenuClose}
+          style={{ color: "#182131" }}
+        >
+          <Link component={RouterLink} to="/my-reservations">
+            My Reservations
+          </Link>
+        </MenuItem>
+      )}
+      {user?.role === "customer" && (
+        <MenuItem
+          onClick={handleAccountDesktopMenuClose}
+          style={{ color: "#182131" }}
+        >
+          <Link component={RouterLink} to="/my-favorites">
+            My Favorites
+          </Link>
+        </MenuItem>
+      )}
 
       <Divider />
       <MenuItem onClick={handleLogout} style={{ color: "#182131" }}>
@@ -203,14 +224,26 @@ const Navigation = ({ location, setLocation, isAuth }) => {
       open={isAccountMobileMenuOpen}
       onClose={handleAccountMobileMenuClose}
     >
-      <MenuItem
-        onClick={handleAccountMobileMenuClose}
-        style={{ color: "#182131" }}
-      >
-        <Link component={RouterLink} to="/my-account">
-          My account
-        </Link>
-      </MenuItem>
+      {user?.role === "customer" && (
+        <MenuItem
+          onClick={handleAccountMobileMenuClose}
+          style={{ color: "#182131" }}
+        >
+          <Link component={RouterLink} to="/my-account">
+            My account
+          </Link>
+        </MenuItem>
+      )}
+      {user?.role === "theater" && (
+        <MenuItem
+          onClick={handleAccountMobileMenuClose}
+          style={{ color: "#182131" }}
+        >
+          <Link component={RouterLink} to="/dashboard">
+            Dashboard
+          </Link>
+        </MenuItem>
+      )}
       <Divider />
       <MenuItem
         onClick={handleAccountMobileMenuClose}
@@ -329,7 +362,7 @@ const Navigation = ({ location, setLocation, isAuth }) => {
                           variant="body2"
                           style={{ marginRight: "1rem" }}
                         >
-                          Welcome back, John Doe
+                          Welcome back, {user && user.firstName} {user && user.lastName}
                         </Typography>
                         <Avatar
                           alt="John Doe"
@@ -337,7 +370,6 @@ const Navigation = ({ location, setLocation, isAuth }) => {
                           edge="end"
                           className={classes.small}
                         />
-
 
                         <IconButton
                           aria-label="account of current user"
@@ -356,14 +388,10 @@ const Navigation = ({ location, setLocation, isAuth }) => {
                         <Button component={RouterLink} to="/register">
                           Sign Up
                         </Button>
-                        <Button onClick={()=>dispatch(logOut(history))}>
-                          LOGOUT
-                        </Button>
                       </>
                     )}
                   </Box>
                 </Grid>
-
               </Grid>
             </Toolbar>
           </Container>
