@@ -267,7 +267,6 @@ module.exports = {
   editScreening,
   deleteScreening,
   publishScreening,
-  getAllScreenings,
   getScreeningById,
   getScreeningsByMovie,
   getScreenings,

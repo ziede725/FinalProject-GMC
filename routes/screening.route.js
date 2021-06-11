@@ -8,10 +8,10 @@ router.patch("/:id/edit", screeningController.editScreening);
 router.patch("/:id/publish", screeningController.publishScreening);
 //Remove Screening
 router.delete("/:id", screeningController.deleteScreening);
-
-router.get("/", screeningController.getAll);
 //Get All Screenings
-router.get("/all", screeningController.getAllScreenings);
+router.get("/", screeningController.getAll);
+
+// router.get("/all", screeningController.getAllScreenings);
 
 //get Screening by Theater ID
 router.get("/theater/", screeningController.getScreenings);

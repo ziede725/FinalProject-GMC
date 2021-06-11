@@ -35,7 +35,7 @@ function App() {
     dispatch(getUser());
     dispatch(getMovies());
     dispatch(getScreenings());
-     dispatch(getSession());
+    
   });
 
   console.log(error);
