@@ -24,12 +24,7 @@ app.use(express.json());
 //     res.sendFile(path.join(__dirname,'Client','build','index.html'))
 //   })
 //}
-if (process.env.NODE_ENV === 'production') {  
-  app.use(express.static(path.join(__dirname, "Client/build")));
-  app.get("/*", (_, res) => {
-   res.sendFile(path.join(__dirname, "Client/build", "index.html"));
-  });
-}
+
 // else {
 //   
 // 
@@ -56,6 +51,13 @@ app.use("/uploads",express.static("uploads"))
 
 
 //Serve static assets in production ; 
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/Client/build')));
+
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/Client/build/index.html'));
+  });
+}
 
 
 //Error Handler(Keep as Last Middleware)
