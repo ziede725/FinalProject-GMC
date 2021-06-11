@@ -39,7 +39,7 @@ function App() {
     dispatch(getMovies());
     dispatch(getScreenings());
     dispatch(getRooms());
-    dispatch(getSession());
+    // dispatch(getSession());
   });
 
   console.log(error);

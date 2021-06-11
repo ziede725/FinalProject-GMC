@@ -4,7 +4,7 @@ import { GET_MOVIES, SET_LOCATION } from "./actionTypes";
 export const addMovie = (data) => async (dispatch) => {
   try {
     const response = await axios.post(
-      "http://localhost:7200/api/movies/create",
+      "/api/movies/create",
       data
     );
     alert(response.data.message)
@@ -43,7 +43,7 @@ export const rateMovie = (movieId, reviews, customerId) => async (dispatch) => {
     });
     alert(review.data.message)
     const movie = await axios.patch(
-      `/api/movies/${movieId}`,
+      `api/movies/${movieId}`,
       rating
     );
 

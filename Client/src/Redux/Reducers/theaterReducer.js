@@ -16,26 +16,23 @@ const theaterReducer =(state=initialState,{type,payload})=>{
     {
 
         case GET_ROOMS:
-            if(payload)
-            {   console.log('payload', payload)
+
                 return {...state, room: [...payload]}    
-            }
-            return state ; 
+
 
         case GET_SCREENINGS: 
-        console.log('payload', payload)
+       
             return {...state , screenings: [...payload]}
 
         case GET_RESERVATIONS: 
-        console.log('payload',payload)
+    
         return {...state , reservations:[...payload]}
 
         case GET_SETTINGS: 
-        if(payload)
-        {console.log('payload',payload)
+    
+     
             return {...state, settings:[...payload]}
-        }
-        return state ; 
+  
         
 
         case GET_SESSIONS:
