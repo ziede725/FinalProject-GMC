@@ -53,7 +53,7 @@ return(
         </Explanation>
         <Wrapper>
         {
-            screening&& screening.seats.map((el,index)=><Seat setValue={setValue} valeur={value} value={el} index={index}/>)
+            screening&& screening.seats.map((el,index)=><Seat key={index} setValue={setValue} valeur={value} value={el} index={index}/>)
         }
         </Wrapper>
 

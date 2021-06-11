@@ -60,7 +60,8 @@ export const registerTheater=(user,history) => async (dispatch)=>{
 export const getUser=()=> async(dispatch)=>{
 let token = localStorage.getItem('token')
     try {
-            const res= await axios.get(`/api/login/${token}`); 
+            const res= await axios.get(`/api/login/${token}`);
+            console.log("response for get user",res) 
             dispatch({type: GET_USER , payload:{...res.data}})
     } catch (error) {
         
