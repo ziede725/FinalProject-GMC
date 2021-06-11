@@ -15,15 +15,21 @@ app.use(cors());
 app.use(express.json());
 //Routes
 
-if(process.env.NODE_ENV === "production")
-{
-  console.log('hello im here')
-  // app.use(express.static(path.join(__dirname,'/Client/build'))) ; 
-  app.use(express.static('Client/build')) ; 
-  app.get('*',(req,res)=>{
-    res.sendFile(path.join(__dirname,'Client','build','index.html'))
-  })
-} 
+// if(process.env.NODE_ENV === "production")
+// {
+//   console.log('hello im here')
+//   // app.use(express.static(path.join(__dirname,'/Client/build'))) ; 
+//   app.use(express.static('Client/build')) ; 
+//   app.get('*',(req,res)=>{
+//     res.sendFile(path.join(__dirname,'Client','build','index.html'))
+//   })
+//}
+if (process.env.NODE_ENV === 'production') {  
+  app.use(express.static(path.join(__dirname, "Client/build")));
+  app.get("/*", (_, res) => {
+   res.sendFile(path.join(__dirname, "Client/build", "index.html"));
+  });
+}
 // else {
 //   
 // }
