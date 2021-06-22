@@ -9,12 +9,23 @@ import {useDispatch} from 'react-redux'
 import TimePicker from 'rc-time-picker'
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import styled from 'styled-components'
+import { withStyles } from '@material-ui/styles';
 
 const Wrapper =styled.div`
 display: flex ; 
 justify-content: center ;
 
 `
+const StyledDialog = withStyles({
+  root: {
+    position: 'fixed',
+    zIndex: '7 !important',
+    right: '0px',
+    bottom: '0px',
+    top: '0px',
+    left: '0px'
+  }
+})(Dialog);
 const DialogWrapper= styled.div`
 display: flex ; 
 flex-direction: column ; 
@@ -86,7 +97,7 @@ const handleDisabled=()=>{
   return (
     <div>
       
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <StyledDialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add New Session</DialogTitle>
         <DialogContent>
           <DialogWrapper>
@@ -141,7 +152,7 @@ const handleDisabled=()=>{
             Save
           </Button>
         </DialogActions>
-      </Dialog>
+      </StyledDialog>
     </div>
   );
 }
