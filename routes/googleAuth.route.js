@@ -27,6 +27,7 @@ router.post("/google", async (req, res,next) => {
     // const user = await Customer.findOneAndUpdate({email} , ) ; 
     await sendToken(user, 201, res);  
     } catch (error) {
+      console.log(error) ; 
       next(error);
     }
     
