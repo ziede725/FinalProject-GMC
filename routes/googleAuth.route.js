@@ -13,7 +13,7 @@ const sendToken = (user, statusCode, res) => {
     })  
     
   };
-router.post("/google", async (req, res) => {
+router.post("/google", async (req, res,next) => {
     const { token }  = req.body
     console.log(req.body)
     try {
