@@ -13,7 +13,11 @@ const customerSchema = new Schema(
       type: String,
       required: [true, "Please provide a last name"],
     },
-
+    userName: {
+      type: String,
+      required: [true, "Please provide a  username"],
+      
+    },
     email: {
       type: String,
       required: [true, "Please provide an email"],
