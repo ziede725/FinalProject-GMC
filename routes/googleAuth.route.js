@@ -16,7 +16,8 @@ const sendToken = (user, statusCode, res) => {
 router.post("/google", async (req, res) => {
     const { token }  = req.body
     console.log(req.body)
-    const ticket = await client.verifyIdToken({
+    try {
+      const ticket = await client.verifyIdToken({
         idToken: token,
         audience: process.env.REACT_APP_CLIENT_ID
     });
@@ -24,7 +25,11 @@ router.post("/google", async (req, res) => {
     const { given_name,family_name, email, picture } = ticket.getPayload() ; 
     const user = await Customer.findOneAndUpdate({email},{$set:{firstName:given_name,lastName:family_name,email}},{upsert: true ,new:true }) ; 
     // const user = await Customer.findOneAndUpdate({email} , ) ; 
-    await sendToken(user, 201, res);
+    await sendToken(user, 201, res);  
+    } catch (error) {
+      next(error);
+    }
+    
    
 })
 module.exports = router ; 
