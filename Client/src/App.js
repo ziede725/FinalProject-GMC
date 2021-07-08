@@ -16,7 +16,6 @@ import MoviePage from "./pages/MoviePage/MoviePage";
 import { useDispatch } from "react-redux";
 import { getUser } from "./Redux/Actions/actions";
 import { getMovies } from "./Redux/Actions/movie.actions";
-import RoomLayout from './Components/Reservation /RoomLayout'
 
 import { getScreenings } from "./Redux/Actions/screening.actions";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
@@ -54,7 +53,7 @@ function App() {
         <Route path="/my-reservations" component={Reservations} />
         <Route path="/my-favorites" component={Favorites} />
         <Route path={`/Movie/:movieID`} component={MoviePage} />
-        <Route path={`/:screeningId/RoomLayout`} component={RoomLayout} />
+        <Route path={`/:screeningId/RoomLayout`} component={Reservations} />
         <Route path={`/reset-password/:token`} component={ResetPassword} />
         <Route path={`/forgot-password`} component={ForgotPassword} />
 

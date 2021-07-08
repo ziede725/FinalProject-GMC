@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react' ; 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components' ; 
 import Seat from './Seat' ; 
 import {useParams} from 'react-router-dom'
+import {getScreenings, SetSeats} from '../../Redux/Actions/screening.actions'
+import axios from 'axios';
 
 
 const Wrapper = styled.div`
@@ -29,13 +31,23 @@ height: 25px ;
 background-color: ${props=> props.color} ; 
 `
 
-const RoomLayout= () =>{
+const RoomLayout= ({screening,setRefresh,refresh}) =>{
     const id = useParams() ; 
-    const [screening] = useSelector(state=>state.screenings.filter(el=>el._id==id.screeningId)) ; 
-    const [seats,setSeats] = useState([]) ; 
-    const [value,setValue] = useState() ; 
-    
-    
+    const dispatch = useDispatch() ;
+
+    const [seats,setSeats] = useState(screening?.seats) ; 
+    const [price,setPrice] = useState(0) ; 
+    useEffect(()=>{
+        setSeats(screening?.seats)
+    },[screening])
+    const handleSubmit=()=>{
+        console.log(seats)
+        dispatch(SetSeats(id.screeningId,seats))
+       
+    }
+    const handleCancel =async()=>{
+       setRefresh(!refresh) ; 
+    }
   
 return(
     <>
@@ -49,15 +61,17 @@ return(
             <Box color="grey"/> 
              <span>: Available </span>
             </InlineContainer>
+            <div>price:{price}</div>
             
         </Explanation>
         <Wrapper>
         {
-            screening&& screening.seats.map((el,index)=><Seat key={index} setValue={setValue} valeur={value} value={el} index={index}/>)
+            screening?.seats.map((el,index)=><Seat key={index} seats={seats} value={el}  setSeats={setSeats}  index={index}/>)
         }
         </Wrapper>
 
-        <button>Submit</button>
+        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleCancel}>Cancel</button>
         
     </>
 )

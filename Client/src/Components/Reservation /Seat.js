@@ -14,43 +14,58 @@ const useStyles = makeStyles({
     },
     colorSecondary:{
         color:"red"
+    },
+    colorBlue:{
+        color:"blue"
     }
 }
    )
-const Seat = ({setValue,valeur,value,index})=> {
+const Seat = ({seats,value,setSeats,index})=> {
     const [color,setColor] = useState("disabled") ;
     const classes = useStyles() ; 
-    console.log(Boolean(value))
+    const [selectedSeats,setSelectedSeats] = useState() ; 
+    const [seatValue,setSeatValue] = useState(value); 
     
     
 useEffect(()=>{
-    if(value===1)
+    
+    if(seatValue===1)
     {
         setColor("Secondary")
     }
+    else{
+        setColor("disabled")
+    }
    
-})
+},[seats])
 
     const handleClick =()=>{
-        console.log("Button clicked") ; 
+                 
+        setSeats(seats&&seats.fill(1,index,index+1))
+        setSeatValue(1); 
+        setColor("action")
+       
     }
     const handleHover =()=>{
-        if(value!==1)
+        if(seatValue!==1)
         {
             setColor("primary")
         }
+    
     }
     const handleMouseOut=()=>{
-        if(value !==1)
+        if(seatValue !=1)
         {
-            setColor("disabled")
+            setColor('disabled')
         }
+      
     }
-     
+    //disabled={Boolean(seatValue)}
     return (
         <>  
-            <Chair disabled={Boolean(value)} onClick={()=>console.log('hello')} onMouseOver={handleHover} onMouseOut={handleMouseOut}>
-            <EventSeatRoundedIcon classes={{colorPrimary:classes.colorPrimary , colorSecondary:classes.colorSecondary}} color={color} fontSize={"medium"}/>
+            <Chair  onClick={handleClick} onMouseEnter={handleHover} onMouseLeave={handleMouseOut}>
+            <EventSeatRoundedIcon classes={{colorPrimary:classes.colorPrimary , colorSecondary:classes.colorSecondary,colorAction:classes.colorBlue}}
+             color={color} fontSize={"medium"}/>
             </Chair>
             
         </>

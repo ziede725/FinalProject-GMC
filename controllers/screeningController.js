@@ -85,7 +85,6 @@ const editScreening = async (req, res, next) => {
     //check if screening exist
 
     const screeningExist = await Screening.findById(id);
-    console.log(screeningExist.sessionId, screeningExist.date);
     const session = await Sessions.findByIdAndUpdate(screeningExist.sessionId, {
       $pull: { dates: screeningExist.date },
     });
@@ -114,7 +113,27 @@ const editScreening = async (req, res, next) => {
     next(error);
   }
 };
-
+const editSeatScreening=async(req,res,next)=>{
+  const id = req.params.id ; 
+  const {seats} =req.body 
+  console.log(seats) ; 
+  console.log('hello edit seat')
+  try {
+    const screeningExist = await Screening.findById(id);
+    if(!screeningExist)
+    {
+      throw new ErrorHandler(404,"no Screening with this id exists in the database") ; 
+    }
+    const newScreening=await Screening.findByIdAndUpdate(id,{$set:{seats:seats}},{new:true})
+   res.status(200).json({
+     succes: true, 
+     message:"seats updated successfully",
+     newScreening
+   }) 
+  } catch (error) {
+    next(error) ; 
+  }
+}
 //Remove Screening
 const deleteScreening = async (req, res, next) => {
   const id = req.params.id;
@@ -270,4 +289,5 @@ module.exports = {
   getScreeningById,
   getScreeningsByMovie,
   getScreenings,
+  editSeatScreening
 };

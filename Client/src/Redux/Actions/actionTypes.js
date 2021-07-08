@@ -20,3 +20,4 @@ export const EDIT_THEATER = "EDIT_THEATER";
 export const SET_LOCATION = "SET_LOCATION";
 export const GET_GENRES = "GET_GENRES";
 export const GET_MOVIE_SCREENINGS = "GET_MOVIE_SCREENINGS";
+export const SET_SEATS = "SET_SEATS" ; 

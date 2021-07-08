@@ -4,6 +4,8 @@ const screeningController = require("../controllers/screeningController");
 router.post("/add", screeningController.createScreening);
 //Edit Screening
 router.patch("/:id/edit", screeningController.editScreening);
+//EDIT SEATS 
+router.patch("/editSeat/:id",screeningController.editSeatScreening) ; 
 //Publish Screening
 router.patch("/:id/publish", screeningController.publishScreening);
 //Remove Screening

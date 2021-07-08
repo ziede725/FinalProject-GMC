@@ -26,7 +26,7 @@ export const getMovies = () => async (dispatch) => {
   }
 };
 
-export const setLocation = (location) => (dispatch) => {
+export const setLocation = (location) => async (dispatch) => {
   dispatch({
     type: SET_LOCATION,
     payload: location,

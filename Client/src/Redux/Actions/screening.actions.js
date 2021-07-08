@@ -11,3 +11,16 @@ export const getScreenings = () => async (dispatch) => {
     alert(error);
   }
 };
+export const SetSeats = (id,seats)=> async (dispatch) => {
+console.log(id)
+  try {
+    const response = await axios.patch(`/api/screenings/editSeat/${id}`,{seats}) ; 
+    console.log(response) ; 
+    console.log("dispatching before error")
+    
+  } catch (error) {
+ 
+    console.log(error.response) 
+  }
+}
+  
