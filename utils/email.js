@@ -17,22 +17,37 @@ const sendEmail=async(email,payload)=>{
           rejectUnauthorized: false ,
         }
       });
+<<<<<<< HEAD
+=======
+      console.log(email)
+      console.log(payload)
+>>>>>>> 81af386bde675906ce730a684a8e43a906b340a7
     
       // send mail with defined transport object
       try {
         let info = await transporter.sendMail({
           from: '"My app contact" <ziede.ben.yahya@gmail.com>', // sender address
           to: `${email}`, // list of receivers
+<<<<<<< HEAD
           subject: "Resetting pasword ", // Subject line
           text: `${payload.link}`, // plain text body
           html: `
           <p>You requested a password reset , if this is you click on this link</p>
           <b>${payload.link}</b>`, // html body
+=======
+          subject: "Hello ✔", // Subject line
+          text: `${payload.link}`, // plain text body
+          html: `<b>${payload.link}</b>`, // html body
+>>>>>>> 81af386bde675906ce730a684a8e43a906b340a7
         });
       }
      catch(err)
      {
+<<<<<<< HEAD
        
+=======
+       console.log(err)
+>>>>>>> 81af386bde675906ce730a684a8e43a906b340a7
      }
     
       // console.log("Message sent: %s", info.messageId);

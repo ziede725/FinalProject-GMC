@@ -18,6 +18,13 @@ const sendToken = (user, statusCode, res) => {
   });
 };
 //Admin Authentication
+const sendToken = (user, statusCode, res) => {
+  const token = user.getSignedToken();
+  res.status(statusCode).cookie("token", token, { httpOnly: true }).json({
+    success: true,
+    message: "Signed in with success",
+  });
+};
 exports.registerAdmin = async (req, res, next) => {
   const { firstName, lastName, userName, email, password } = req.body;
 
@@ -245,6 +252,7 @@ exports.ChangePassword=async(req,res,next)=>{
   }
 }
 
+<<<<<<< HEAD
 
 // const unSetToken = (statusCode, res) => {
 //   const token = ""
@@ -319,3 +327,21 @@ exports.ChangePassword=async(req,res,next)=>{
 //     next(error);
 //   }
 // };
+=======
+
+sendToken = (user, statusCode, res) => {
+  const token = user.getSignedToken();
+  res.status(statusCode).cookie("token", token, { httpOnly: true }).json({
+    success: true,
+    message: "Signed in with success",
+  });
+};
+
+
+unSetToken = (statusCode, res) => {
+  res.status(statusCode).cookie("token", "", { httpOnly: true }).json({
+    success: true,
+    message: "logged out with success",
+  });
+};
+>>>>>>> 81af386bde675906ce730a684a8e43a906b340a7

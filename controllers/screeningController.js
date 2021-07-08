@@ -245,7 +245,6 @@ const getScreeningById = async (req, res, next) => {
 
   try {
     //check if screening exist
-
     const screeningExist = await Screening.findById(id);
     if (!screeningExist)
       throw new ErrorHandler(
